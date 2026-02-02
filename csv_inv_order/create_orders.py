@@ -27,8 +27,8 @@ def run():
     if cur_month.month == 4:
         avg_served2 = 0
     else:
-        next_month = Database.Months.inc_month(cur_month.year, cur_month.month)[1]
-        avg_served2 = Database.Months.avg_meals_served(next_month)
+        next_month = Months.inc_month(cur_month.year, cur_month.month)[1]
+        avg_served2 = Months.avg_meals_served(next_month)
     max_served1 = round(cur_month.served_fudge * avg_served1)
     max_served2 = round(cur_month.served_fudge * avg_served2)
     num_tables = int(math.ceil(max_served1 / table_size))

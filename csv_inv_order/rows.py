@@ -3,7 +3,7 @@
 import math
 from collections import namedtuple
 
-from csv_app.row import Row
+from csv_app.row import *
 from csv_app.table import Database, set_database_filename
 
 set_database_filename("inv-order.csv")
@@ -343,8 +343,10 @@ class Months(Row):
         firstday = date(self.year, self.month, 1).weekday()
         days_to_day = day - firstday
         if days_to_day >= 0:
-            return date(self.year, self.month, days_to_day + 1 + 7 * (n - 1))
-        return date(self.year, self.month, days_to_day + 8 + 7 * (n - 1))
+            ans = date(self.year, self.month, days_to_day + 1 + 7 * (n - 1))
+        else:
+            ans = date(self.year, self.month, days_to_day + 8 + 7 * (n - 1))
+        return ans
 
 
 # These must be in logical order based on what has to be defined first

@@ -1,20 +1,24 @@
 # pyproject.toml for csv-inv-order
 
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
-packages = ["csv-inv-order"]
+
+[tool.setuptools]
+packages = ["csv_inv_order"]
 
 [project]
 name = "csv-inv-order"
 version = "0.0.1"
 readme = "README.md"
-requires_python = ">=3.11.2"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11.2"
 dependencies = ["csv-app"]
 
 [project.urls]
-repository = "https://github.com/dangyogi/csv_inv_order.git"
+repository = "https://github.com/dangyogi/csv-inv-order.git"
 
 [project.scripts]
-rows = "rows:run"
-tables = "tables:run"
+rows = "csv_inv_order.rows:run"
+tables = "csv_inv_order.tables:run"
