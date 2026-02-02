@@ -1,0 +1,74 @@
+Inventory:
+
+# updated by hand
+Items: item|unit|perishable|supplier|supplier_id|num_per_meal|num_per_table|num_per_serving => pkg_size pkg_weight
+Products: item|supplier|supplier_id|name|item_num|location|price|pkg_size|pkg_weight|note
+       => unit price_per_unit oz_per_unit
+
+Inventory: date|item|code|num_pkgs|num_units|uncertainty => pkg_size total_units
+    codes:
+       - count
+       - purchased (exact count)
+       - used (exact count)
+       - consumed (estimate)
+       - estimate (includes uncertainty)
+Months: month|year|start_date|end_date|num_at_meeting|staff_at_breakfast|tickets_claimed|
+        served_fudge|consumed_fudge
+     => month_str meals_served meeting_date breakfast_date
+
+# not stored in database:
+Orders: item|qty|supplier|supplier_id|purchased_pkgs|purchased_units|location|price => unit pkg_size pkg_weight
+
+1. new_month --trial-run/-t -m MM
+
+2. create_inv_checklist
+
+   writes Inv-checklist.csv listing items to check
+
+    - update Inventory table by writing new  "estimate" rows.
+    - calc orders
+    - exp_count = cur_count + order
+    - uncertainty = 0.10 * sum of consumed since last count
+    - write all items that have exp_count - uncertainty < min
+      or if perishable, exp_count + uncertainty > max_perishable
+
+   <take this list to the clubhouse, count these items, and record in the .csv file>
+
+3. read_inv --trail-run/-t
+
+   reads Inv-checklist.csv into Inventory table as code="count".
+
+4. set_min_max
+    - create next Month, with start_date == prior month end_date + 1, set min_order, max_perishable, max_non_perishable
+    - min_order = 1.35 (to 1.40) * new month's.avg_meals_served
+    - max_perishable = 0.90 * (new month's.avg_meals_served + next month's.avg_meals_served)
+    - max_non_perishable = 0.80 * (sum of new month and next 2 months.avg_meals.served)
+    - verify numbers
+    - write to Months
+
+5. create_orders
+    - calc orders
+    - write to Orders.csv file
+    <manually review and update Orders.csv as needed>
+
+6. create_POs
+    - write POs T-Report.pdf
+    - pencil in changes at meeting
+
+7. set_meeting_attendance N
+    - num_at_meeting
+
+8. record_purchases --trial-run/-t
+
+   <update Orders.csv with actual purchases and any changes in location or price>
+
+   from Orders.csv into Inventory table as code="purchased", also updates locations and prices
+
+9. set_bf_stats staff tickets_claimed
+    - staff_at_breakfast
+    - tickets_claimed
+
+10. calc_consumed --trial-run/-t
+
+11. calc_estimates --trial-run/-t
+
