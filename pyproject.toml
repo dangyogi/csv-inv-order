@@ -20,5 +20,17 @@ dependencies = ["csv-app"]
 repository = "https://github.com/dangyogi/csv-inv-order.git"
 
 [project.scripts]
+calc-consumed = "csv_inv_order.calc_consumed:run"
+calc-estimates = "csv_inv_order.calc_estimates:run"
+create-inv-checklist = "csv_inv_order.create_inv_checklist:run"
+create-orders = "csv_inv_order.create_orders:run"
+create-POs = "csv_inv_order.create_POs:run"
+est-cost-per-meal = "csv_inv_order.est_cost_per_meal:run"
+new-month = "csv_inv_order.new_month:run"
+read-inv = "csv_inv_order.read_inv:run"
+record-purchases = "csv_inv_order.record_purchases:run"
 rows = "csv_inv_order.rows:run"
+set-bf-stats = "csv_inv_order.set_bf_stats:run"
+set-meeting-attendance = "csv_inv_order.set_meeting_attendance:run"
+set-min-max = "csv_inv_order.set_min_max:run"
 tables = "csv_inv_order.tables:run"
