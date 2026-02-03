@@ -351,7 +351,7 @@ class Months(Row):
 
 # These must be in logical order based on what has to be defined first
 Rows = (Items, Products, Inventory, Orders, Months,
-)
+       )
 
 
 __all__ = "CheckInventory Decimal date datetime timedelta abbr_month Rows".split()
