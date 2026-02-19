@@ -9,7 +9,7 @@ r'''
 
 from datetime import date
 
-from database import *
+from .database import *
 
 def run():
     import argparse
@@ -79,7 +79,3 @@ def run():
     else:
         print("Trial_run: Database not saved")
 
-
-
-if __name__ == "__main__":
-    run()

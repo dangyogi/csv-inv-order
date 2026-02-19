@@ -2,7 +2,7 @@
 
 import math
 
-from database import *
+from .database import *
 
 
 def run():
@@ -79,9 +79,4 @@ def run():
             if order_stats.order:
                 print(f"{order_stats.item:20}|{order_stats.order:4}|        |           |"
                       "              |               |        |", file=orders_file)
-
-
-
-if __name__ == "__main__":
-    run()
 

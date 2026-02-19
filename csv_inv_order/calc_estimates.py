@@ -3,7 +3,7 @@
 r'''Inserts code="estimate" rows into Inventory table.
 '''
 
-from database import *
+from .database import *
 
 
 def run():
@@ -35,7 +35,3 @@ def run():
     else:
         print("Trial_run: Database not saved")
 
-
-
-if __name__ == "__main__":
-    run()

@@ -5,7 +5,7 @@ r'''Inserts code="consumed" rows into Inventory table.
 
 import math
 
-from database import *
+from .database import *
 
 
 def run():
@@ -48,7 +48,3 @@ def run():
     else:
         print("Trial_run: Database not saved")
 
-
-
-if __name__ == "__main__":
-    run()

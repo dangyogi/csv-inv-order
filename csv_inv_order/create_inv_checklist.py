@@ -12,7 +12,7 @@ r'''
 
 from operator import attrgetter
 
-from database import *
+from .database import *
 
 
 def run():
@@ -45,7 +45,3 @@ def run():
             except CheckInventory:
                 print(f"{i.item:{width}}|{i.unit:13}|{i.pkg_size:8}|        | ", file=f)
 
-
-
-if __name__ == "__main__":
-    run()

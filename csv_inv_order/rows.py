@@ -360,7 +360,3 @@ __all__ = "CheckInventory Decimal date datetime timedelta abbr_month Rows".split
 def run():
     create_database_py(Rows)
 
-
-if __name__ == "__main__":
-    run()
-

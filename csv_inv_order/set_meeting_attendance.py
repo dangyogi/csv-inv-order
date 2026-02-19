@@ -3,7 +3,7 @@
 r'''Stores num_at_meeting in current Month.
 '''
 
-from database import *
+from .database import *
 
 
 def run():
@@ -26,7 +26,3 @@ def run():
     save_database()
     print("Database saved")
 
-
-
-if __name__ == "__main__":
-    run()

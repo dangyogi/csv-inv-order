@@ -6,7 +6,7 @@ from operator import itemgetter
 from itertools import groupby
 import csv
 
-from database import *
+from .database import *
 from csv_app.report import *
 
 
@@ -163,8 +163,3 @@ def gen_Total_POs(grand_total, po_num, bf_date):
     report.new_row("row", "Approval")
     return report
 
-
-
-
-if __name__ == "__main__":
-    run()

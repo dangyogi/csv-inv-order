@@ -6,7 +6,7 @@ r'''Loads Inv-checklist.csv into Transactions table.
 import csv
 from itertools import chain
 
-from database import *
+from .database import *
 
 
 def run():
@@ -62,7 +62,3 @@ def run():
     else:
         print("Trial_run: Database not saved")
 
-
-
-if __name__ == "__main__":
-    run()

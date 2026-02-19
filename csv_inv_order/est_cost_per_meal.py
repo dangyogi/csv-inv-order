@@ -12,7 +12,7 @@ Does not include 50/50.
 
 from statistics import mean
 
-from database import *
+from .database import *
 
 
 def run():
@@ -43,9 +43,4 @@ def run():
     print(f"est cost per meal served is {cost:.02f}")
     print()
     print("Excludes 50/50, and includes staff in converting cost/meal to cost/serving")
-
-
-
-if __name__ == "__main__":
-    run()
 

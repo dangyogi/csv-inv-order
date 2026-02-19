@@ -10,7 +10,7 @@ r'''
     - if yes, save database
 '''
 
-from database import *
+from .database import *
 
 
 def run():
@@ -61,7 +61,3 @@ def run():
     else:
         print("Database not saved")
 
-
-
-if __name__ == "__main__":
-    run()
