@@ -3,9 +3,10 @@
 r'''Stores num_at_meeting in current Month.
 '''
 
-from sys import exit
+import sys
 
-from .database import *
+sys.path.append('.')
+from database import *
 
 
 def run():
@@ -39,7 +40,7 @@ def run():
         yr, mth = Months.inc_month(last_month.year, last_month.month)
         if mth == 5:
             print("You must explicitly specify May (month 5) with -m 5")
-            exit(1)
+            sys.exit(1)
     elif new_month < last_month.month:
         yr, mth = last_month.year + 1, new_month
     else:

@@ -3,7 +3,10 @@
 r'''Stores staff_at_breakfast and tickets_claimed in current Month.
 '''
 
-from .database import *
+import sys
+
+sys.path.append('.')
+from database import *
 
 
 def run():
