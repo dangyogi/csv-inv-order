@@ -270,6 +270,7 @@ class Orders(Row):
         Column("pkg_weight", parse=float, calculated=True),
     )
     in_database = False
+    primary_key = 'item'
     foreign_keys = "Items", "Products"
 
     @property

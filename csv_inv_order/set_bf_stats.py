@@ -22,7 +22,10 @@ def run():
 
     load_database()
 
-    cur_month = Months[today.year, today.month]
+    #FIX cur_month = Months[today.year, today.month]
+    cur_month = Months.last_month()
+
+    print(f"Current month: {cur_month.month_str}")
 
     print("Setting staff_at_breakfast to", args.staff)
     cur_month.staff_at_breakfast = args.staff

@@ -35,7 +35,7 @@ def run():
 
     if month > today.month:
         year -= 1
-    elif day > today.day:
+    elif month == today.month and day > today.day:
         year, month = Months.dec_month(year, month)
 
     eff_date = date(year, month, day)

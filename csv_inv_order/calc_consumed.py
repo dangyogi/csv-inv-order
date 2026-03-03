@@ -24,7 +24,8 @@ def run():
     uncertainty_pct = args.uncertainty
 
     today = date.today()
-    cur_month = Months[today.year, today.month]
+    #FIX cur_month = Months[today.year, today.month]
+    cur_month = Months.last_month()
 
     eff_date = cur_month.breakfast_date
     meals_served = cur_month.meals_served
