@@ -1,2 +1,13 @@
 Orders
 item                |qty |supplier|supplier_id|purchased_pkgs|purchased_units|location|price
+Bacon               |   2|        |           |              |               |        |
+Eggs                |  12|        |           |              |               |        |
+Half & Half         |   1|        |           |              |               |        |
+Milk                |   1|        |           |              |               |        |
+Orange Juice        |   4|        |           |              |               |        |
+Pancake Mix         |   1|        |           |              |               |        |
+Raffle Tickets      |   1|        |           |              |               |        |
+Sausage             |   2|        |           |              |               |        |
+Scrubbers           |   0|        |           |              |               |        |
+Syrup bottle, reg   |   2|        |           |              |               |        |
+Syrup bottle, SF    |   2|        |           |              |               |        |
