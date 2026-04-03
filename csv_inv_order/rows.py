@@ -138,18 +138,19 @@ class Items(Row):
         stats.extend((units, uncertainty))
 
 
-        avg_served1 = Database.Months.avg_meals_served(cur_month.month)
+        avg_served1 = cur_month.avg_meals_served
         if cur_month.month == 4:  # Apr
+            next_month = None
             avg_served2 = 0
         else:
-            next_month = Database.Months.inc_month(cur_month.year, cur_month.month)[1]
-            avg_served2 = Database.Months.avg_meals_served(next_month)
+            next_month = Database.Months[Database.Months.inc_month(cur_month.year, cur_month.month)]
+            avg_served2 = next_month.avg_meals_served
 
         consumed1 = self.consumed(cur_month.consumed_fudge * avg_served1, table_size, verbose)
         consumed2 = self.consumed(cur_month.consumed_fudge * avg_served2, table_size, verbose)
         stats.extend((consumed1, consumed2))
 
-        min_needed1 = calc_needed(cur_month.served_fudge * avg_served1)
+        min_needed1 = calc_needed(cur_month.meals_planned)
         stats.append(min_needed1)
         if units - uncertainty >= min_needed1:
             stats.extend((None, None, None, 0))
@@ -170,7 +171,10 @@ class Items(Row):
             return self.order_stats_row_type(*stats)
         # else non_perishable
         stats.append(None)  # max_order
-        min_needed2 = calc_needed(cur_month.served_fudge * avg_served2)
+        if next_month is not None:
+            min_needed2 = calc_needed(next_month.meals_fudged(cur_month.served_fudge))
+        else:
+            min_needed2 = 0
         stats.append(min_needed2)
         min2 = int(math.ceil((min_needed2 - (units - uncertainty)) / self.pkg_size))
         if verbose:
@@ -297,10 +301,10 @@ class Orders(Row):
 
 class Months(Row):
     columns = (
-        Column("month", parse=int, required=True),
+        Column("month", "mth", parse=int, required=True),
         Column("year", parse=int, required=True),
         Column("num_at_meeting", "#@mtg", parse=int),
-        Column("staff_at_breakfast", "stf@bf", parse=int),
+        Column("staff_at_breakfast", "#@bf", parse=int),
         Column("tickets_claimed", "tkt_clm", parse=int),
         Column("served_fudge", "srv_fg", parse=float),
         Column("consumed_fudge", "cns_fg", parse=float),
@@ -308,6 +312,10 @@ class Months(Row):
         Column("meals_served", "ml_srv", parse=int, calculated=True),
         Date_column("meeting_date", "mtg_date", calculated=True),
         Date_column("breakfast_date", "bf_date", calculated=True),
+        Column("avg_staff_at_breakfast", "av_stf", parse=int, calculated=True),
+        Column("avg_tickets_claimed", "av_tkts", parse=int, calculated=True),
+        Column("avg_meals_served", "av_mls", parse=int, calculated=True),
+        Column("meals_planned", "mls_pln", parse=int, calculated=True),
     )
    #hidden = frozenset(("month_str", "meeting_date", "breakfast_date"))
     primary_keys = "year", "month"
@@ -346,6 +354,29 @@ class Months(Row):
         else:
             ans = date(self.year, self.month, days_to_day + 8 + 7 * (n - 1))
         return ans
+
+    @property
+    def avg_staff_at_breakfast(self):
+        return Database.Months.avg_staff_at_breakfast(self.month)
+
+    @property
+    def avg_tickets_claimed(self):
+        return Database.Months.avg_tickets_claimed(self.month)
+
+    @property
+    def avg_meals_served(self):
+        return Database.Months.avg_meals_served(self.month)
+
+    def meals_fudged(self, served_fudge):
+        avg_staff = self.avg_staff_at_breakfast
+        avg_tickets = self.avg_tickets_claimed
+        if avg_staff is None or avg_tickets is None or served_fudge is None:
+            return None
+        return round(avg_staff + avg_tickets * served_fudge)
+
+    @property
+    def meals_planned(self):
+        return self.meals_fudged(self.served_fudge)
 
 
 # These must be in logical order based on what has to be defined first

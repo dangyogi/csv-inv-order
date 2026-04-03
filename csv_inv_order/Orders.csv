@@ -1,2 +1,6 @@
 Orders
 item                |qty |supplier|supplier_id|purchased_pkgs|purchased_units|location|price
+Eggs                |   3|        |           |              |               |        |
+Milk                |   1|        |           |              |               |        |
+OJ cups             |   1|        |           |              |               |        |
+Orange Juice        |   1|        |           |              |               |        |

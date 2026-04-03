@@ -90,6 +90,14 @@ class Months(table_unique):
         '''
         return self.avg(month, 'meals_served')
 
+    def meals_planned(self, month, served_fudge):
+        r'''Rounds answer to nearest integer.
+        '''
+        avg_staff = self.avg_staff_at_breakfast(month)
+        avg_tickets = self.avg_tickets_claimed(month)
+        return round(avg_staff + avg_tickets * served_fudge)
+
+
 load_rows(Rows, Months)
 
 

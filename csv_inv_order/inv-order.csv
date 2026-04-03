@@ -468,36 +468,84 @@ Mar 13, 26|Raffle Tickets      |purchased|     1.0|        0|          0
 Mar 13, 26|Sausage             |purchased|     2.0|        0|          0
 Mar 13, 26|Syrup bottle, reg   |purchased|     2.0|        0|          0
 Mar 13, 26|Syrup bottle, SF    |purchased|     2.0|        0|          0
-Mar 14, 26|Bacon               |consumed |       0|      105|         21
-Mar 14, 26|Butter              |consumed |       0|       77|         16
-Mar 14, 26|Coffee, ground      |consumed |       0|       70|         14
-Mar 14, 26|Coffee Creamer      |consumed |       0|      123|         25
-Mar 14, 26|Coffee cups, 8 oz   |consumed |       0|       38|          8
-Mar 14, 26|Coffee Stirrer 5"   |consumed |       0|      123|         25
-Mar 14, 26|Cutlery Packets     |consumed |       0|       77|         16
-Mar 14, 26|Eggs                |consumed |       0|      169|         34
-Mar 14, 26|Gloves              |consumed |       0|       10|          2
-Mar 14, 26|Ketchup             |consumed |       0|        4|          1
-Mar 14, 26|Milk                |consumed |       0|       32|          7
-Mar 14, 26|Nonstick Spray      |consumed |       0|        1|          1
-Mar 14, 26|OJ cups             |consumed |       0|       77|         16
-Mar 14, 26|Orange Juice        |consumed |       0|      346|         70
-Mar 14, 26|Pancake Mix         |consumed |       0|      129|         26
-Mar 14, 26|Paper Towels        |consumed |       0|        1|          1
-Mar 14, 26|Place Mats          |consumed |       0|       77|         16
-Mar 14, 26|Raffle Tickets      |consumed |       0|      524|        105
-Mar 14, 26|Sausage             |consumed |       0|      109|         22
-Mar 14, 26|Scrubbers           |consumed |       0|        1|          1
-Mar 14, 26|Serving Plates      |consumed |       0|       77|         16
-Mar 14, 26|Splenda             |consumed |       0|       25|          5
-Mar 14, 26|Sugar               |consumed |       0|       25|          5
-Mar 14, 26|Sweet'N Low         |consumed |       0|       25|          5
-Mar 14, 26|Syrup bottle, reg   |consumed |       0|        5|          1
-Mar 14, 26|Syrup bottle, SF    |consumed |       0|        5|          1
-Mar 14, 26|Syrup, reg          |consumed |       0|      129|         26
-Mar 14, 26|Syrup, sugar free   |consumed |       0|      129|         26
-Mar 14, 26|Tea                 |consumed |       0|        8|          2
-Mar 14, 26|To-Go Containers    |consumed |       0|        6|          2
+Mar 14, 26|Bacon               |consumed |     0.0|      105|         21
+Mar 14, 26|Butter              |consumed |     0.0|       77|         16
+Mar 14, 26|Coffee, ground      |consumed |     0.0|       70|         14
+Mar 14, 26|Coffee Creamer      |consumed |     0.0|      123|         25
+Mar 14, 26|Coffee cups, 8 oz   |consumed |     0.0|       38|          8
+Mar 14, 26|Coffee Stirrer 5"   |consumed |     0.0|      123|         25
+Mar 14, 26|Cutlery Packets     |consumed |     0.0|       77|         16
+Mar 14, 26|Eggs                |consumed |     0.0|      169|         34
+Mar 14, 26|Gloves              |consumed |     0.0|       10|          2
+Mar 14, 26|Ketchup             |consumed |     0.0|        4|          1
+Mar 14, 26|Milk                |consumed |     0.0|       32|          7
+Mar 14, 26|Nonstick Spray      |consumed |     0.0|        1|          1
+Mar 14, 26|OJ cups             |consumed |     0.0|       77|         16
+Mar 14, 26|Orange Juice        |consumed |     0.0|      346|         70
+Mar 14, 26|Pancake Mix         |consumed |     0.0|      129|         26
+Mar 14, 26|Paper Towels        |consumed |     0.0|        1|          1
+Mar 14, 26|Place Mats          |consumed |     0.0|       77|         16
+Mar 14, 26|Raffle Tickets      |consumed |     0.0|      524|        105
+Mar 14, 26|Sausage             |consumed |     0.0|      109|         22
+Mar 14, 26|Scrubbers           |consumed |     0.0|        1|          1
+Mar 14, 26|Serving Plates      |consumed |     0.0|       77|         16
+Mar 14, 26|Splenda             |consumed |     0.0|       25|          5
+Mar 14, 26|Sugar               |consumed |     0.0|       25|          5
+Mar 14, 26|Sweet'N Low         |consumed |     0.0|       25|          5
+Mar 14, 26|Syrup bottle, reg   |consumed |     0.0|        5|          1
+Mar 14, 26|Syrup bottle, SF    |consumed |     0.0|        5|          1
+Mar 14, 26|Syrup, reg          |consumed |     0.0|      129|         26
+Mar 14, 26|Syrup, sugar free   |consumed |     0.0|      129|         26
+Mar 14, 26|Tea                 |consumed |     0.0|        8|          2
+Mar 14, 26|To-Go Containers    |consumed |     0.0|        6|          2
+Apr 03, 26|Aprons              |estimate |     0.0|        0|          0
+Apr 03, 26|Bacon               |estimate |     0.0|      219|         21
+Apr 03, 26|Bowls               |estimate |     0.0|      150|          0
+Apr 03, 26|Butter              |estimate |     0.0|      123|         16
+Apr 03, 26|Coffee, ground      |estimate |     0.0|      109|         38
+Apr 03, 26|Coffee Creamer      |estimate |     0.0|        2|         25
+Apr 03, 26|Coffee cups, 12 oz  |estimate |     0.0|        0|          0
+Apr 03, 26|Coffee cups, 10 oz  |estimate |     0.0|        0|          0
+Apr 03, 26|Coffee cups, 8 oz   |estimate |     0.0|      138|          8
+Apr 03, 26|Coffee Stirrer 5"   |estimate |     0.0|      377|         25
+Apr 03, 26|Coffee Stirrer 7"   |estimate |     0.0|        0|          0
+Apr 03, 26|Cutlery Packets     |estimate |     0.0|      123|         16
+Apr 03, 26|Eggs                |estimate |     0.0|       23|         34
+Apr 03, 26|Gloves              |estimate |     0.0|      650|          7
+Apr 03, 26|Grill Cleaning Brick|estimate |     0.0|        2|          0
+Apr 03, 26|Ketchup             |estimate |     0.0|        6|          2
+Apr 03, 26|Milk                |estimate |     0.0|       32|          7
+Apr 03, 26|Nonstick Spray      |estimate |     0.0|       14|          4
+Apr 03, 26|OJ cups             |estimate |     0.0|      123|         16
+Apr 03, 26|Orange Juice        |estimate |     0.0|      174|         70
+Apr 03, 26|Pancake Mix         |estimate |     0.0|      -59|         62
+Apr 03, 26|Paper Towels        |estimate |     0.0|        1|          1
+Apr 03, 26|Place Mats          |estimate |     0.0|      979|         61
+Apr 03, 26|Raffle Tickets      |estimate |     0.0|     1476|        105
+Apr 03, 26|Rubber Bands        |estimate |     0.0|        0|          0
+Apr 03, 26|Sausage             |estimate |     0.0|       91|         22
+Apr 03, 26|Scrubbers           |estimate |     0.0|        2|          4
+Apr 03, 26|Serving Plates      |estimate |     0.0|       62|         38
+Apr 03, 26|Small Plates        |estimate |     0.0|        0|          0
+Apr 03, 26|Splenda             |estimate |     0.0|     1295|         19
+Apr 03, 26|Sugar               |estimate |     0.0|     1775|          5
+Apr 03, 26|Sweet'N Low         |estimate |     0.0|     1495|         19
+Apr 03, 26|Syrup bottle, reg   |estimate |     0.0|        9|          1
+Apr 03, 26|Syrup bottle, SF    |estimate |     0.0|        9|          1
+Apr 03, 26|Syrup, reg          |estimate |     0.0|      126|         62
+Apr 03, 26|Syrup, sugar free   |estimate |     0.0|      222|         62
+Apr 03, 26|Tea                 |estimate |     0.0|       37|          8
+Apr 03, 26|To-Go Containers    |estimate |     0.0|      120|          7
+Apr 03, 26|Coffee Creamer      |count    |       0|      150|          0
+Apr 03, 26|Eggs                |count    |     2.5|        0|          0
+Apr 03, 26|Milk                |count    |       0|        0|          0
+Apr 03, 26|Orange Juice        |count    |     2.0|        0|          0
+Apr 03, 26|OJ cups             |count    |       0|       40|          0
+Apr 03, 26|Paper Towels        |count    |       0|        2|          0
+Apr 03, 26|Sausage             |count    |     2.0|        0|          0
+Apr 03, 26|Serving Plates      |count    |       0|      180|          0
+Apr 03, 26|Bacon               |count    |     2.0|        0|          0
+Apr 03, 26|Pancake Mix         |count    |     2.0|        0|          0
 
 Months
 month|year|num_at_meeting|staff_at_breakfast|tickets_claimed|served_fudge|consumed_fudge
@@ -518,4 +566,5 @@ month|year|num_at_meeting|staff_at_breakfast|tickets_claimed|served_fudge|consum
     1|2026|            14|                12|             64|        1.35|           0.9
     2|2026|            15|                13|             93|        1.35|           0.9
     3|2026|            15|                13|             64|        1.35|           0.9
+    4|2026|              |                  |               |        1.25|           0.9
 

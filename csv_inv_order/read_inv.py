@@ -31,7 +31,7 @@ def run():
         header_map = dict((name.strip(), i) for i, name in enumerate(headers))  # {name: index}
         for capture_header in capture_headers:
             assert capture_header in header_map, f"{capture_header=} not in header_map={tuple(header_map.keys())}"
-        extended_headers = capture_headers + ['units', 'uncertainty']
+        extended_headers = capture_headers + ['in_stock', 'uncertainty']
         extended_widths = [len(header) for header in extended_headers]
         display_rows = []
         for row in csv_reader:

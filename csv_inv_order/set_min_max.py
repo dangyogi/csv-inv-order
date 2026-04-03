@@ -22,10 +22,12 @@ def run():
 
     served_fudge = 1.35
 
-    cur_avg_served = Months.avg_meals_served(cur_month.month)
+    cur_avg_staff = cur_month.avg_staff_at_breakfast
+    cur_avg_tickets = cur_month.avg_tickets_claimed
 
     while True:
-        print(f"cur_month={cur_month.month_str}: avg_served={cur_avg_served}, {served_fudge=}, -> min_order={round(served_fudge * cur_avg_served)}")
+        print(f"cur_month={cur_month.month_str}: avg_staff={cur_avg_staff}, avg_tickets={cur_avg_tickets}, "
+              f"{served_fudge=}, -> min_order={cur_month.meals_fudged(served_fudge)}")
         # maybe up to 1.40 *?
         ans = input(f"{served_fudge=}? ")
         if not ans:

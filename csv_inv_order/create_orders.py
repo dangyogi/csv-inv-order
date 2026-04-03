@@ -23,14 +23,15 @@ def run():
     table_size = args.table_size
     verbose = args.verbose
 
-    avg_served1 = Months.avg_meals_served(cur_month.month)
+    avg_served1 = cur_month.avg_meals_served
     if cur_month.month == 4:
         avg_served2 = 0
+        max_served2 = 0
     else:
         next_month = Months.inc_month(cur_month.year, cur_month.month)[1]
         avg_served2 = Months.avg_meals_served(next_month)
-    max_served1 = round(cur_month.served_fudge * avg_served1)
-    max_served2 = round(cur_month.served_fudge * avg_served2)
+        max_served2 = Months.meals_planned(next_month, cur_month.served_fudge)
+    max_served1 = cur_month.meals_planned
     num_tables = int(math.ceil(max_served1 / table_size))
 
     print(f"cur_month={cur_month.month_str}, {avg_served1=}, served_fudge={cur_month.served_fudge}, "
