@@ -1,39 +1,39 @@
 Items
 item                |unit         |perishable|supplier|supplier_id|num_per_meal|num_per_table|num_per_serving
 Aprons              |ea           |     False|Walmart |          1|            |             |               
-Bacon               |slice        |      True|Sams    |          1|            |             |           2.63
+Bacon               |slice        |      True|Sams    |          1|            |             |           1.36
 Bowls               |ea           |     False|Sams    |          1|            |          3.0|            0.0
-Butter              |chip         |     False|Gordon  |          1|            |         12.0|            1.5
-Coffee, ground      |cup of coffee|     False|Sams    |          1|       120.0|             |               
+Butter              |chip         |     False|Gordon  |          1|            |         12.0|            1.0
+Coffee, ground      |cup of coffee|     False|Sams    |          1|        70.0|             |               
+Coffee Creamer      |ea           |     False|Sams    |          2|            |         10.0|            1.6
 Coffee cups, 12 oz  |ea           |     False|Sams    |          1|            |             |               
 Coffee cups, 10 oz  |ea           |     False|Sams    |          1|            |             |               
-Coffee cups, 8 oz   |ea           |     False|Sams    |          1|            |         10.0|            1.0
-Coffee Stirrer 5"   |ea           |     False|Gordon  |          1|            |         10.0|            1.0
+Coffee cups, 8 oz   |ea           |     False|Sams    |          1|            |         10.0|            0.5
+Coffee Stirrer 5"   |ea           |     False|Gordon  |          1|            |         10.0|            1.6
 Coffee Stirrer 7"   |ea           |     False|Walmart |          1|            |             |               
 Cutlery Packets     |ea           |     False|Sams    |          1|            |         10.0|            1.0
-Eggs                |ea           |      True|Sams    |          1|            |             |            2.9
+Eggs                |ea           |      True|Sams    |          1|            |             |            2.2
 Gloves              |pair         |     False|Walmart |          1|        10.0|             |               
 Grill Cleaning Brick|ea           |     False|Amazon  |          1|         0.1|             |               
-Half & Half         |ea           |     False|Sams    |          2|            |         10.0|            1.0
 Ketchup             |oz           |     False|Walmart |          1|         4.0|             |               
-Milk                |oz           |      True|Walmart |          1|            |             |           0.63
+Milk                |oz           |      True|Walmart |          1|         32 |             |
 Nonstick Spray      |can          |     False|Sams    |          1|         1.0|             |           0.01
 OJ cups             |ea           |     False|Sams    |          1|            |         10.0|            1.0
 Orange Juice        |oz           |      True|Sams    |          1|            |             |            4.5
-Pancake Mix         |6" (4 oz ea) |     False|Sams    |          1|            |             |           1.67
-Paper Towels        |roll         |     False|Walmart |          1|            |             |           0.01
+Pancake Mix         |3x4"         |     False|Sams    |          1|            |             |           1.67
+Paper Towels        |roll         |     False|Walmart |          1|         1.0|             |
 Place Mats          |ea           |     False|Gordon  |          1|            |         10.0|            1.0
-Raffle Tickets      |ea           |     False|Walmart |          1|            |             |           2.27
+Raffle Tickets      |ea           |     False|Walmart |          1|            |             |           6.8 
 Rubber Bands        |ea           |     False|Walmart |          1|            |             |               
-Sausage             |ea           |      True|Walmart |          1|            |             |            2.1
-Scrubbers           |ea           |     False|Sams    |          1|            |             |           0.01
+Sausage             |ea           |      True|Walmart |          1|            |             |           1.42
+Scrubbers           |ea           |     False|Sams    |          1|         1  |             |
 Serving Plates      |ea           |     False|Sams    |          1|            |             |            1.0
 Small Plates        |ea           |     False|Sams    |          1|            |             |               
 Splenda             |ea           |     False|Sams    |          1|            |          5.0|           0.33
 Sugar               |ea           |     False|Sams    |          1|            |          5.0|           0.33
 Sweet'N Low         |ea           |     False|Sams    |          1|            |          5.0|           0.33
-Syrup bottle, reg   |bottle       |     False|Walmart |          1|            |          1.0|         0.0696
-Syrup bottle, SF    |bottle       |     False|Walmart |          1|            |          1.0|         0.0696
+Syrup bottle, reg   |bottle       |     False|Walmart |          1|            |          1.0|         0.07
+Syrup bottle, SF    |bottle       |     False|Walmart |          1|            |          1.0|         0.06
 Syrup, reg          |oz           |     False|Walmart |          1|            |             |           1.67
 Syrup, sugar free   |oz           |     False|Walmart |          1|            |             |           1.67
 Tea                 |bag          |     False|Sams    |          1|            |             |            0.1
@@ -55,6 +55,8 @@ Bowls               |Sams    |          1|Hefty Supreme Heavyweight Foam Bowls (
 Butter              |Gordon  |          1|Butter Chips, Continental, Salted, Foil-Wrapped, Grade AA, 4.25 Lb Package                                                                                                                           |271991   |Cooler   |19.99|     200|          |                                                                           
 Coffee, ground      |Sams    |          1|Folgers Decaffeinated Classic Roast Coffee (28.8 oz.)                                                                                                                                                |990007890|G26-6    |20.58|     360|          |pkg_size was 192                                                           
 Coffee, ground      |Sams    |          2|Maxwell House Original Roast Ground Coffee (48 oz.)                                                                                                                                                  |980186253|         |10.98|     600|          |pkg_size was 320                                                           
+Coffee Creamer      |Sams    |          1|Land O'Lakes Mini Moo's Half and Half (192 ct.)                                                                                                                                                      |342903   |23-7     |12.88|     192|          |discontinued                                                               
+Coffee Creamer      |Sams    |          2|Nestle Coffee-mate Coffee Creamer Singles, Original 180 ct.                                                                                                                                          |990004691|F-9      |12.58|     180|          |                                                                           
 Coffee cups, 12 oz  |Sams    |          1|WinCup Foam Drink Cups, White (12 oz)                                                                                                                                                                |497482   |         |37.98|    1000|          |                                                                           
 Coffee cups, 10 oz  |Sams    |          1|Dixie to go Insulated Paper Cups, Choose Size (10 oz)                                                                                                                                                |980135024|         |59.98|     500|          |                                                                           
 Coffee cups, 8 oz   |Sams    |          1|Dixie to go Insulated Paper Cups, Choose Size (8 oz)                                                                                                                                                 |980135020|         |52.48|     500|          |                                                                           
@@ -73,8 +75,6 @@ Gloves              |Walmart |          1|Great Value Disposable Poly Food Glove
 Gloves              |Walmart |          2|MED PRIDE Nitrile Vinyl Gloves – Non Latex Gloves, Powder-Free, Rubber-Free Disposable Medical Gloves for Cleaning, Cooking & Exams, Large, 100-Pack                                                 |         |Online   | 9.99|      50|          |                                                                           
 Gloves              |Walmart |          3|MED PRIDE Nitrile Vinyl Gloves – Non Latex Gloves, Powder-Free, Rubber-Free Disposable Medical Gloves for Cleaning, Cooking & Exams, X-Large, 100-Pack                                               |         |Online   | 9.99|      50|          |                                                                           
 Grill Cleaning Brick|Amazon  |          1|Commercial Grade, Heavy Duty Grill Cleaning Brick Bulk 4 Pack. Pumice Stone Cleaner Tool Cleans and Sanitizes Restaurant Flat Top Grills or Griddles Effectively Without Harsh Chemicals or Abrasives|         |         |24.99|       4|          |https://www.amazon.com/dp/B078TMMQPH?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1
-Half & Half         |Sams    |          1|Land O'Lakes Mini Moo's Half and Half (192 ct.)                                                                                                                                                      |342903   |23-7     |12.88|     192|          |discontinued                                                               
-Half & Half         |Sams    |          2|Nestle Coffee-mate Coffee Creamer Singles, Original 180 ct.                                                                                                                                          |990004691|F-9      |12.58|     180|          |                                                                           
 Ketchup             |Walmart |          1|Great Value Tomato Ketchup, 14 oz                                                                                                                                                                    |         |A-11     | 0.98|      14|          |                                                                           
 Milk                |Walmart |          1|Great Value Lactose Free Whole Vitamin D Milk, Half Gallon, 64 fl oz                                                                                                                                 |         |Aisle A38| 3.16|      64|          |                                                                           
 Nonstick Spray      |Sams    |          1|PAM Original Cooking Spray (12 oz., 2 pk.)                                                                                                                                                           |338064   |         | 7.48|       2|          |                                                                           
@@ -84,11 +84,11 @@ Orange Juice        |Gordon  |          1|Juice, Orange, No Pulp, Refrigerated, 
 Orange Juice        |Sams    |          1|Member's Mark 100% Orange Juice, Pulp Free (2 pk.)                                                                                                                                                   |980197188|M-2-2    | 6.44|     104|          |                                                                           
 Orange Juice        |Walmart |          1|Tropicana Pure Premium 100% Orange Juice Lots of Pulp, 1 Gallon Jug                                                                                                                                  |         |         | 8.28|     128|          |                                                                           
 Orange Juice        |Walmart |          2|Tropicana Pure Premium 100% Orange Juice Original No Pulp 128 Fl Oz Jug                                                                                                                              |         |         | 8.28|     128|          |                                                                           
-Pancake Mix         |Aldis   |          1|Millville Buttermilk Pancake Mix                                                                                                                                                                     |         |         | 2.15|      18|          |                                                                           
+Pancake Mix         |Aldis   |          1|Millville Buttermilk Pancake Mix                                                                                                                                                                     |         |         | 2.15|      15|          |                                                                           
 Pancake Mix         |Gordon  |          1|Mix, Pancake, Buttermilk, 5 Lb Box                                                                                                                                                                   |757762   |         | 8.49|      20|          |                                                                           
-Pancake Mix         |Sams    |          1|Member's Mark Buttermilk Pancake Mix (10 lbs.)                                                                                                                                                       |642969   |G37-7    | 7.74|      40|          |                                                                           
-Pancake Mix         |Sams    |          2|Pearl Milling Company Original Complete Pancake Mix (10 lb., 2-5 lb pk.)                                                                                                                             |990324123|         |10.98|      40|          |                                                                           
-Pancake Mix         |Walmart |          1|Great Value Complete Pancake & Waffle Mix, Extra Fluffy, Original, 5 lbs                                                                                                                             |         |         | 4.98|      20|          |                                                                           
+Pancake Mix         |Sams    |          1|Member's Mark Buttermilk Pancake Mix (10 lbs.)                                                                                                                                                       |642969   |G37-7    | 7.74|      77|          |                                                                           
+Pancake Mix         |Sams    |          2|Pearl Milling Company Original Complete Pancake Mix (10 lb., 2-5 lb pk.)                                                                                                                             |990324123|         |10.98|      65|          |                                                                           
+Pancake Mix         |Walmart |          1|Great Value Complete Pancake & Waffle Mix, Extra Fluffy, Original, 5 lbs                                                                                                                             |         |         | 4.98|      40|          |                                                                           
 Paper Towels        |Walmart |          1|Great Value Ultra Strong Paper Towels, White, 6 Double Rolls                                                                                                                                         |         |Aisle A23|10.22|       6|          |                                                                           
 Place Mats          |Gordon  |          1|Placemats, 9.75 x 14 Inch, Paper, Embossed Floral Design, 1000 Per Case                                                                                                                              |271217   |Aisle 4  |35.49|    1000|          |                                                                           
 Raffle Tickets      |Walmart |          1|Pen+Gear Double Ticket Roll, Red, Consecutively Numbered, 2000 Count                                                                                                                                 |         |J23      |11.44|    2000|          |                                                                           
@@ -134,7 +134,7 @@ Nov 18, 25|Coffee Stirrer 5"   |estimate |     0.0|      495|         50
 Nov 18, 25|Cutlery Packets     |estimate |     0.0|        0|          0
 Nov 18, 25|Eggs                |estimate |     0.0|        0|          0
 Nov 18, 25|Gloves              |estimate |     0.0|     1463|        146
-Nov 18, 25|Half & Half         |estimate |     0.0|      170|         17
+Nov 18, 25|Coffee Creamer      |estimate |     0.0|      170|         17
 Nov 18, 25|Milk                |estimate |     0.0|        0|          0
 Nov 18, 25|Nonstick Spray      |estimate |     0.0|       10|          1
 Nov 18, 25|OJ cups             |estimate |     0.0|      350|         35
@@ -175,7 +175,7 @@ Nov 28, 25|Cutlery Packets     |count    |     0.0|      150|          0
 Nov 28, 25|Eggs                |count    |     3.0|        0|          0
 Nov 28, 25|Gloves              |count    |     2.0|      450|          0
 Nov 28, 25|Grill Cleaning Brick|count    |     0.0|        2|          0
-Nov 28, 25|Half & Half         |count    |     0.0|      110|          0
+Nov 28, 25|Coffee Creamer      |count    |     0.0|      110|          0
 Nov 28, 25|Milk                |count    |     0.8|        0|          0
 Nov 28, 25|Nonstick Spray      |count    |     9.0|        0|          0
 Nov 28, 25|OJ cups             |count    |     0.0|      310|          0
@@ -196,7 +196,7 @@ Dec 09, 25|Bacon               |count    |     0.0|        0|          0
 Dec 09, 25|OJ cups             |used     |     0.0|       30|         10
 Dec 11, 25|Bacon               |purchased|     3.0|        0|          0
 Dec 11, 25|Eggs                |purchased|    10.0|        0|          0
-Dec 11, 25|Half & Half         |purchased|     1.0|        0|          0
+Dec 11, 25|Coffee Creamer      |purchased|     1.0|        0|          0
 Dec 11, 25|Milk                |purchased|     1.0|        0|          0
 Dec 11, 25|Orange Juice        |purchased|     4.0|        0|          0
 Dec 11, 25|Pancake Mix         |purchased|     5.0|        0|          0
@@ -210,7 +210,7 @@ Dec 13, 25|Coffee Stirrer 5"   |consumed |     0.0|       62|          7
 Dec 13, 25|Cutlery Packets     |consumed |     0.0|       62|          7
 Dec 13, 25|Eggs                |consumed |     0.0|      180|         18
 Dec 13, 25|Gloves              |consumed |     0.0|       10|          1
-Dec 13, 25|Half & Half         |consumed |     0.0|       62|          7
+Dec 13, 25|Coffee Creamer      |consumed |     0.0|       62|          7
 Dec 13, 25|Milk                |consumed |     0.0|       39|          4
 Dec 13, 25|Nonstick Spray      |consumed |     0.0|        1|          1
 Dec 13, 25|OJ cups             |consumed |     0.0|       62|          7
@@ -243,7 +243,7 @@ Dec 17, 25|Cutlery Packets     |estimate |     0.0|       88|          7
 Dec 17, 25|Eggs                |estimate |     0.0|      132|         18
 Dec 17, 25|Gloves              |estimate |     0.0|      680|          1
 Dec 17, 25|Grill Cleaning Brick|estimate |     0.0|        2|          0
-Dec 17, 25|Half & Half         |estimate |     0.0|      240|          7
+Dec 17, 25|Coffee Creamer      |estimate |     0.0|      240|          7
 Dec 17, 25|Milk                |estimate |     0.0|       76|          4
 Dec 17, 25|Nonstick Spray      |estimate |     0.0|       17|          1
 Dec 17, 25|OJ cups             |estimate |     0.0|      218|         17
@@ -270,7 +270,7 @@ Dec 30, 25|Butter              |count    |    0.66|        0|          0
 Dec 30, 25|Bacon               |count    |     1.0|        0|          0
 Dec 30, 25|Eggs                |count    |     7.0|        0|          0
 Dec 30, 25|Milk                |count    |    0.75|        0|          0
-Dec 30, 25|Half & Half         |count    |     0.5|        0|          0
+Dec 30, 25|Coffee Creamer      |count    |     0.5|        0|          0
 Dec 30, 25|Orange Juice        |count    |     2.0|        0|          0
 Dec 30, 25|Coffee Stirrer 5"   |count    |     0.0|      300|          0
 Dec 30, 25|Coffee, ground      |count    |     1.0|        0|          0
@@ -283,7 +283,7 @@ Dec 30, 25|OJ cups             |count    |     0.0|      210|          0
 Dec 30, 25|Coffee cups, 8 oz   |count    |     0.0|      220|          0
 Jan 11, 26|Bacon               |purchased|     3.0|        0|          0
 Jan 11, 26|Eggs                |purchased|     6.0|        0|          0
-Jan 11, 26|Half & Half         |purchased|     1.0|        0|          0
+Jan 11, 26|Coffee Creamer      |purchased|     1.0|        0|          0
 Jan 11, 26|Orange Juice        |purchased|     3.0|        0|          0
 Jan 11, 26|Sausage             |purchased|     3.0|        0|          0
 Jan 10, 26|Bacon               |consumed |     0.0|      200|         40
@@ -294,7 +294,7 @@ Jan 10, 26|Coffee Stirrer 5"   |consumed |     0.0|       76|         16
 Jan 10, 26|Cutlery Packets     |consumed |     0.0|       76|         16
 Jan 10, 26|Eggs                |consumed |     0.0|      220|         44
 Jan 10, 26|Gloves              |consumed |     0.0|       10|          2
-Jan 10, 26|Half & Half         |consumed |     0.0|       76|         16
+Jan 10, 26|Coffee Creamer      |consumed |     0.0|       76|         16
 Jan 10, 26|Milk                |consumed |     0.0|       48|         10
 Jan 10, 26|Nonstick Spray      |consumed |     0.0|        1|          1
 Jan 10, 26|OJ cups             |consumed |     0.0|       76|         16
@@ -329,7 +329,7 @@ Jan 25, 26|Cutlery Packets     |estimate |     0.0|       12|         23
 Jan 25, 26|Eggs                |estimate |     0.0|       92|         44
 Jan 25, 26|Gloves              |estimate |     0.0|      670|          3
 Jan 25, 26|Grill Cleaning Brick|estimate |     0.0|        2|          0
-Jan 25, 26|Half & Half         |estimate |     0.0|      194|         16
+Jan 25, 26|Coffee Creamer      |estimate |     0.0|      194|         16
 Jan 25, 26|Milk                |estimate |     0.0|        0|         10
 Jan 25, 26|Nonstick Spray      |estimate |     0.0|       16|          2
 Jan 25, 26|OJ cups             |estimate |     0.0|      134|         16
@@ -364,7 +364,7 @@ Jan 26, 26|Syrup, sugar free   |count    |    22.0|        0|          0
 Jan 26, 26|Pancake Mix         |count    |    4.25|        0|          0
 Jan 26, 26|Bacon               |count    |     1.5|        0|          0
 Jan 26, 26|Butter              |count    |     0.0|       60|          0
-Jan 26, 26|Half & Half         |count    |     0.0|      151|          0
+Jan 26, 26|Coffee Creamer      |count    |     0.0|      151|          0
 Jan 26, 26|OJ cups             |count    |     0.0|      200|          0
 Jan 26, 26|Coffee, ground      |count    |  0.8333|        0|          0
 Jan 26, 26|Serving Plates      |count    |     0.0|       45|          0
@@ -383,7 +383,7 @@ Feb 14, 26|Coffee Stirrer 5"   |consumed |     0.0|      106|         22
 Feb 14, 26|Cutlery Packets     |consumed |     0.0|      106|         22
 Feb 14, 26|Eggs                |consumed |     0.0|      307|         62
 Feb 14, 26|Gloves              |consumed |     0.0|       10|          2
-Feb 14, 26|Half & Half         |consumed |     0.0|      106|         22
+Feb 14, 26|Coffee Creamer      |consumed |     0.0|      106|         22
 Feb 14, 26|Ketchup             |consumed |     0.0|        4|          1
 Feb 14, 26|Milk                |consumed |     0.0|       67|         14
 Feb 14, 26|Nonstick Spray      |consumed |     0.0|        1|          1
@@ -419,7 +419,7 @@ Mar 03, 26|Cutlery Packets     |estimate |     0.0|       28|         22
 Mar 03, 26|Eggs                |estimate |     0.0|      -67|         62
 Mar 03, 26|Gloves              |estimate |     0.0|      660|          5
 Mar 03, 26|Grill Cleaning Brick|estimate |     0.0|        2|          0
-Mar 03, 26|Half & Half         |estimate |     0.0|       45|         22
+Mar 03, 26|Coffee Creamer      |estimate |     0.0|       45|         22
 Mar 03, 26|Ketchup             |estimate |     0.0|       10|          1
 Mar 03, 26|Milk                |estimate |     0.0|      -24|         14
 Mar 03, 26|Nonstick Spray      |estimate |     0.0|       15|          3
@@ -448,7 +448,7 @@ Mar 11, 26|Butter              |count    |     1.0|        0|          0
 Mar 11, 26|Coffee Stirrer 5"   |count    |     0.5|        0|          0
 Mar 11, 26|Coffee cups, 8 oz   |count    |     0.0|      176|          0
 Mar 11, 26|Cutlery Packets     |count    |     1.0|        0|          0
-Mar 11, 26|Half & Half         |count    |     0.7|        0|          0
+Mar 11, 26|Coffee Creamer      |count    |     0.7|        0|          0
 Mar 11, 26|Milk                |count    |     0.0|        0|          0
 Mar 11, 26|OJ cups             |count    |     0.0|      200|          0
 Mar 11, 26|Orange Juice        |count    |     1.0|        0|          0
