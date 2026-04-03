@@ -16,24 +16,24 @@ Eggs                |ea           |      True|Sams    |          1|            |
 Gloves              |pair         |     False|Walmart |          1|        10.0|             |               
 Grill Cleaning Brick|ea           |     False|Amazon  |          1|         0.1|             |               
 Ketchup             |oz           |     False|Walmart |          1|         4.0|             |               
-Milk                |oz           |      True|Walmart |          1|         32 |             |
+Milk                |oz           |      True|Walmart |          1|        32.0|             |               
 Nonstick Spray      |can          |     False|Sams    |          1|         1.0|             |           0.01
 OJ cups             |ea           |     False|Sams    |          1|            |         10.0|            1.0
 Orange Juice        |oz           |      True|Sams    |          1|            |             |            4.5
 Pancake Mix         |3x4"         |     False|Sams    |          1|            |             |           1.67
-Paper Towels        |roll         |     False|Walmart |          1|         1.0|             |
+Paper Towels        |roll         |     False|Walmart |          1|         1.0|             |               
 Place Mats          |ea           |     False|Gordon  |          1|            |         10.0|            1.0
-Raffle Tickets      |ea           |     False|Walmart |          1|            |             |           6.8 
+Raffle Tickets      |ea           |     False|Walmart |          1|            |             |            6.8
 Rubber Bands        |ea           |     False|Walmart |          1|            |             |               
 Sausage             |ea           |      True|Walmart |          1|            |             |           1.42
-Scrubbers           |ea           |     False|Sams    |          1|         1  |             |
+Scrubbers           |ea           |     False|Sams    |          1|         1.0|             |               
 Serving Plates      |ea           |     False|Sams    |          1|            |             |            1.0
 Small Plates        |ea           |     False|Sams    |          1|            |             |               
 Splenda             |ea           |     False|Sams    |          1|            |          5.0|           0.33
 Sugar               |ea           |     False|Sams    |          1|            |          5.0|           0.33
 Sweet'N Low         |ea           |     False|Sams    |          1|            |          5.0|           0.33
-Syrup bottle, reg   |bottle       |     False|Walmart |          1|            |          1.0|         0.07
-Syrup bottle, SF    |bottle       |     False|Walmart |          1|            |          1.0|         0.06
+Syrup bottle, reg   |bottle       |     False|Walmart |          1|            |          1.0|           0.07
+Syrup bottle, SF    |bottle       |     False|Walmart |          1|            |          1.0|           0.06
 Syrup, reg          |oz           |     False|Walmart |          1|            |             |           1.67
 Syrup, sugar free   |oz           |     False|Walmart |          1|            |             |           1.67
 Tea                 |bag          |     False|Sams    |          1|            |             |            0.1
@@ -468,6 +468,36 @@ Mar 13, 26|Raffle Tickets      |purchased|     1.0|        0|          0
 Mar 13, 26|Sausage             |purchased|     2.0|        0|          0
 Mar 13, 26|Syrup bottle, reg   |purchased|     2.0|        0|          0
 Mar 13, 26|Syrup bottle, SF    |purchased|     2.0|        0|          0
+Mar 14, 26|Bacon               |consumed |       0|      105|         21
+Mar 14, 26|Butter              |consumed |       0|       77|         16
+Mar 14, 26|Coffee, ground      |consumed |       0|       70|         14
+Mar 14, 26|Coffee Creamer      |consumed |       0|      123|         25
+Mar 14, 26|Coffee cups, 8 oz   |consumed |       0|       38|          8
+Mar 14, 26|Coffee Stirrer 5"   |consumed |       0|      123|         25
+Mar 14, 26|Cutlery Packets     |consumed |       0|       77|         16
+Mar 14, 26|Eggs                |consumed |       0|      169|         34
+Mar 14, 26|Gloves              |consumed |       0|       10|          2
+Mar 14, 26|Ketchup             |consumed |       0|        4|          1
+Mar 14, 26|Milk                |consumed |       0|       32|          7
+Mar 14, 26|Nonstick Spray      |consumed |       0|        1|          1
+Mar 14, 26|OJ cups             |consumed |       0|       77|         16
+Mar 14, 26|Orange Juice        |consumed |       0|      346|         70
+Mar 14, 26|Pancake Mix         |consumed |       0|      129|         26
+Mar 14, 26|Paper Towels        |consumed |       0|        1|          1
+Mar 14, 26|Place Mats          |consumed |       0|       77|         16
+Mar 14, 26|Raffle Tickets      |consumed |       0|      524|        105
+Mar 14, 26|Sausage             |consumed |       0|      109|         22
+Mar 14, 26|Scrubbers           |consumed |       0|        1|          1
+Mar 14, 26|Serving Plates      |consumed |       0|       77|         16
+Mar 14, 26|Splenda             |consumed |       0|       25|          5
+Mar 14, 26|Sugar               |consumed |       0|       25|          5
+Mar 14, 26|Sweet'N Low         |consumed |       0|       25|          5
+Mar 14, 26|Syrup bottle, reg   |consumed |       0|        5|          1
+Mar 14, 26|Syrup bottle, SF    |consumed |       0|        5|          1
+Mar 14, 26|Syrup, reg          |consumed |       0|      129|         26
+Mar 14, 26|Syrup, sugar free   |consumed |       0|      129|         26
+Mar 14, 26|Tea                 |consumed |       0|        8|          2
+Mar 14, 26|To-Go Containers    |consumed |       0|        6|          2
 
 Months
 month|year|start_date|end_date  |num_at_meeting|staff_at_breakfast|tickets_claimed|served_fudge|consumed_fudge
