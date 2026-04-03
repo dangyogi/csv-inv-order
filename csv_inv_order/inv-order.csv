@@ -44,7 +44,7 @@ item                |supplier|supplier_id|name                                  
 Aprons              |Walmart |          1|AOWOO 2 Pack Kitchen Bib Apron, Adjustable Waterdrop Resistant Apron with 3 Pockets, Kitchen Cooking Chef Apron for Women Men, Unisex Black Apron for Kitchen Cooking Baking Crafting BBQ Drawing    |         |Online   | 9.99|       2|          |                                                                           
 Bacon               |Aldis   |          1|Appleton Farms Fully Cooked Bacon                                                                                                                                                                    |         |         | 3.75|      12|       2.1|                                                                           
 Bacon               |Gordon  |          1|Bacon, Laid-Out, Smoked, Medium Sliced, Precooked, Fresh, 100 Ct Package                                                                                                                             |314196   |         |19.99|     100|          |                                                                           
-Bacon               |Sams    |          1|Smithfield Fully Cooked Bacon (10.5 oz., 72 ct.)                                                                                                                                                     |990285429|M2-16    |13.83|      72|      10.5|                                                                           
+Bacon               |Sams    |          1|Smithfield Fully Cooked Bacon (10.5 oz., 72 ct.)                                                                                                                                                     |990285429|M2-16    |14.22|      72|      10.5|                                                                           
 Bacon               |Walmart |          1|Oscar Mayer Fully Cooked Original Bacon Mega Pack, 6.3 Oz Box                                                                                                                                        |         |A28      |10.98|      24|       6.3|                                                                           
 Bacon               |Walmart |          2|HORMEL BLACK LABEL Microwave Ready Bacon, Gluten Free, Refrigerated, 18 oz Plastic Package                                                                                                           |         |A28      |12.98|      24|      18.0|                                                                           
 Bacon               |Walmart |          3|HORMEL BLACK LABEL Microwave Ready Pork Bacon, Gluten Free, 12 oz                                                                                                                                    |         |A28      | 8.97|      16|      12.0|                                                                           
@@ -66,7 +66,7 @@ Eggs                |Aldis   |          1|Goldhen Grade A Large Eggs            
 Eggs                |Gordon  |          1|Eggs, Shell, Large Grade A, Refrigerated, 30 Ct                                                                                                                                                      |434288   |         | 6.99|      30|          |                                                                           
 Eggs                |Gordon  |          2|Eggs, Shell, Large Grade A, Refrigerated, 30 Ct Package                                                                                                                                              |434288   |Cooler   | 6.99|      30|          |                                                                           
 Eggs                |Gordon  |          3|Eggs, Shell, Large Grade A, Refrigerated, 30 Ct Tray, 6 Per Case (15 dz)                                                                                                                             |206539   |Cooler   |50.99|     180|          |                                                                           
-Eggs                |Sams    |          1|Member's Mark Cage Free Grade A Eggs (2 dz)                                                                                                                                                          |990013040|M-9      | 4.24|      24|          |                                                                           
+Eggs                |Sams    |          1|Member's Mark Cage Free Grade A Eggs (2 dz)                                                                                                                                                          |990013040|M-9      | 4.64|      24|          |                                                                           
 Eggs                |Sams    |          2|Large Eggs (15 dozen)                                                                                                                                                                                |849487   |         |31.48|     180|          |                                                                           
 Eggs                |Walmart |          1|Eggland's Best Large White Eggs, 24 Count                                                                                                                                                            |         |         | 5.67|      24|          |                                                                           
 Gloves              |Walmart |          1|Great Value Disposable Poly Food Gloves, 120-Count, Latex-Free, One Size Fits Most                                                                                                                   |         |Aisle A22| 1.48|     120|          |                                                                           
@@ -81,12 +81,12 @@ Nonstick Spray      |Sams    |          1|PAM Original Cooking Spray (12 oz., 2 
 OJ cups             |Sams    |          1|Member's Mark Printed Paper Bath Cold Cup (5 oz., 450 ct.)                                                                                                                                           |980259465|G20-4    |13.48|     450|          |                                                                           
 Orange Juice        |Aldis   |          1|Nature's Nectar Premium Orange Juice Not From Concentrate No Pulp                                                                                                                                    |         |         | 3.65|      52|          |                                                                           
 Orange Juice        |Gordon  |          1|Juice, Orange, No Pulp, Refrigerated, 1 Gal                                                                                                                                                          |216837   |         | 8.79|     128|          |                                                                           
-Orange Juice        |Sams    |          1|Member's Mark 100% Orange Juice, Pulp Free (2 pk.)                                                                                                                                                   |980197188|M-2-2    | 7.68|     104|          |                                                                           
+Orange Juice        |Sams    |          1|Member's Mark 100% Orange Juice, Pulp Free (2 pk.)                                                                                                                                                   |980197188|M-2-2    | 6.44|     104|          |                                                                           
 Orange Juice        |Walmart |          1|Tropicana Pure Premium 100% Orange Juice Lots of Pulp, 1 Gallon Jug                                                                                                                                  |         |         | 8.28|     128|          |                                                                           
 Orange Juice        |Walmart |          2|Tropicana Pure Premium 100% Orange Juice Original No Pulp 128 Fl Oz Jug                                                                                                                              |         |         | 8.28|     128|          |                                                                           
 Pancake Mix         |Aldis   |          1|Millville Buttermilk Pancake Mix                                                                                                                                                                     |         |         | 2.15|      18|          |                                                                           
 Pancake Mix         |Gordon  |          1|Mix, Pancake, Buttermilk, 5 Lb Box                                                                                                                                                                   |757762   |         | 8.49|      20|          |                                                                           
-Pancake Mix         |Sams    |          1|Member's Mark Buttermilk Pancake Mix (10 lbs.)                                                                                                                                                       |642969   |G37-7    | 7.48|      40|          |                                                                           
+Pancake Mix         |Sams    |          1|Member's Mark Buttermilk Pancake Mix (10 lbs.)                                                                                                                                                       |642969   |G37-7    | 7.74|      40|          |                                                                           
 Pancake Mix         |Sams    |          2|Pearl Milling Company Original Complete Pancake Mix (10 lb., 2-5 lb pk.)                                                                                                                             |990324123|         |10.98|      40|          |                                                                           
 Pancake Mix         |Walmart |          1|Great Value Complete Pancake & Waffle Mix, Extra Fluffy, Original, 5 lbs                                                                                                                             |         |         | 4.98|      20|          |                                                                           
 Paper Towels        |Walmart |          1|Great Value Ultra Strong Paper Towels, White, 6 Double Rolls                                                                                                                                         |         |Aisle A23|10.22|       6|          |                                                                           
@@ -446,19 +446,28 @@ Mar 03, 26|To-Go Containers    |estimate |     0.0|      126|          5
 Mar 11, 26|Bacon               |count    |     2.5|        0|          0
 Mar 11, 26|Butter              |count    |     1.0|        0|          0
 Mar 11, 26|Coffee Stirrer 5"   |count    |     0.5|        0|          0
-Mar 11, 26|Coffee cups, 8 oz   |count    |       0|      176|          0
+Mar 11, 26|Coffee cups, 8 oz   |count    |     0.0|      176|          0
 Mar 11, 26|Cutlery Packets     |count    |     1.0|        0|          0
 Mar 11, 26|Half & Half         |count    |     0.7|        0|          0
 Mar 11, 26|Milk                |count    |     0.0|        0|          0
-Mar 11, 26|OJ cups             |count    |       0|      200|          0
+Mar 11, 26|OJ cups             |count    |     0.0|      200|          0
 Mar 11, 26|Orange Juice        |count    |     1.0|        0|          0
-Mar 11, 26|Paper Towels        |count    |       0|        2|          0
+Mar 11, 26|Paper Towels        |count    |     0.0|        2|          0
 Mar 11, 26|Sausage             |count    |     2.0|        0|          0
 Mar 11, 26|Sugar               |count    |     0.9|        0|          0
-Mar 11, 26|Syrup bottle, SF    |count    |       0|       12|          0
-Mar 11, 26|Syrup bottle, reg   |count    |       0|       12|          0
+Mar 11, 26|Syrup bottle, SF    |count    |     0.0|       12|          0
+Mar 11, 26|Syrup bottle, reg   |count    |     0.0|       12|          0
 Mar 11, 26|Raffle Tickets      |count    |     0.0|        0|          0
 Mar 11, 26|Eggs                |count    |     1.0|        0|          0
+Mar 13, 26|Bacon               |purchased|     2.0|        0|          0
+Mar 13, 26|Eggs                |purchased|     7.0|        0|          0
+Mar 13, 26|Milk                |purchased|     1.0|        0|          0
+Mar 13, 26|Orange Juice        |purchased|     4.0|        0|          0
+Mar 13, 26|Pancake Mix         |purchased|     1.0|        0|          0
+Mar 13, 26|Raffle Tickets      |purchased|     1.0|        0|          0
+Mar 13, 26|Sausage             |purchased|     2.0|        0|          0
+Mar 13, 26|Syrup bottle, reg   |purchased|     2.0|        0|          0
+Mar 13, 26|Syrup bottle, SF    |purchased|     2.0|        0|          0
 
 Months
 month|year|start_date|end_date  |num_at_meeting|staff_at_breakfast|tickets_claimed|served_fudge|consumed_fudge
@@ -478,5 +487,5 @@ month|year|start_date|end_date  |num_at_meeting|staff_at_breakfast|tickets_claim
    12|2025|Nov 29, 25|Dec 31, 25|            13|                 8|             54|        1.44|           0.9
     1|2026|Jan 01, 26|Jan 26, 26|            14|                12|             64|        1.35|           0.9
     2|2026|Jan 27, 26|Feb 28, 26|            15|                13|             93|        1.35|           0.9
-    3|2026|Mar 01, 26|          |              |                  |               |        1.35|           0.9
+    3|2026|Mar 01, 26|          |            15|                13|             64|        1.35|           0.9
 
