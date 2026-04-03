@@ -299,8 +299,6 @@ class Months(Row):
     columns = (
         Column("month", parse=int, required=True),
         Column("year", parse=int, required=True),
-        Date_column("start_date"),
-        Date_column("end_date"),
         Column("num_at_meeting", "#@mtg", parse=int),
         Column("staff_at_breakfast", "stf@bf", parse=int),
         Column("tickets_claimed", "tkt_clm", parse=int),
