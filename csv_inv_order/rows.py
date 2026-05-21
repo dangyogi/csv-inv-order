@@ -196,19 +196,19 @@ class Items(Row):
 
 class Products(Row):
     columns = (
-        Column("item", required=True),
+        Column("item", required=True, min_width=13),
         Column("supplier", required=True),
-        Column("supplier_id", "supp_id", parse=int, default=1),
-        Column("name", required=True),
+        Column("supplier_id", "id", parse=int, default=1, can_edit=True),
+        Column("name", required=True, min_width=26),
         Column("item_num"),
         Column("location"),
         Column("price", parse=Decimal, required=True),
         Column("pkg_size", "pkg_sz", parse=int),
         Column("pkg_weight", "pkg_wgt", parse=float),
-        Column("note"),
-        Column("unit", calculated=True),
-        Column("price_per_unit", "$/unit", parse=float, calculated=True),
-        Column("oz_per_unit", "oz/unit", parse=float, calculated=True),
+        Column("note", min_width=10),
+        Column("unit", calculated=True, min_width=5),
+        Column("price_per_unit", "$/un", parse=float, calculated=True),
+        Column("oz_per_unit", "oz/un", parse=float, calculated=True),
     )
     primary_keys = "item", "supplier", "supplier_id"
     foreign_keys = "Items",
@@ -221,13 +221,13 @@ class Products(Row):
     def price_per_unit(self):
         if self.pkg_size is None:
             return None
-        return self.price / self.pkg_size
+        return round(self.price / self.pkg_size, 2)
 
     @property
     def oz_per_unit(self):
         if self.pkg_weight is None or self.pkg_size is None:
             return None
-        return self.pkg_weight / self.pkg_size
+        return round(self.pkg_weight / self.pkg_size, 2)
 
 class Inventory(Row):
     columns = (
@@ -257,7 +257,7 @@ class Inventory(Row):
 
     @property
     def total_units(self):
-        return self.num_pkgs * self.pkg_size + self.num_units
+        return round(self.num_pkgs * self.pkg_size + self.num_units)
 
 class Orders(Row):
     columns = (
@@ -276,6 +276,7 @@ class Orders(Row):
     in_database = False
     primary_key = 'item'
     foreign_keys = "Items", "Products"
+    omit = True
 
     @property
     def item_row(self):
