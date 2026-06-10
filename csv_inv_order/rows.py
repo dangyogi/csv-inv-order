@@ -202,12 +202,22 @@ class Items(Row):
         '''
         return self.order_stats(cur_month, table_size, override, verbose).order
 
+
+class Name_column(Column):
+    selected_attr_pair = 0x02
+
+    def column_attr_pair(self, row):
+        item = Database.Items[row.item]
+        if item.supplier == row.supplier and item.supplier_id == row.supplier_id:
+            return self.selected_attr_pair
+        return None
+
 class Products(Row):
     columns = (
         Column("item", required=True, min_width=13),
         Column("supplier", required=True),
         Column("supplier_id", "id", parse=int, default=1, can_edit=True),
-        Column("name", required=True, min_width=26),
+        Name_column("name", required=True, min_width=26),
         Column("item_num"),
         Column("location"),
         Column("price", parse=Decimal, required=True),
@@ -230,6 +240,7 @@ class Products(Row):
             item.supplier = self.supplier
             item.supplier_id = self.supplier_id
             app.set_changed()
+            return 'REFRESH'
         return None
 
     @property
