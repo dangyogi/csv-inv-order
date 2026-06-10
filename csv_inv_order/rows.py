@@ -221,6 +221,17 @@ class Products(Row):
     primary_keys = "item", "supplier", "supplier_id"
     foreign_keys = "Items",
 
+    row_popup_command_fns = "Select",
+
+    def Select(self, app):
+        app.trace(f"Products row({self.item=}, {self.supplier=}, {self.supplier_id=}).Select executed")
+        item = Database.Items[self.item]
+        if item.supplier != self.supplier or item.supplier_id != self.supplier_id:
+            item.supplier = self.supplier
+            item.supplier_id = self.supplier_id
+            app.set_changed()
+        return None
+
     @property
     def unit(self):
         return Database.Items[self.item].unit
