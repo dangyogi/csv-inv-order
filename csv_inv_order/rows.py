@@ -5,6 +5,8 @@ from collections import namedtuple
 
 from csv_app.row import *
 from csv_app.table import Database, set_database_filename
+from tui_app.tui import table_screen
+
 
 set_database_filename("inv-order.csv")
 
@@ -32,6 +34,12 @@ class Items(Row):
     order_stats_headers = "item unit pkg_size perishable inv uncertainty consumed1 consumed2 " \
                           "min_needed1 max_order min_needed2 min_needed3 order".split()
     order_stats_row_type = namedtuple("order_stats", order_stats_headers)
+
+    row_popup_command_fns = "Products",
+
+    def Products(self, app):
+        app.trace(f"Items row({self.item=}).Products executed")
+        return table_screen(Database.Products, app.screen, item=self.item)
 
     @property
     def product(self):
