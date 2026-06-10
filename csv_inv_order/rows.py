@@ -329,6 +329,14 @@ class Months(Row):
    #hidden = frozenset(("month_str", "meeting_date", "breakfast_date"))
     primary_keys = "year", "month"
 
+    row_popup_command_fns = "Inventory",
+
+    def Inventory(self, app):
+        app.trace(f"Months row({self.month=}, {self.year=}).Inventory executed")
+        start_date = date(self.year, self.month, 1)
+        end_date = date(self.year, self.month + 1, 1)
+        return table_screen(Database.Inventory, app.screen, date__ge=start_date, date__lt=end_date)
+
     @property
     def month_str(self):
         return f"{abbr_month(self.month)} '{str(self.year)[2:]}"
