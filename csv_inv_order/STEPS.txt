@@ -1,0 +1,58 @@
+- Run record-purchases, if necessary, from Orders table
+
+- Do Inventory:
+  - Run new-month
+  - Run set-min-max (interactive)
+  - Run calc-estimates
+  - Run create-inv-checklist
+  - Print Inv_checklist table
+  - Do inventory
+  - Update Inv_checklist table
+  - Run read-inv
+
+- Create P.O.s
+  - Run create-orders
+  - Manually adjust orders in Orders table
+  - Run create-POs
+  - Print PO
+
+- At monthly Executive Board Meeting
+  - Vote to approve PO
+  - Get PO signed
+  - Make copies of signed PO for Treasurer and Shoppers
+  - Give original signed PO to Secretary
+  - Give copy of PO to Treasurer
+
+- At monthly Member Meeting
+  - Give copies of PO to Shoppers
+  - Note attendance from sign-in sheet
+  - Give sign-in sheet to Secretary
+
+- Between monthly Member Meeting and Breakfast
+  - Run set-meeting-attendance
+  - Shoppers bring receipts and POs to Treasurer for reimbursement 
+    - Treasurer verifies receipt against PO
+    - Treasurer reimburses Shopper
+    - Treasurer files receipt with PO
+    - How does the purchases, location, prices get back to the inv-order system?
+
+- Before Breakfast
+  - Update Orders table with:
+    - actual purchases (what was bought, and how many)
+    - locations
+    - prices
+  - Run record-purchases
+
+- At Breakfast
+  - Note attendance from sign-in sheet
+  - Give sign-in sheet to Secretary
+  - Count tickets turned in
+
+- After breakfast
+  - Run set-bf-stats
+  - Run calc-consumed
+
+- Other
+  - Run monthly-stats to look at monthly history
+  - Run recalibrate to look at historical item usage, compared to estimated usage numbers
+  - Run git commit/push

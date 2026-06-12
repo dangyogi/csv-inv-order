@@ -123,6 +123,43 @@ Tea                 |Sams    |          1|Lipton Tea Bags, Black Tea, 312 ct.   
 Tea                 |Walmart |          1|Great Value Black Tea Bags, 8 oz, 100 Count                                                                                                                                                          |         |A8       | 2.12|     100|          |                                                                           
 To-Go Containers    |Sams    |          1|Hefty Supreme Foam Hinged Lid Container, 3-Compartment (125 ct.)                                                                                                                                     |971233   |G19-7    |16.98|     125|          |                                                                           
 
+Months
+month|year|num_at_meeting|staff_at_breakfast|tickets_claimed|served_fudge|consumed_fudge
+    1|2024|              |                  |               |            |              
+    2|2024|              |                  |             99|            |              
+    3|2024|            21|                12|             70|            |              
+    4|2024|            12|                 9|             42|            |              
+   10|2024|              |                  |               |            |              
+   11|2024|             8|                11|             44|            |              
+   12|2024|             9|                11|             48|            |              
+    1|2025|            12|                13|             54|            |              
+    2|2025|            12|                10|             64|            |              
+    3|2025|             9|                10|             59|            |              
+    4|2025|             8|                11|             37|            |              
+   10|2025|             5|                  |               |            |              
+   11|2025|            14|                14|             61|        60.0|          80.0
+   12|2025|            13|                 8|             54|        1.44|           0.9
+    1|2026|            14|                12|             64|        1.35|           0.9
+    2|2026|            15|                13|             93|        1.35|           0.9
+    3|2026|            15|                13|             64|        1.35|           0.9
+    4|2026|             9|                 8|             36|        1.25|           0.9
+
+Inv_checklist
+item                |num_pkgs|num_units
+Coffee Creamer      |        | 150
+Eggs                |   2.5  |
+Milk                |        | 0
+Orange Juice        |    2   |
+OJ cups             |        | 40
+Paper Towels        |        | 2
+Sausage             |    2   |
+Serving Plates      |        | 180
+Bacon               |    2   |
+Pancake Mix         |    2   |
+
+Orders
+item|qty|supplier|supplier_id|purchased_pkgs|purchased_units|location|price
+
 Inventory
 date      |item                |code     |num_pkgs|num_units|uncertainty
 Nov 18, 25|Bacon               |estimate |     0.0|      144|         14
@@ -550,54 +587,33 @@ Apr 10, 26|Eggs                |purchased|     3.0|        0|          0
 Apr 10, 26|Milk                |purchased|     0.0|        0|          0
 Apr 10, 26|OJ cups             |purchased|     1.0|        0|          0
 Apr 10, 26|Orange Juice        |purchased|     1.0|        0|          0
-Apr 11, 26|Bacon               |consumed |       0|       60|         12
-Apr 11, 26|Butter              |consumed |       0|       44|          9
-Apr 11, 26|Coffee, ground      |consumed |       0|       70|         14
-Apr 11, 26|Coffee Creamer      |consumed |       0|       70|         14
-Apr 11, 26|Coffee cups, 8 oz   |consumed |       0|       22|          5
-Apr 11, 26|Coffee Stirrer 5"   |consumed |       0|       70|         14
-Apr 11, 26|Cutlery Packets     |consumed |       0|       44|          9
-Apr 11, 26|Eggs                |consumed |       0|       97|         20
-Apr 11, 26|Gloves              |consumed |       0|       10|          2
-Apr 11, 26|Ketchup             |consumed |       0|        4|          1
-Apr 11, 26|Milk                |consumed |       0|       32|          7
-Apr 11, 26|OJ cups             |consumed |       0|       44|          9
-Apr 11, 26|Orange Juice        |consumed |       0|      198|         40
-Apr 11, 26|Pancake Mix         |consumed |       0|       73|         15
-Apr 11, 26|Paper Towels        |consumed |       0|        1|          1
-Apr 11, 26|Place Mats          |consumed |       0|       44|          9
-Apr 11, 26|Raffle Tickets      |consumed |       0|      299|         60
-Apr 11, 26|Sausage             |consumed |       0|       62|         13
-Apr 11, 26|Scrubbers           |consumed |       0|        1|          1
-Apr 11, 26|Serving Plates      |consumed |       0|       44|          9
-Apr 11, 26|Splenda             |consumed |       0|       15|          3
-Apr 11, 26|Sugar               |consumed |       0|       15|          3
-Apr 11, 26|Sweet'N Low         |consumed |       0|       15|          3
-Apr 11, 26|Syrup bottle, reg   |consumed |       0|        3|          1
-Apr 11, 26|Syrup bottle, SF    |consumed |       0|        3|          1
-Apr 11, 26|Syrup, reg          |consumed |       0|       73|         15
-Apr 11, 26|Syrup, sugar free   |consumed |       0|       73|         15
-Apr 11, 26|Tea                 |consumed |       0|        4|          1
-Apr 11, 26|To-Go Containers    |consumed |       0|        4|          1
-
-Months
-month|year|num_at_meeting|staff_at_breakfast|tickets_claimed|served_fudge|consumed_fudge
-    1|2024|              |                  |               |            |              
-    2|2024|              |                  |             99|            |              
-    3|2024|            21|                12|             70|            |              
-    4|2024|            12|                 9|             42|            |              
-   10|2024|              |                  |               |            |              
-   11|2024|             8|                11|             44|            |              
-   12|2024|             9|                11|             48|            |              
-    1|2025|            12|                13|             54|            |              
-    2|2025|            12|                10|             64|            |              
-    3|2025|             9|                10|             59|            |              
-    4|2025|             8|                11|             37|            |              
-   10|2025|             5|                  |               |            |              
-   11|2025|            14|                14|             61|        60.0|          80.0
-   12|2025|            13|                 8|             54|        1.44|           0.9
-    1|2026|            14|                12|             64|        1.35|           0.9
-    2|2026|            15|                13|             93|        1.35|           0.9
-    3|2026|            15|                13|             64|        1.35|           0.9
-    4|2026|             9|                 8|             36|        1.25|           0.9
+Apr 11, 26|Bacon               |consumed |     0.0|       60|         12
+Apr 11, 26|Butter              |consumed |     0.0|       44|          9
+Apr 11, 26|Coffee, ground      |consumed |     0.0|       70|         14
+Apr 11, 26|Coffee Creamer      |consumed |     0.0|       70|         14
+Apr 11, 26|Coffee cups, 8 oz   |consumed |     0.0|       22|          5
+Apr 11, 26|Coffee Stirrer 5"   |consumed |     0.0|       70|         14
+Apr 11, 26|Cutlery Packets     |consumed |     0.0|       44|          9
+Apr 11, 26|Eggs                |consumed |     0.0|       97|         20
+Apr 11, 26|Gloves              |consumed |     0.0|       10|          2
+Apr 11, 26|Ketchup             |consumed |     0.0|        4|          1
+Apr 11, 26|Milk                |consumed |     0.0|       32|          7
+Apr 11, 26|OJ cups             |consumed |     0.0|       44|          9
+Apr 11, 26|Orange Juice        |consumed |     0.0|      198|         40
+Apr 11, 26|Pancake Mix         |consumed |     0.0|       73|         15
+Apr 11, 26|Paper Towels        |consumed |     0.0|        1|          1
+Apr 11, 26|Place Mats          |consumed |     0.0|       44|          9
+Apr 11, 26|Raffle Tickets      |consumed |     0.0|      299|         60
+Apr 11, 26|Sausage             |consumed |     0.0|       62|         13
+Apr 11, 26|Scrubbers           |consumed |     0.0|        1|          1
+Apr 11, 26|Serving Plates      |consumed |     0.0|       44|          9
+Apr 11, 26|Splenda             |consumed |     0.0|       15|          3
+Apr 11, 26|Sugar               |consumed |     0.0|       15|          3
+Apr 11, 26|Sweet'N Low         |consumed |     0.0|       15|          3
+Apr 11, 26|Syrup bottle, reg   |consumed |     0.0|        3|          1
+Apr 11, 26|Syrup bottle, SF    |consumed |     0.0|        3|          1
+Apr 11, 26|Syrup, reg          |consumed |     0.0|       73|         15
+Apr 11, 26|Syrup, sugar free   |consumed |     0.0|       73|         15
+Apr 11, 26|Tea                 |consumed |     0.0|        4|          1
+Apr 11, 26|To-Go Containers    |consumed |     0.0|        4|          1
 

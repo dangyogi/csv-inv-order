@@ -289,47 +289,6 @@ class Inventory(Row):
     def total_units(self):
         return round(self.num_pkgs * self.pkg_size + self.num_units)
 
-class Orders(Row):
-    columns = (
-        Column("item", required=True),
-        Column("qty", parse=int),             # None if no P.O. was created, and purchased_units used.
-        Column("supplier"),
-        Column("supplier_id", parse=int),
-        Column("purchased_pkgs", parse=int),  # if None, defaults to qty
-        Column("purchased_units", parse=int), # added to purchased_pkgs
-        Column("location"),                   # updates Products if not None
-        Column("price", parse=Decimal),       # updates Products if not None
-        Column("unit", calculated=True),
-        Column("pkg_size", parse=int, calculated=True),
-        Column("pkg_weight", parse=float, calculated=True),
-    )
-    in_database = False
-    primary_key = 'item'
-    foreign_keys = "Items", "Products"
-    omit = True
-
-    @property
-    def item_row(self):
-        return Database.Items[self.item]
-
-    @property
-    def product(self):
-        if self.supplier is None or self.supplier_id is None:
-            return self.item_row.product
-        return Database.Products[self.item, self.supplier, self.supplier_id]
-
-    @property
-    def unit(self):
-        return self.item_row.unit
-
-    @property
-    def pkg_size(self):
-        return self.product.pkg_size
-
-    @property
-    def pkg_weight(self):
-        return self.product.pkg_weight
-
 class Months(Row):
     columns = (
         Column("month", "mth", parse=int, required=True),
@@ -417,9 +376,74 @@ class Months(Row):
     def meals_planned(self):
         return self.meals_fudged(self.served_fudge)
 
+class Inv_checklist(Row):
+    columns = (
+        Column("item", required=True),
+        Column("unit", calculated=True),
+        Column("pkg_size", parse=int, calculated=True),
+        Column("num_pkgs", parse=float),
+        Column("num_units", parse=float),
+    )
+    primary_key = 'item'
+    foreign_keys = "Items",
+   #omit = True
+
+    @property
+    def item_row(self):
+        return Database.Items[self.item]
+
+    @property
+    def unit(self):
+        return self.item_row.unit
+
+    @property
+    def pkg_size(self):
+        return self.item_row.product.pkg_size
+
+class Orders(Row):
+    columns = (
+        Column("item", required=True),
+        Column("qty", parse=int),             # None if no P.O. was created, and purchased_units used.
+        Column("supplier"),
+        Column("supplier_id", parse=int),
+        Column("purchased_pkgs", parse=int),  # if None, defaults to qty
+        Column("purchased_units", parse=int), # added to purchased_pkgs
+        Column("location"),                   # updates Products if not None
+        Column("price", parse=Decimal),       # updates Products if not None
+       #Column("unit", calculated=True),
+       #Column("pkg_size", parse=int, calculated=True),
+       #Column("pkg_weight", parse=float, calculated=True),
+    )
+   #in_database = False
+    primary_key = 'item'
+    foreign_keys = "Items", "Products"
+   #omit = True
+
+    @property
+    def item_row(self):
+        return Database.Items[self.item]
+
+    @property
+    def product(self):
+        if self.supplier is None or self.supplier_id is None:
+            return self.item_row.product
+        return Database.Products[self.item, self.supplier, self.supplier_id]
+   #
+   #@property
+   #def unit(self):
+   #    return self.item_row.unit
+   #
+   #@property
+   #def pkg_size(self):
+   #    return self.product.pkg_size
+   #
+   #@property
+   #def pkg_weight(self):
+   #    return self.product.pkg_weight
+
 
 # These must be in logical order based on what has to be defined first
-Rows = (Items, Products, Inventory, Orders, Months,
+Rows = (Items, Products, Months, Inv_checklist, Orders, Inventory, 
        )
 
 

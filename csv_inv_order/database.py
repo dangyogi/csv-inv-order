@@ -12,9 +12,11 @@ Items = Tables['Items']
 
 Products = Tables['Products']
 
-Inventory = Tables['Inventory']
+Months = Tables['Months']
+
+Inv_checklist = Tables['Inv_checklist']
 
 Orders = Tables['Orders']
 
-Months = Tables['Months']
+Inventory = Tables['Inventory']
 
