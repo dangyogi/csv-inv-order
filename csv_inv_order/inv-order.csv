@@ -617,3 +617,33 @@ Apr 11, 26|Syrup, sugar free   |consumed |     0.0|       73|         15
 Apr 11, 26|Tea                 |consumed |     0.0|        4|          1
 Apr 11, 26|To-Go Containers    |consumed |     0.0|        4|          1
 
+Steps
+id|number|name                             |state|last_run
+ 1|1     |Create Month                     |     |        
+ 2|2.A   |Do Inventory                     |     |        
+21|2.B   |Set Fudge Factors                |     |        
+22|2.C   |Create Inv_checklist             |     |        
+23|2.D   |Print Inv_checklist              |     |        
+24|2.E   |Edit Inv_checklist               |     |        
+25|2.F   |Import Inv_checklist             |     |        
+ 3|3     |Create P.O.s                     |     |        
+31|3.A   |Create Orders                    |     |        
+32|3.B   |Edit Orders                      |     |        
+33|3.C   |Create P.O.s                     |     |        
+34|3.D   |Print P.O.s                      |     |        
+ 4|4     |After Member Meeting             |     |        
+41|4.A   |Set Meeting Attendance           |     |        
+42|4.B   |Edit purchases/locations/prices  |     |        
+43|4.C   |Import purchases/locations/prices|     |        
+ 5|5     |After Breakfast                  |     |        
+51|5.A   |Set Breakfast Stats              |     |        
+52|5.B   |Calc Consumed                    |     |        
+53|5.C   |Calc Estimates                   |     |        
+ 6|6     |Other                            |     |        
+61|6.A   |View/Edit Tables                 |     |        
+62|6.B   |Monthly Stats                    |     |        
+63|6.C   |Recalibrate                      |     |        
+64|6.D   |git commit/push                  |     |        
+ 7|7     |Special Events                   |     |        
+71|7.A   |Acquisitions                     |     |        
+72|7.B   |Items Used                       |     |        

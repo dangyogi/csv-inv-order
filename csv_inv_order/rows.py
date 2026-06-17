@@ -5,7 +5,8 @@ from collections import namedtuple
 
 from csv_app.row import *
 from csv_app.table import Database, set_database_filename
-from tui_app.tui import table_screen
+from csv_app.action import Steps
+from tui_app.table_screen import table_screen
 
 
 set_database_filename("inv-order.csv")
@@ -293,19 +294,20 @@ class Months(Row):
     columns = (
         Column("month", "mth", parse=int, required=True),
         Column("year", parse=int, required=True),
-        Column("num_at_meeting", "#@mtg", parse=int),
-        Column("staff_at_breakfast", "#@bf", parse=int),
-        Column("tickets_claimed", "tkt_clm", parse=int),
-        Column("served_fudge", "srv_fg", parse=float),
-        Column("consumed_fudge", "cns_fg", parse=float),
         Column("month_str", "mth_str", calculated=True),
+        Column("served_fudge", "srvFG", parse=float),
+        Column("consumed_fudge", "cnsFG", parse=float),
+        Column("avg_staff_at_breakfast", "AVstf", parse=int, calculated=True),
+        Column("avg_tickets_claimed", "AVtkt", parse=int, calculated=True),
+        Column("avg_meals_served", "AVml", parse=int, calculated=True),
+        Column("meals_planned", "ml_pln", parse=int, calculated=True),
+        Column("PO_index", "POidx", parse=int),
+        Column("num_at_meeting", "#mtg", parse=int),
+        Column("staff_at_breakfast", "#bf", parse=int),
+        Column("tickets_claimed", "tkts", parse=int),
         Column("meals_served", "ml_srv", parse=int, calculated=True),
         Date_column("meeting_date", "mtg_date", calculated=True),
         Date_column("breakfast_date", "bf_date", calculated=True),
-        Column("avg_staff_at_breakfast", "av_stf", parse=int, calculated=True),
-        Column("avg_tickets_claimed", "av_tkts", parse=int, calculated=True),
-        Column("avg_meals_served", "av_mls", parse=int, calculated=True),
-        Column("meals_planned", "mls_pln", parse=int, calculated=True),
     )
    #hidden = frozenset(("month_str", "meeting_date", "breakfast_date"))
     primary_keys = "year", "month"
@@ -443,7 +445,7 @@ class Orders(Row):
 
 
 # These must be in logical order based on what has to be defined first
-Rows = (Items, Products, Months, Inv_checklist, Orders, Inventory, 
+Rows = (Items, Products, Months, Inv_checklist, Orders, Inventory, Steps,
        )
 
 
