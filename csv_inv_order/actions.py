@@ -5,7 +5,14 @@ from csv_app.action import *
 
 def stub(step, app):
     app.trace(step.name)
+    app.set_changed()
     return None  # no error
+
+def save_stub(step, app):
+    app.trace(step.name)
+    app.changed = False
+    return None  # no error
+
 
 # step kw args: can_rerun=False, can_rerun_after_commit=False, commits_task=False, disable_prereqs=False
 
@@ -80,14 +87,17 @@ Task6 = Task(6, column_break=True)
 # view/edit tables
 Step(61, Task6, stub, can_rerun=True)
 
-# monthly stats
-Step(62, Task6, stub, can_rerun=True)
+# save database
+Step(62, Task6, save_stub, can_rerun=True)
 
-# recalibrate
+# monthly stats
 Step(63, Task6, stub, can_rerun=True)
 
+# recalibrate
+Step(64, Task6, stub, can_rerun=True)
+
 # git commit/push
-Step(64, Task6, stub)
+Step(65, Task6, stub)
 
 
 # special events

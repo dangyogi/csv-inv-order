@@ -641,9 +641,10 @@ id|number|name                             |state|last_run
 53|5.C   |Calc Estimates                   |     |        
  6|6     |Other                            |     |        
 61|6.A   |View/Edit Tables                 |     |        
-62|6.B   |Monthly Stats                    |     |        
-63|6.C   |Recalibrate                      |     |        
-64|6.D   |git commit/push                  |     |        
+62|6.B   |Save Database                    |     |        
+63|6.C   |Monthly Stats                    |     |        
+64|6.D   |Recalibrate                      |     |        
+65|6.E   |git commit/push                  |     |        
  7|7     |Special Events                   |     |        
 71|7.A   |Acquisitions                     |     |        
 72|7.B   |Items Used                       |     |        
