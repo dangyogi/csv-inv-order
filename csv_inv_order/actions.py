@@ -5,6 +5,7 @@ from csv_app.action import *
 
 def stub(step, app):
     app.trace(step.name)
+    return None  # no error
 
 
 # create new month
@@ -73,7 +74,7 @@ Step(53, Task5, stub, 52)
 
 
 # other
-Task6 = Task(6)
+Task6 = Task(6, column_break=True)
 
 # view/edit tables
 Step(61, Task6, stub)

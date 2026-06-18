@@ -620,12 +620,12 @@ Apr 11, 26|To-Go Containers    |consumed |     0.0|        4|          1
 Steps
 id|number|name                             |state|last_run
  1|1     |Create Month                     |     |        
- 2|2.A   |Do Inventory                     |     |        
-21|2.B   |Set Fudge Factors                |     |        
-22|2.C   |Create Inv_checklist             |     |        
-23|2.D   |Print Inv_checklist              |     |        
-24|2.E   |Edit Inv_checklist               |     |        
-25|2.F   |Import Inv_checklist             |     |        
+ 2|2     |Do Inventory                     |     |        
+21|2.A   |Set Fudge Factors                |     |        
+22|2.B   |Create Inv_checklist             |     |        
+23|2.C   |Print Inv_checklist              |     |        
+24|2.D   |Edit Inv_checklist               |     |        
+25|2.E   |Import Inv_checklist             |     |        
  3|3     |Create P.O.s                     |     |        
 31|3.A   |Create Orders                    |     |        
 32|3.B   |Edit Orders                      |     |        
