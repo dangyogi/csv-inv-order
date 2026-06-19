@@ -445,7 +445,7 @@ class Orders(Row):
 
 
 # These must be in logical order based on what has to be defined first
-Rows = (Items, Products, Months, Inv_checklist, Orders, Inventory, Steps,
+Rows = (Months, Inv_checklist, Orders, Items, Products, Inventory, Steps,
        )
 
 

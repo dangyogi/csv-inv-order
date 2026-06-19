@@ -8,15 +8,15 @@ if not __package__:
 from .tables import *
 
 
-Items = Tables['Items']
-
-Products = Tables['Products']
-
 Months = Tables['Months']
 
 Inv_checklist = Tables['Inv_checklist']
 
 Orders = Tables['Orders']
+
+Items = Tables['Items']
+
+Products = Tables['Products']
 
 Inventory = Tables['Inventory']
 

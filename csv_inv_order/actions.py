@@ -1,23 +1,53 @@
 # actions.py
 
 from csv_app.action import *
+from tui_app.table_screen import table_screen
+from . import tables
+from .database import *
 
+
+def table(table_name):
+    def run_table_screen(step, app):
+        return table_screen(tables.Tables[table_name], back=app.screen)
+    return run_table_screen
 
 def stub(step, app):
-    app.trace(step.name)
+    app.trace(f"stub {step.name}")
     app.set_changed()
-    return None  # no error
+    return step.mark_run(app)
 
 def save_stub(step, app):
-    app.trace(step.name)
-    app.changed = False
-    return None  # no error
+    app.trace(f"stub_save {step.name}")
+    app.reset_changed()
+    return step.mark_run(app)
+
+def stub_error(step, app):
+    app.trace(f"stub_error {step.name}")
+    raise ActionFailed(f"{step.name} failed for some reason...")
+
+def create_month(step, app):
+    def year_is(s):
+        year = int(s)
+        def month_is(s):
+            month = int(s)
+            app.trace(f"month_is: {month=}")
+            Months.insert(year=year, month=month)
+            return step.mark_run(app)
+        app.trace(f"year_is: {year=}")
+        app.screen.ask_question("day", month_is, str(next_mth))
+    yr, mth = list(Months.keys())[-1]
+    if mth == 4:
+        next_yr, next_mth = yr, 11
+    else:
+        next_yr, next_mth = Months.inc_month(yr, mth)
+    app.trace(f"create_month: {yr=}, {mth=}, {next_yr=}, {next_mth=}")
+    app.screen.ask_question("year", year_is, str(next_yr))
 
 
 # step kw args: can_rerun=False, can_rerun_after_commit=False, commits_task=False, disable_prereqs=False
 
 # create new month
-Step(1, None, stub)
+Step(1, None, create_month)
 
 
 # do inventory
@@ -59,7 +89,7 @@ Step(34, Task3, stub, 33, can_rerun=True)
 Task4 = Task(4, 3)
 
 # set meeting attendance
-Step(41, Task4, stub, can_rerun=True, can_rerun_after_commit=True)
+Step(41, Task4, stub_error, can_rerun=True, can_rerun_after_commit=True)
 
 # edit purchases/locations/prices
 Step(42, Task4, stub, 33, can_rerun=True)
@@ -81,31 +111,53 @@ Step(52, Task5, stub, 51, disable_prereqs=True)
 Step(53, Task5, stub, 25, 43, 52, commits_task=True)
 
 
-# other
+# view/edit tables
 Task6 = Task(6, column_break=True)
 
-# view/edit tables
-Step(61, Task6, stub, can_rerun=True)
+# Items
+Step(61, Task6, table("Items"), can_rerun=True)
+
+# Products
+Step(62, Task6, table("Products"), can_rerun=True)
+
+# Inventory
+Step(63, Task6, table("Inventory"), can_rerun=True)
+
+# Months
+Step(64, Task6, table("Months"), can_rerun=True)
+
+# Inv_checklist
+Step(65, Task6, table("Inv_checklist"), can_rerun=True)
+
+# Orders
+Step(66, Task6, table("Orders"), can_rerun=True)
+
+# Steps
+Step(67, Task6, table("Steps"), can_rerun=True)
+
+
+# other
+Task7 = Task(7)
 
 # save database
-Step(62, Task6, save_stub, can_rerun=True)
+Step(71, Task7, save_stub, can_rerun=True)
 
 # monthly stats
-Step(63, Task6, stub, can_rerun=True)
+Step(72, Task7, stub, can_rerun=True)
 
 # recalibrate
-Step(64, Task6, stub, can_rerun=True)
+Step(73, Task7, stub, can_rerun=True)
 
 # git commit/push
-Step(65, Task6, stub)
+Step(74, Task7, stub)
 
 
 # special events
-Task7 = Task(7)
+Task8 = Task(8)
 
 # acquisitions
-Step(71, Task7, stub, can_rerun=True)
+Step(81, Task8, stub, can_rerun=True)
 
 # used
-Step(72, Task7, stub, can_rerun=True)
+Step(82, Task8, stub, can_rerun=True)
 
