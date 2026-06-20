@@ -2,6 +2,7 @@
 
 from csv_app.action import *
 from tui_app.table_screen import table_screen
+from tui_app.row_screen import row_screen
 from . import tables
 from .database import *
 
@@ -25,13 +26,23 @@ def stub_error(step, app):
     app.trace(f"stub_error {step.name}")
     raise ActionFailed(f"{step.name} failed for some reason...")
 
+def last_month_update(global_validate=None):
+    return lambda step, app: \
+             row_screen(Months.last_month(), app.screen,
+                        global_validate=global_validate,
+                        callback=lambda: step.mark_run(app))
+
+def mark_run(step, app):
+    def callback(row):
+        step.mark_run(app)
+
 def create_month(step, app):
     def year_is(s):
         year = int(s)
         def month_is(s):
             month = int(s)
             app.trace(f"month_is: {month=}")
-            Months.insert(year=year, month=month)
+            Months.insert(year=year, month=month, served_fudge=1.35, consumed_fudge=0.9)
             return step.mark_run(app)
         app.trace(f"year_is: {year=}")
         app.screen.ask_question("day", month_is, str(next_mth))
@@ -42,6 +53,49 @@ def create_month(step, app):
         next_yr, next_mth = Months.inc_month(yr, mth)
     app.trace(f"create_month: {yr=}, {mth=}, {next_yr=}, {next_mth=}")
     app.screen.ask_question("year", year_is, str(next_yr))
+
+# FIX: Not used
+def init_fudge_factors(row_screen):
+    for field in row_screen.fields:
+        row_screen.app.trace(f"init_fudge_factors: got {field.name=}")
+        if field.name == 'served_fudge':
+            if not field.text:
+                field.text = '1.35'
+        elif field.name == 'consumed_fudge':
+            if not field.text:
+                field.text = '0.9'
+
+def check_fudge_factors(row_screen):
+    other = None
+    for field in row_screen.fields:
+        row_screen.app.trace(f"check_fudge_factors: got {field.name=}")
+        if field.name == 'served_fudge':
+            if field.text:
+                fudge = float(field.text)
+                if 0.9 <= fudge <= 1.45:
+                    # OK
+                    if other == 'consumed_fudge':
+                        return None  # no errors!
+                    else:
+                        other = 'served_fudge'
+                else:
+                    return f"served_fudge must be between 0.9 and 1.45, got {fudge}"
+            else:
+                return "You must set served_fudge between 0.9 and 1.45, watching meals_planned"
+        elif field.name == 'consumed_fudge':
+            if field.text:
+                fudge = float(field.text)
+                if 0.6 <= fudge <= 1.0:
+                    # OK
+                    if other == 'served_fudge':
+                        return None  # no errors!
+                    else:
+                        other = 'consumed_fudge'
+                else:
+                    return f"consumed_fudge must be between 0.6 and 1.0, got {fudge}"
+            else:
+                return "You must set consumed_fudge between 0.6 and 1.0, to count on next month's consumption"
+    raise AssertionError(f"check_fudge_factors: didn't find fudge attrs in row_screen.fields")
 
 
 # step kw args: can_rerun=False, can_rerun_after_commit=False, commits_task=False, disable_prereqs=False
@@ -54,7 +108,8 @@ Step(1, None, create_month)
 Task2 = Task(2, 1, can_rerun_after_commit=True)
 
 # set fudge factors
-Step(21, Task2, stub, 1, can_rerun=True, can_rerun_after_commit=True)
+Step(21, Task2, last_month_update(check_fudge_factors), 1,
+     can_rerun=True, can_rerun_after_commit=True)
 
 # create Inv_checklist
 Step(22, Task2, stub, 21, can_rerun=True)
