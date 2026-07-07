@@ -54,17 +54,6 @@ def create_month(step, app):
     app.trace(f"create_month: {yr=}, {mth=}, {next_yr=}, {next_mth=}")
     app.screen.ask_question("year", year_is, str(next_yr))
 
-# FIX: Not used
-def init_fudge_factors(row_screen):
-    for field in row_screen.fields:
-        row_screen.app.trace(f"init_fudge_factors: got {field.name=}")
-        if field.name == 'served_fudge':
-            if not field.text:
-                field.text = '1.35'
-        elif field.name == 'consumed_fudge':
-            if not field.text:
-                field.text = '0.9'
-
 def check_fudge_factors(row_screen):
     other = None
     for field in row_screen.fields:
@@ -97,6 +86,52 @@ def check_fudge_factors(row_screen):
                 return "You must set consumed_fudge between 0.6 and 1.0, to count on next month's consumption"
     raise AssertionError(f"check_fudge_factors: didn't find fudge attrs in row_screen.fields")
 
+def check_meeting_attendance(row_screen):
+    for field in row_screen.fields:
+        row_screen.app.trace(f"check_meeting_attendance: got {field.name=}")
+        if field.name == 'num_at_meeting':
+            if field.text:
+                num_at_meeting = int(field.text)
+                if 1 <= num_at_meeting <= 100:
+                    return None  # no errors!
+                else:
+                    return f"num_at_meeting must be between 1 and 100, got {num_at_meeting}"
+            else:
+                return "You must set num_at_meeting"
+    raise AssertionError(f"check_meeting_attendance: didn't find num_at_meeting in row_screen.fields")
+
+def check_breakfast_stats(row_screen):
+    other = None
+    for field in row_screen.fields:
+        row_screen.app.trace(f"check_breakfast_stats: got {field.name=}")
+        if field.name == 'staff_at_breakfast':
+            if field.text:
+                staff_at_breakfast = int(field.text)
+                if 1 <= staff_at_breakfast <= 50:
+                    # OK
+                    if other == 'tickets_claimed':
+                        return None  # no errors!
+                    else:
+                        other = 'staff_at_breakfast'
+                else:
+                    return f"staff_at_breakfast must be between 1 and 50, got {staff_at_breakfast}"
+            else:
+                return "You must set staff_at_breakfast"
+        elif field.name == 'tickets_claimed':
+            if field.text:
+                tickets_claimed = float(field.text)
+                if 0 <= tickets_claimed <= 300:
+                    # OK
+                    if other == 'staff_at_breakfast':
+                        return None  # no errors!
+                    else:
+                        other = 'tickets_claimed'
+                else:
+                    return f"tickets_claimed must be between 0 and 300, got {tickets_claimed}"
+            else:
+                return "You must set tickets_claimed"
+    raise AssertionError(f"check_breakfast_stats: didn't find breakfast stats attrs in row_screen.fields")
+
 
 # step kw args: can_rerun=False, can_rerun_after_commit=False, commits_task=False, disable_prereqs=False
 
@@ -118,7 +153,7 @@ Step(22, Task2, stub, 21, can_rerun=True)
 Step(23, Task2, stub, 22, can_rerun=True)
 
 # edit Inv_checklist
-Step(24, Task2, stub, 22, can_rerun=True)
+Step(24, Task2, table('Inv_checklist'), 22, can_rerun=True)
 
 # import Inv_checklist
 Step(25, Task2, stub, 24, commits_task=True)
@@ -131,7 +166,7 @@ Task3 = Task(3, 2)
 Step(31, Task3, stub, 25, can_rerun=True)
 
 # edit Orders
-Step(32, Task3, stub, 31, can_rerun=True)
+Step(32, Task3, table('Orders'), 31, can_rerun=True)
 
 # create P.O.s
 Step(33, Task3, stub, 32, can_rerun=True)
@@ -144,10 +179,10 @@ Step(34, Task3, stub, 33, can_rerun=True)
 Task4 = Task(4, 3)
 
 # set meeting attendance
-Step(41, Task4, stub_error, can_rerun=True, can_rerun_after_commit=True)
+Step(41, Task4, last_month_update(check_meeting_attendance), can_rerun=True, can_rerun_after_commit=True)
 
 # edit purchases/locations/prices
-Step(42, Task4, stub, 33, can_rerun=True)
+Step(42, Task4, table('Orders'), 33, can_rerun=True)
 
 # import purchases/locations/prices
 Step(43, Task4, stub, 42, commits_task=True)
@@ -157,7 +192,7 @@ Step(43, Task4, stub, 42, commits_task=True)
 Task5 = Task(5, 1)
 
 # set breakfast stats
-Step(51, Task5, stub, can_rerun=True)
+Step(51, Task5, last_month_update(check_breakfast_stats), can_rerun=True)
 
 # calc consumed
 Step(52, Task5, stub, 51, disable_prereqs=True)
