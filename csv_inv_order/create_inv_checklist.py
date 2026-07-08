@@ -15,33 +15,34 @@ from operator import attrgetter
 from .database import *
 
 
-def run():
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--table-size", "-t", type=int, default=8)
-    parser.add_argument("--verbose", "-v", default="", help="comma seperated item names")
+def create_inv_checklist(step, app):
+    def table_size_is(s):
+        table_size = int(s)
+        if table_size < 4 or table_size > 12:
+            app.screen.show_error("Table size must be between 4 and 12")
+            app.screen.clear_message()
+            app.screen.ask_question("Table size", table_size_is, "8")
+        else:
+            return load_inv_checklist(table_size, step, app)
+    app.screen.clear_message()
+    if step.task.committed:
+        if Inv_checklist:
+            Inv_checklist.clear()
+            app.set_changed()
+            return step.mark_run(app)
+    else:
+        app.screen.ask_question("Table size", table_size_is, "8")
 
-    args = parser.parse_args()
-
-    table_size = args.table_size
-    verbose = args.verbose.split(',')
-
-    load_database()
-
+def load_inv_checklist(table_size, step, app):
     cur_month = list(Months.values())[-1]
-    print(f"cur_month={cur_month.month_str}")
+    trace(f"Create Inv_checklist: cur_month={cur_month.month_str}, {table_size=}")
 
-    width = 0
-    for i in Items.values():
-        l = len(i.item)
-        if l > width:
-            width = l
-
-    with open("Inv-checklist.csv", "w") as f:
-        print(f"{'item':{width}}|unit         |pkg_size|num_pkgs|num_units", file=f)
-        for i in sorted(Items.values(), key=attrgetter('item')):
-            try:
-                i.order(cur_month, table_size, verbose=i.item in verbose)
-            except CheckInventory:
-                print(f"{i.item:{width}}|{i.unit:13}|{i.pkg_size:8}|        | ", file=f)
+    Inv_checklist.clear()
+    for i in sorted(Items.values(), key=attrgetter('item')):
+        try:
+            i.order(cur_month, table_size, verbose=False)
+        except CheckInventory:
+            Inv_checklist.insert(item=i.item)
+    app.set_changed()
+    return step.mark_run(app)
 

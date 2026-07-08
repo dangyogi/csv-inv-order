@@ -22,7 +22,6 @@ repository = "https://github.com/dangyogi/csv-inv-order.git"
 [project.scripts]
 calc-consumed = "csv_inv_order.calc_consumed:run"
 calc-estimates = "csv_inv_order.calc_estimates:run"
-create-inv-checklist = "csv_inv_order.create_inv_checklist:run"
 create-orders = "csv_inv_order.create_orders:run"
 create-POs = "csv_inv_order.create_POs:run"
 est-cost-per-meal = "csv_inv_order.est_cost_per_meal:run"

@@ -3,6 +3,7 @@
 import math
 from collections import namedtuple
 
+from csv_app.trace import trace
 from csv_app.row import *
 from csv_app.table import Database, set_database_filename
 from csv_app.action import Steps
@@ -39,7 +40,7 @@ class Items(Row):
     row_popup_command_fns = "Products",
 
     def Products(self, app):
-        app.trace(f"Items row({self.item=}).Products executed")
+        trace(f"Items row({self.item=}).Products executed")
         return table_screen(Database.Products, app.screen, item=self.item)
 
     @property
@@ -152,8 +153,8 @@ class Items(Row):
             next_month = None
             avg_served2 = 0
         else:
-            next_month = Database.Months[Database.Months.inc_month(cur_month.year, cur_month.month)]
-            avg_served2 = next_month.avg_meals_served
+            _, next_month = Database.Months.inc_month(cur_month.year, cur_month.month)
+            avg_served2 = Database.Months.avg_meals_served(next_month)
 
         consumed1 = self.consumed(cur_month.consumed_fudge * avg_served1, table_size, verbose)
         consumed2 = self.consumed(cur_month.consumed_fudge * avg_served2, table_size, verbose)
@@ -181,7 +182,7 @@ class Items(Row):
         # else non_perishable
         stats.append(None)  # max_order
         if next_month is not None:
-            min_needed2 = calc_needed(next_month.meals_fudged(cur_month.served_fudge))
+            min_needed2 = calc_needed(Database.Months.meals_planned(next_month, cur_month.served_fudge))
         else:
             min_needed2 = 0
         stats.append(min_needed2)
@@ -235,7 +236,7 @@ class Products(Row):
     row_popup_command_fns = "Select",
 
     def Select(self, app):
-        app.trace(f"Products row({self.item=}, {self.supplier=}, {self.supplier_id=}).Select executed")
+        trace(f"Products row({self.item=}, {self.supplier=}, {self.supplier_id=}).Select executed")
         item = Database.Items[self.item]
         if item.supplier != self.supplier or item.supplier_id != self.supplier_id:
             item.supplier = self.supplier
@@ -315,7 +316,7 @@ class Months(Row):
     row_popup_command_fns = "Inventory",
 
     def Inventory(self, app):
-        app.trace(f"Months row({self.month=}, {self.year=}).Inventory executed")
+        trace(f"Months row({self.month=}, {self.year=}).Inventory executed")
         start_date = date(self.year, self.month, 1)
         end_date = date(self.year, self.month + 1, 1)
         return table_screen(Database.Inventory, app.screen, date__ge=start_date, date__lt=end_date)

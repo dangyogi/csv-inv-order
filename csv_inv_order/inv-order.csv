@@ -652,6 +652,8 @@ id|number|name                             |state|last_run
 72|7.B   |Monthly Stats                    |     |        
 73|7.C   |Recalibrate                      |     |        
 74|7.D   |git commit/push                  |     |        
+75|7.E   |Exit                             |     |        
+76|7.F   |Abort                            |     |        
  8|8     |Special Events                   |     |        
 81|8.A   |Acquisitions                     |     |        
 82|8.B   |Items Used                       |     |        

@@ -5,26 +5,45 @@ from tui_app.table_screen import table_screen
 from tui_app.row_screen import row_screen
 from . import tables
 from .database import *
+from .create_inv_checklist import create_inv_checklist
 
 
 def table(table_name):
     def run_table_screen(step, app):
+        step.mark_run(app)
         return table_screen(tables.Tables[table_name], back=app.screen)
     return run_table_screen
 
+
 def stub(step, app):
-    app.trace(f"stub {step.name}")
+    trace(f"stub {step.name}")
     app.set_changed()
     return step.mark_run(app)
 
 def save_stub(step, app):
-    app.trace(f"stub_save {step.name}")
+    trace(f"stub_save {step.name}")
     app.reset_changed()
     return step.mark_run(app)
 
 def stub_error(step, app):
-    app.trace(f"stub_error {step.name}")
+    trace(f"stub_error {step.name}")
     raise ActionFailed(f"{step.name} failed for some reason...")
+
+
+class ExitStep(Step):
+    def __init__(self, id, task, abort=False):
+        super().__init__(id, task, self.fn)
+        self.abort = abort
+
+    @property
+    def can_run(self):
+        return self.app.changed == self.abort
+
+    def fn(self, step, app):
+        if self.abort:
+            return "APP_ABORT"
+        return "APP_EXIT"
+
 
 def last_month_update(global_validate=None):
     return lambda step, app: \
@@ -32,32 +51,29 @@ def last_month_update(global_validate=None):
                         global_validate=global_validate,
                         callback=lambda: step.mark_run(app))
 
-def mark_run(step, app):
-    def callback(row):
-        step.mark_run(app)
-
 def create_month(step, app):
     def year_is(s):
         year = int(s)
         def month_is(s):
             month = int(s)
-            app.trace(f"month_is: {month=}")
+            trace(f"month_is: {month=}")
             Months.insert(year=year, month=month, served_fudge=1.35, consumed_fudge=0.9)
+            app.set_changed()
             return step.mark_run(app)
-        app.trace(f"year_is: {year=}")
-        app.screen.ask_question("day", month_is, str(next_mth))
+        trace(f"year_is: {year=}")
+        app.screen.ask_question("month", month_is, str(next_mth))
     yr, mth = list(Months.keys())[-1]
     if mth == 4:
         next_yr, next_mth = yr, 11
     else:
         next_yr, next_mth = Months.inc_month(yr, mth)
-    app.trace(f"create_month: {yr=}, {mth=}, {next_yr=}, {next_mth=}")
+    trace(f"create_month: {yr=}, {mth=}, {next_yr=}, {next_mth=}")
     app.screen.ask_question("year", year_is, str(next_yr))
 
 def check_fudge_factors(row_screen):
     other = None
     for field in row_screen.fields:
-        row_screen.app.trace(f"check_fudge_factors: got {field.name=}")
+        trace(f"check_fudge_factors: got {field.name=}")
         if field.name == 'served_fudge':
             if field.text:
                 fudge = float(field.text)
@@ -88,7 +104,7 @@ def check_fudge_factors(row_screen):
 
 def check_meeting_attendance(row_screen):
     for field in row_screen.fields:
-        row_screen.app.trace(f"check_meeting_attendance: got {field.name=}")
+        trace(f"check_meeting_attendance: got {field.name=}")
         if field.name == 'num_at_meeting':
             if field.text:
                 num_at_meeting = int(field.text)
@@ -103,7 +119,7 @@ def check_meeting_attendance(row_screen):
 def check_breakfast_stats(row_screen):
     other = None
     for field in row_screen.fields:
-        row_screen.app.trace(f"check_breakfast_stats: got {field.name=}")
+        trace(f"check_breakfast_stats: got {field.name=}")
         if field.name == 'staff_at_breakfast':
             if field.text:
                 staff_at_breakfast = int(field.text)
@@ -143,11 +159,10 @@ Step(1, None, create_month)
 Task2 = Task(2, 1, can_rerun_after_commit=True)
 
 # set fudge factors
-Step(21, Task2, last_month_update(check_fudge_factors), 1,
-     can_rerun=True, can_rerun_after_commit=True)
+Step(21, Task2, last_month_update(check_fudge_factors), 1, can_rerun=True)
 
 # create Inv_checklist
-Step(22, Task2, stub, 21, can_rerun=True)
+Step(22, Task2, create_inv_checklist, 21, can_rerun=True, can_rerun_after_commit=True)
 
 # print Inv_checklist
 Step(23, Task2, stub, 22, can_rerun=True)
@@ -163,16 +178,16 @@ Step(25, Task2, stub, 24, commits_task=True)
 Task3 = Task(3, 2)
 
 # create Orders
-Step(31, Task3, stub, 25, can_rerun=True)
+Step(31, Task3, stub, 25, can_rerun=True, can_rerun_after_commit=True)
 
 # edit Orders
-Step(32, Task3, table('Orders'), 31, can_rerun=True)
+Step(32, Task3, table('Orders'), 31, can_rerun=True, can_rerun_after_commit=True)
 
 # create P.O.s
-Step(33, Task3, stub, 32, can_rerun=True)
+Step(33, Task3, stub, 32, can_rerun=True, can_rerun_after_commit=True)
 
 # print P.O.s
-Step(34, Task3, stub, 33, can_rerun=True)
+Step(34, Task3, stub, 33, can_rerun=True, can_rerun_after_commit=True)
 
 
 # after member meeting
@@ -239,7 +254,13 @@ Step(72, Task7, stub, can_rerun=True)
 Step(73, Task7, stub, can_rerun=True)
 
 # git commit/push
-Step(74, Task7, stub)
+Step(74, Task7, stub, can_rerun=True)
+
+# exit
+ExitStep(75, Task7)
+
+# abort
+ExitStep(76, Task7, abort=True)
 
 
 # special events
