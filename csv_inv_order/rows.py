@@ -209,8 +209,7 @@ class Name_column(Column):
     selected_attr_pair = 0x02
 
     def column_attr_pair(self, row):
-        item = Database.Items[row.item]
-        if item.supplier == row.supplier and item.supplier_id == row.supplier_id:
+        if row.selected:
             return self.selected_attr_pair
         return None
 
@@ -219,13 +218,13 @@ class Products(Row):
         Column("item", required=True, min_width=13),
         Column("supplier", required=True),
         Column("supplier_id", "id", parse=int, default=1, can_edit=True),
-        Name_column("name", required=True, min_width=26),
+        Name_column("name", required=True, min_width=26, edit_width=200),
         Column("item_num"),
         Column("location"),
         Column("price", parse=Decimal, required=True),
         Column("pkg_size", "pkg_sz", parse=int),
         Column("pkg_weight", "pkg_wgt", parse=float),
-        Column("note", min_width=10),
+        Column("note", min_width=10, edit_width=100),
         Column("unit", calculated=True, min_width=5),
         Column("price_per_unit", "$/un", parse=float, calculated=True),
         Column("oz_per_unit", "oz/un", parse=float, calculated=True),
@@ -233,7 +232,18 @@ class Products(Row):
     primary_keys = "item", "supplier", "supplier_id"
     foreign_keys = "Items",
 
+    @property
+    def row_popup_commands_end(self):
+        if self.selected:
+            return 'Cancel',
+        return 'Delete', 'Cancel'
+
     row_popup_command_fns = "Select",
+
+    @property
+    def selected(self):
+        item = Database.Items[self.item]
+        return item.supplier == self.supplier and item.supplier_id == self.supplier_id
 
     def Select(self, app):
         trace(f"Products row({self.item=}, {self.supplier=}, {self.supplier_id=}).Select executed")
@@ -283,6 +293,8 @@ class Inventory(Row):
     primary_keys = "date item code".split()
     foreign_keys = "Items",
 
+    table_popup_commands_end = ()
+
     @property
     def pkg_size(self):
         return Database.Items[self.item].pkg_size
@@ -313,6 +325,7 @@ class Months(Row):
    #hidden = frozenset(("month_str", "meeting_date", "breakfast_date"))
     primary_keys = "year", "month"
 
+    table_popup_commands_end = ()
     row_popup_command_fns = "Inventory",
 
     def Inventory(self, app):
@@ -391,6 +404,8 @@ class Inv_checklist(Row):
     foreign_keys = "Items",
    #omit = True
 
+    row_popup_commands_end = 'Delete', 'Cancel'
+
     @property
     def item_row(self):
         return Database.Items[self.item]
@@ -421,6 +436,8 @@ class Orders(Row):
     primary_key = 'item'
     foreign_keys = "Items", "Products"
    #omit = True
+
+    row_popup_commands_end = 'Delete', 'Cancel'
 
     @property
     def item_row(self):

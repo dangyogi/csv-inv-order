@@ -47,9 +47,9 @@ class ExitStep(Step):
 
 def last_month_update(global_validate=None):
     return lambda step, app: \
-             row_screen(Months.last_month(), app.screen,
-                        global_validate=global_validate,
-                        callback=lambda: step.mark_run(app))
+             row_screen.for_update(Months.last_month(), app.screen,
+                                   global_validate=global_validate,
+                                   callback=lambda: step.mark_run(app))
 
 def create_month(step, app):
     def year_is(s):
