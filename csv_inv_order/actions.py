@@ -1,6 +1,7 @@
 # actions.py
 
 from csv_app.action import *
+from csv_app.report import dump_table
 from tui_app.table_screen import table_screen
 from tui_app.row_screen import row_screen
 from . import tables
@@ -8,12 +9,21 @@ from .database import *
 from .create_inv_checklist import create_inv_checklist
 
 
-def table(table_name):
+def table(table_name, validate_fn=None):
     def run_table_screen(step, app):
         step.mark_run(app)
-        return table_screen(tables.Tables[table_name], back=app.screen)
+        return table_screen(tables.Tables[table_name], back=app.screen, validate_fn=validate_fn)
     return run_table_screen
 
+def validate_inv_checklist(table):
+    for row in table.values():
+        if row.num_pkgs is None and row.num_units is None:
+            return f"No count entered for {row.item}"
+
+def validate_orders(table):
+    for row in table.values():
+        if row.qty is None:
+            return f"No order quantity entered for {row.item}"
 
 def stub(step, app):
     trace(f"stub {step.name}")
@@ -29,6 +39,11 @@ def stub_error(step, app):
     trace(f"stub_error {step.name}")
     raise ActionFailed(f"{step.name} failed for some reason...")
 
+def print(table_name):
+    def print_table(step, app):
+        dump_table(table_name, pdf=True, load=False)
+        return step.mark_run(app)
+    return print_table
 
 class ExitStep(Step):
     def __init__(self, id, task, abort=False):
@@ -165,10 +180,10 @@ Step(21, Task2, last_month_update(check_fudge_factors), 1, can_rerun=True)
 Step(22, Task2, create_inv_checklist, 21, can_rerun=True, can_rerun_after_commit=True)
 
 # print Inv_checklist
-Step(23, Task2, stub, 22, can_rerun=True)
+Step(23, Task2, print("Inv_checklist"), 22, can_rerun=True)
 
 # edit Inv_checklist
-Step(24, Task2, table('Inv_checklist'), 22, can_rerun=True)
+Step(24, Task2, table('Inv_checklist', validate_inv_checklist), 22, can_rerun=True)
 
 # import Inv_checklist
 Step(25, Task2, stub, 24, commits_task=True)
@@ -181,7 +196,7 @@ Task3 = Task(3, 2)
 Step(31, Task3, stub, 25, can_rerun=True, can_rerun_after_commit=True)
 
 # edit Orders
-Step(32, Task3, table('Orders'), 31, can_rerun=True, can_rerun_after_commit=True)
+Step(32, Task3, table('Orders', validate_orders), 31, can_rerun=True, can_rerun_after_commit=True)
 
 # create P.O.s
 Step(33, Task3, stub, 32, can_rerun=True, can_rerun_after_commit=True)

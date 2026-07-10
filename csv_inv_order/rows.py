@@ -293,7 +293,7 @@ class Inventory(Row):
     primary_keys = "date item code".split()
     foreign_keys = "Items",
 
-    table_popup_commands_end = ()
+    table_popup_commands_end = 'Print',
 
     @property
     def pkg_size(self):
@@ -325,7 +325,7 @@ class Months(Row):
    #hidden = frozenset(("month_str", "meeting_date", "breakfast_date"))
     primary_keys = "year", "month"
 
-    table_popup_commands_end = ()
+    table_popup_commands_end = 'Print',
     row_popup_command_fns = "Inventory",
 
     def Inventory(self, app):
