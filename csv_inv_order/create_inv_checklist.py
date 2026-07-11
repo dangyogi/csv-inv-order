@@ -1,15 +1,5 @@
 # create_inv_checklist.py
 
-r'''
-    - update Inventory table by writing new  "estimate" rows.
-    - calc orders
-    - expected_count = cur_count + order
-    - uncertainty = 0.10 * sum of consumed since last count
-    - write all items that have expected_count + uncertainty > max_perishable
-'''
-
-# FIX: only include items that need to be counted
-
 from operator import attrgetter
 
 from .database import *
@@ -34,7 +24,7 @@ def create_inv_checklist(step, app):
         app.screen.ask_question("Table size", table_size_is, "8")
 
 def load_inv_checklist(table_size, step, app):
-    cur_month = list(Months.values())[-1]
+    cur_month = Months.last_month()
     trace(f"Create Inv_checklist: cur_month={cur_month.month_str}, {table_size=}")
 
     Inv_checklist.clear()

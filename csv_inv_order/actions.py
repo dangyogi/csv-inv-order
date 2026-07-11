@@ -7,6 +7,7 @@ from tui_app.row_screen import row_screen
 from . import tables
 from .database import *
 from .create_inv_checklist import create_inv_checklist
+from .read_inv import read_inv_command
 
 
 def table(table_name, validate_fn=None):
@@ -186,7 +187,7 @@ Step(23, Task2, print("Inv_checklist"), 22, can_rerun=True)
 Step(24, Task2, table('Inv_checklist', validate_inv_checklist), 22, can_rerun=True)
 
 # import Inv_checklist
-Step(25, Task2, stub, 24, commits_task=True)
+Step(25, Task2, read_inv_command, 24, commits_task=True)
 
 
 # create POs

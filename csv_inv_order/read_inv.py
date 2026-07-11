@@ -1,64 +1,50 @@
 # read_inv.py
 
-r'''Loads Inv-checklist.csv into Transactions table.
+r'''Loads Inv_checklist into Transactions table.
 '''
-
-import csv
-from itertools import chain
 
 from .database import *
 
 
-def run():
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--code", "-c", default="count")
-    parser.add_argument("--date", "-d", default=date.today().strftime("%b %d, %y"))
-    parser.add_argument("--trial-run", "-t", action="store_true", default=False)
-
-    args = parser.parse_args()
-
-    print(f"Loading Inv-checklist.csv with {args.date=} and {args.code=}")
-
-    load_database()
-
-    capture_headers = "item num_pkgs num_units".split()
-
-    with open("Inv-checklist.csv", "r") as f:
-        csv_reader = iter(csv.reader(f, CSV_dialect, **CSV_format))
-        headers = next(csv_reader)
-        header_map = dict((name.strip(), i) for i, name in enumerate(headers))  # {name: index}
-        for capture_header in capture_headers:
-            assert capture_header in header_map, f"{capture_header=} not in header_map={tuple(header_map.keys())}"
-        extended_headers = capture_headers + ['in_stock', 'uncertainty']
-        extended_widths = [len(header) for header in extended_headers]
-        display_rows = []
-        for row in csv_reader:
-            assert len(headers) == len(row), f"{len(headers)=} != {len(row)=}"
-            data = [row[header_map[capture_header]].strip()
-                    for capture_header in capture_headers]
-            display_row = data + list(Items[data[0]].in_stock())
-            extended_widths = [max(len(str(data)), width)
-                               for width, data in zip(extended_widths, display_row)]
-            display_rows.append(display_row)
-            if any(element for element in data[1:]):
-                Inventory.insert_from_csv(["date", "code"] + capture_headers,
-                                          [args.date, args.code] + data)
-            else:
-                print(f"No counts for {data[0]}, skipping")
-        print('|'.join(f"{header:{width}}" for width, header in zip(extended_widths, extended_headers)))
-        for row in display_rows:
-            sep = ''
-            for header, width, value in zip(extended_headers, extended_widths, row):
-                print(f"{sep}{value:{width}}", end='')
-                sep = '|'
-            print()
-
-    if not args.trial_run:
-        save_database()
-        # FIX: Truncate Inv-checklist.csv
-        print("Database saved")
+def date_is(date_str):
+    trace(f"read_inv.date_is({date_str=})")
+    effective_date = datetime.strptime(date_str, Date_format).date()
+    today = date.today()
+    cur_month = Months.last_month()
+    earliest = date(cur_month.year, cur_month.month, 15)
+    assert today >= earliest, f"read_inv.date_is: {today=:{Date_format}} < {earliest=:{Date_format}}"
+    next_yr, next_mth = Months.inc_month(cur_month.year, cur_month.month)
+    lastest = min(date(next_yr, next_mth, 13), today)
+    if not (earliest <= effective_date <= latest):
+        app.screen.show_error(
+          f"{effective_date=:{Date_format}} must be between {earliest=:{Date_format}}  and {latest=:{Date_format}}")
+        app.screen.clear_message()
+        app.screen.ask_question("Effective date", date_is, date_str)
+        trace(f"read_inv.date_is -> None")
     else:
-        print("Trial_run: Database not saved")
+        ans = read_inv(effective_date)
+        trace(f"read_inv.date_is -> {ans}")
+        return ans
 
+def read_inv(effective_date):
+    trace(f"read_inv.read_inv({effective_date=:{Date_format}})")
+    changed = False
+    for row in Inv_checklist.values():
+        if row.num_pkgs or row.num_units:
+            columns = dict(date=effective_date, item=row.item, code="count")
+            if row.num_pkgs:
+                columns['num_pkgs'] = row.num_pkgs
+            if row.num_units:
+                columns['num_units'] = row.num_units
+            Inventory.insert(**columns)
+            changed = True
+    if changed:
+        app.set_changed()
+    ans = step.mark_run(app)
+    trace(f"read_inv -> {ans=}")
+    return ans
+
+def read_inv_command(step, app):
+    trace(f"read_inv_command")
+    app.screen.ask_question("Effective date", date_is, date.today().strftime(Date_format))
+    trace(f"read_inv_command -> None")

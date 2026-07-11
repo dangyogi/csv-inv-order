@@ -206,11 +206,11 @@ class Items(Row):
 
 
 class Name_column(Column):
-    selected_attr_pair = 0x02
+    chosen_attr_pair = 0x02
 
     def column_attr_pair(self, row):
-        if row.selected:
-            return self.selected_attr_pair
+        if row.chosen:
+            return self.chosen_attr_pair
         return None
 
 class Products(Row):
@@ -234,14 +234,14 @@ class Products(Row):
 
     @property
     def row_popup_commands_end(self):
-        if self.selected:
+        if self.chosen:
             return 'Cancel',
         return 'Delete', 'Cancel'
 
     row_popup_command_fns = "Select",
 
     @property
-    def selected(self):
+    def chosen(self):
         item = Database.Items[self.item]
         return item.supplier == self.supplier and item.supplier_id == self.supplier_id
 

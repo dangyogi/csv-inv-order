@@ -4,9 +4,6 @@
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-packages = ["csv_inv_order"]
-
 [project]
 name = "csv-inv-order"
 version = "0.0.1"
@@ -29,10 +26,16 @@ inv-order-rows = "csv_inv_order.rows:run"
 inv-order-tables = "csv_inv_order.tables:run"
 monthly-stats = "csv_inv_order.monthly_stats:run"
 new-month = "csv_inv_order.new_month:run"
-read-inv = "csv_inv_order.read_inv:run"
+#read-inv = "csv_inv_order.read_inv:run"
 recalibrate = "csv_inv_order.recalibrate:run"
 record-purchases = "csv_inv_order.record_purchases:run"
 set-bf-stats = "csv_inv_order.set_bf_stats:run"
 set-meeting-attendance = "csv_inv_order.set_meeting_attendance:run"
 set-min-max = "csv_inv_order.set_min_max:run"
 inv-order = "csv_inv_order.tui:run"
+
+[tool.setuptools.package-dir]
+csv_inv_order = ["csv_inv_order"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
