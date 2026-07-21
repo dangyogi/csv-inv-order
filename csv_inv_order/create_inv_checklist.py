@@ -6,14 +6,10 @@ from .database import *
 
 
 def create_inv_checklist(step, app):
-    def table_size_is(s):
-        table_size = int(s)
-        if table_size < 4 or table_size > 12:
-            app.screen.show_error("Table size must be between 4 and 12")
-            app.screen.clear_message()
-            app.screen.ask_question("Table size", table_size_is, "8")
-        else:
-            return load_inv_checklist(table_size, step, app)
+    def table_size_is(table_size):          # already an int (convert_fn=int)
+        if not (4 <= table_size <= 12):
+            raise ValueError("Table size must be between 4 and 12")
+        return load_inv_checklist(table_size, step, app)
     app.screen.clear_message()
     if step.task.committed:
         if Inv_checklist:
@@ -21,7 +17,7 @@ def create_inv_checklist(step, app):
             app.set_changed()
             return step.mark_run(app)
     else:
-        app.screen.ask_question("Table size", table_size_is, "8")
+        app.screen.ask_question("Table size", table_size_is, "8", convert_fn=int)
 
 def load_inv_checklist(table_size, step, app):
     cur_month = Months.last_month()

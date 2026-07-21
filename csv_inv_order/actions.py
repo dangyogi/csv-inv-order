@@ -68,23 +68,23 @@ def last_month_update(global_validate=None):
                                    callback=lambda: step.mark_run(app))
 
 def create_month(step, app):
-    def year_is(s):
-        year = int(s)
-        def month_is(s):
-            month = int(s)
+    def year_is(year):                       # already an int (convert_fn=int)
+        def month_is(month):                 # already an int
+            if not (1 <= month <= 12):
+                raise ValueError("month must be 1-12")
             trace(f"month_is: {month=}")
             Months.insert(year=year, month=month, served_fudge=1.35, consumed_fudge=0.9)
             app.set_changed()
             return step.mark_run(app)
         trace(f"year_is: {year=}")
-        app.screen.ask_question("month", month_is, str(next_mth))
+        app.screen.ask_question("month", month_is, str(next_mth), convert_fn=int)
     yr, mth = list(Months.keys())[-1]
     if mth == 4:
         next_yr, next_mth = yr, 11
     else:
         next_yr, next_mth = Months.inc_month(yr, mth)
     trace(f"create_month: {yr=}, {mth=}, {next_yr=}, {next_mth=}")
-    app.screen.ask_question("year", year_is, str(next_yr))
+    app.screen.ask_question("year", year_is, str(next_yr), convert_fn=int)
 
 def check_fudge_factors(row_screen):
     other = None
