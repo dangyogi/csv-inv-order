@@ -10,9 +10,10 @@ from .create_inv_checklist import create_inv_checklist
 from .read_inv import read_inv_command
 
 
-def table(table_name, validate_fn=None):
+def table(table_name, validate_fn=None, mark_run=True):
     def run_table_screen(step, app):
-        step.mark_run(app)
+        if mark_run:
+            step.mark_run(app)
         return table_screen(tables.Tables[table_name], back=app.screen, validate_fn=validate_fn)
     return run_table_screen
 
@@ -236,25 +237,25 @@ Step(53, Task5, stub, 25, 43, 52, commits_task=True)
 Task6 = Task(6, column_break=True)
 
 # Items
-Step(61, Task6, table("Items"), can_rerun=True)
+Step(61, Task6, table("Items", mark_run=False), can_rerun=True)
 
 # Products
-Step(62, Task6, table("Products"), can_rerun=True)
+Step(62, Task6, table("Products", mark_run=False), can_rerun=True)
 
 # Inventory
-Step(63, Task6, table("Inventory"), can_rerun=True)
+Step(63, Task6, table("Inventory", mark_run=False), can_rerun=True)
 
 # Months
-Step(64, Task6, table("Months"), can_rerun=True)
+Step(64, Task6, table("Months", mark_run=False), can_rerun=True)
 
 # Inv_checklist
-Step(65, Task6, table("Inv_checklist"), can_rerun=True)
+Step(65, Task6, table("Inv_checklist", mark_run=False), can_rerun=True)
 
 # Orders
-Step(66, Task6, table("Orders"), can_rerun=True)
+Step(66, Task6, table("Orders", mark_run=False), can_rerun=True)
 
 # Steps
-Step(67, Task6, table("Steps"), can_rerun=True)
+Step(67, Task6, table("Steps", mark_run=False), can_rerun=True)
 
 
 # other
