@@ -621,7 +621,7 @@ Steps
 id|number|name                             |state|last_run
  1|1     |Create Month                     |     |        
  2|2     |Do Inventory                     |     |        
-21|2.A   |Set Fudge Factors                |     |        
+21|2.A   |Set Fudge Factors & table_size   |     |        
 22|2.B   |Create Inv_checklist             |     |        
 23|2.C   |Print Inv_checklist              |     |        
 24|2.D   |Edit Inv_checklist               |     |        
@@ -630,7 +630,6 @@ id|number|name                             |state|last_run
 31|3.A   |Create Orders                    |     |        
 32|3.B   |Edit Orders                      |     |        
 33|3.C   |Create P.O.s                     |     |        
-34|3.D   |Print P.O.s                      |     |        
  4|4     |After Member Meeting             |     |        
 41|4.A   |Set Meeting Attendance           |     |        
 42|4.B   |Edit purchases/locations/prices  |     |        
@@ -646,11 +645,13 @@ id|number|name                             |state|last_run
 64|6.D   |Months                           |     |        
 65|6.E   |Inv_checklist                    |     |        
 66|6.F   |Orders                           |     |        
-67|6.G   |Steps                            |     |        
+67|6.G   |Order_stats                      |     |        
+68|6.H   |Month_stats                      |     |        
+69|6.I   |Steps                            |     |        
  7|7     |Other                            |     |        
 71|7.A   |Save Database                    |     |        
-72|7.B   |Monthly Stats                    |     |        
-73|7.C   |Recalibrate                      |     |        
+72|7.B   |Recalibrate                      |     |        
+73|7.C   |Est cost per meal                |     |        
 74|7.D   |git commit/push                  |     |        
 75|7.E   |Exit                             |     |        
 76|7.F   |Abort                            |     |        

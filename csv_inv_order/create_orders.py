@@ -5,23 +5,13 @@ import math
 from .database import *
 
 
-def run():
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--table-size", "-t", type=int, default=8)
-    parser.add_argument("--verbose", "-v", action="store_true", default=False)
-
-    args = parser.parse_args()
-
-    load_database()
-
+def create_orders(step, app, verbose=False):
     cur_month = Months.last_month()
+    if not (4 <= cur_month.table_size <= 12):
+        raise ValueError(f"{cur_month.table_size=} must be between 4 and 12")
+    table_size = cur_month.table_size
     if not cur_month.served_fudge:
-        print(f"served_fudge not set in cur_month({cur_month.month_str}), aborting")
-        return
-    table_size = args.table_size
-    verbose = args.verbose
+        raise ValueError(f"served_fudge not set in cur_month({cur_month.month_str}), aborting")
 
     avg_served1 = cur_month.avg_meals_served
     if cur_month.month == 4:
@@ -34,50 +24,50 @@ def run():
     max_served1 = cur_month.meals_planned
     num_tables = int(math.ceil(max_served1 / table_size))
 
-    print(f"cur_month={cur_month.month_str}, {avg_served1=}, served_fudge={cur_month.served_fudge}, "
+    trace(f"cur_month={cur_month.month_str}, {avg_served1=}, served_fudge={cur_month.served_fudge}, "
           f"{max_served1=}, consumed_fudge={cur_month.consumed_fudge}, "
           f"{table_size=}, {num_tables=}")
 
-    with open("Month_stats.csv", "w") as f:
-        print("Month_stats", file=f)
-        print("month|max_served1|max_served2|served_fudge|avg_served1|avg_served2|num_tables|table_size|"
-              "consumed_fudge", file=f) 
-        print(f"{abbr_month(cur_month.month):5}|{max_served1:11}|{max_served2:11}|{cur_month.served_fudge:12.2}|"
-              f"{avg_served1:11}|{avg_served2:11}|{num_tables:10}|{table_size:10}|"
-              f"{cur_month.consumed_fudge:14.2}", file=f) 
+    if cur_month.month in Month_stats:
+        ms = Month_stats[cur_month.month]
+        ms.max_served1 = max_served1
+        ms.max_served2 = max_served2
+        ms.served_fudge = cur_month.served_fudge
+        ms.avg_served1 = avg_served1
+        ms.avg_served2 = avg_served2
+        ms.num_tables = num_tables
+        ms.table_size = table_size
+        ms.consumed_fudge = cur_month.consumed_fudge
+    else:
+        Month_stats.insert(month=cur_month.month, max_served1=max_served1, max_served2=max_served2,
+                           served_fudge=cur_month.served_fudge, avg_served1=avg_served1, avg_served2=avg_served2,
+                           num_tables=num_tables, table_size=table_size, consumed_fudge=cur_month.consumed_fudge)
 
-    with (open("Order_stats.csv", "w") as stats_file,
-          open("Orders.csv", "w") as orders_file
-    ):
-        print("Order_stats", file=stats_file)
-        print("item                |unit         |pkg_sz|perish|   inv|uncer|cons1|cons2|" \
-              "min1|max_order|min2|min3|order", file=stats_file)
+    Orders.clear()
+    Order_stats.clear()
+    for item in Items.values():
+        order_stats = item.order_stats(cur_month, override=True, verbose=verbose)
 
-        print("Orders", file=orders_file)
-        print("item                |qty |supplier|supplier_id|purchased_pkgs|purchased_units|"
-              "location|price", file=orders_file)
-        for item in Items.values():
-            order_stats = item.order_stats(cur_month, table_size, override=True, verbose=verbose)
-            print(f"{order_stats.item:20}|",
-                  f"{order_stats.unit:13}|",
-                  f"{order_stats.pkg_size:6}|",
-                  f"{order_stats.perishable:6}|",
-                  f"{order_stats.inv:6}|",
-                  f"{order_stats.uncertainty:5}|",
-                  f"{order_stats.consumed1:5}|"
-                  f"{order_stats.consumed2:5}|"
-                  f"{order_stats.min_needed1:4}|",
-                  sep='', end='', file=stats_file)
-            max_order = order_stats.max_order or ""
-            min_needed2 = order_stats.min_needed2 or ""
-            min_needed3 = order_stats.min_needed3 or ""
-            print(f"{max_order:9}|",
-                  f"{min_needed2:4}|",
-                  f"{min_needed3:4}|",
-                  f"{order_stats.order:5}",
-                  sep='', file=stats_file)
-           #print(f"{item.item=}, {order=}")
-            if order_stats.order:
-                print(f"{order_stats.item:20}|{order_stats.order:4}|        |           |"
-                      "              |               |        |", file=orders_file)
+        optional_fields = {}
+        for f in "max_order min_needed2 min_needed3".split():
+            x = getattr(order_stats, f)
+            if x is not None:
+                optional_fields[f] = x
+        Order_stats.insert(
+          item=order_stats.item,
+          unit=order_stats.unit,
+          pkg_size=order_stats.pkg_size,
+          perishable=order_stats.perishable,
+          inv_units=order_stats.inv,
+          uncertainty=order_stats.uncertainty,
+          consumed1=order_stats.consumed1,
+          consumed2=order_stats.consumed2,
+          min_needed1=order_stats.min_needed1,
+          order=order_stats.order,
+          **optional_fields)
 
+        if order_stats.order:
+            Orders.insert(item=order_stats.item, qty=order_stats.order)
+
+    app.set_changed()
+    return step.mark_run(app)

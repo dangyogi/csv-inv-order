@@ -12,13 +12,14 @@ def read_inv_command(step, app):
     today = date.today()
     cur_month = Months.last_month()
     earliest = date(cur_month.year, cur_month.month, 15)
-    assert today >= earliest, \
-           f"read_inv_command: {today=:{Date_format}} < {earliest=:{Date_format}}"
+    if not app.testing:
+        assert today >= earliest, \
+               f"read_inv_command: {today=:{Date_format}} < {earliest=:{Date_format}}"
     next_yr, next_mth = Months.inc_month(cur_month.year, cur_month.month)
     latest = min(date(next_yr, next_mth, 13), today)
 
     def date_is(effective_date):        # a date (convert_fn parses the typed string)
-        if not (earliest <= effective_date <= latest):
+        if not app.testing and not (earliest <= effective_date <= latest):
             raise ValueError(f"{effective_date:{Date_format}} must be between "
                              f"{earliest:{Date_format}} and {latest:{Date_format}}")
         return read_inv(effective_date)

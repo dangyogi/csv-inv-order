@@ -8,44 +8,37 @@ import math
 from .database import *
 
 
-def run():
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--trial-run", "-t", action="store_true", default=False)
-    parser.add_argument("--table-size", "-s", type=int, default=8)
-    parser.add_argument("--uncertainty", "-u", type=float, default=0.20, help="as percent, default 0.20")
-
-    args = parser.parse_args()
-
-    load_database()
-
-    table_size = args.table_size
-    uncertainty_pct = args.uncertainty
-
-    today = date.today()
-    #FIX cur_month = Months[today.year, today.month]
+def calc_consumed(step, app):
     cur_month = Months.last_month()
+    table_size = cur_month.table_size
+    if not (4 <= table_size <= 12):
+        raise ValueError(f"{table_size=} must be 4-12")
+    def uncertainty_is(uncertainty_pct):
+        if not (0.05 <= uncertainty_pct <= 0.50):
+            raise ValueError(f"{uncertainty_pct=} must be 0.05-0.50")
+        return calc_consumed2(step, app, cur_month, table_size, uncertainty_pct)
+    app.screen.ask_question("Uncertainty (percent)", uncertainty_is, "0.20", convert_fn=float)
+    return None
 
+
+def calc_consumed2(step, app, cur_month, table_size, uncertainty_pct):
     eff_date = cur_month.breakfast_date
     meals_served = cur_month.meals_served
-    assert meals_served is not None, f"You haven't run set_bf_stats for Month {cur_month.month_str}"
-    print(f"Calculating consumption of {meals_served=}, {table_size=}, {uncertainty_pct=}, "
+    if meals_served is None:
+        raise ValueError(f"You haven't run set_bf_stats for {cur_month.month_str}")
+    trace(f"Calculating consumption of {meals_served=}, {table_size=}, {uncertainty_pct=}, "
           f"effective {eff_date:%b %d, %y}")
 
     for item in Items.values():
         units_consumed = item.consumed(meals_served, table_size)
         if units_consumed:
             uncertainty = int(math.ceil(units_consumed * uncertainty_pct))
-            print(f"Item {item.item}: {units_consumed} consumed, {uncertainty=}")
+            trace(f"Item {item.item}: {units_consumed} consumed, {uncertainty=}")
             Inventory.insert(date=eff_date, item=item.item, code="consumed", num_units=units_consumed,
                              uncertainty=uncertainty)
         else:
-            print(f"Item {item.item}: none consumed")
+            trace(f"Item {item.item}: none consumed")
 
-    if not args.trial_run:
-        print("Saving Database")
-        save_database()
-    else:
-        print("Trial_run: Database not saved")
+    app.set_changed()
+    return step.mark_run(app)
 

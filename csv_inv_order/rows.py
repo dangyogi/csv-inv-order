@@ -8,6 +8,7 @@ from csv_app.row import *
 from csv_app.table import Database, set_database_filename
 from csv_app.action import Steps
 from tui_app.table_screen import table_screen
+from tui_app.tui import get_app
 
 
 set_database_filename("inv-order.csv")
@@ -15,7 +16,6 @@ set_database_filename("inv-order.csv")
 
 class CheckInventory(Exception):
     pass
-
 
 class Items(Row):
     columns = (
@@ -37,11 +37,15 @@ class Items(Row):
                           "min_needed1 max_order min_needed2 min_needed3 order".split()
     order_stats_row_type = namedtuple("order_stats", order_stats_headers)
 
-    row_popup_command_fns = "Products",
+    row_popup_command_fns = "Inventory", "Products"
+
+    def Inventory(self, app):
+        trace(f"Items row({self.item=}, {app=}).Inventory executed")
+        return table_screen(Database.Inventory, app.screen, item=self.item)
 
     def Products(self, app):
-        trace(f"Items row({self.item=}).Products executed")
-        return table_screen(Database.Products, app.screen, item=self.item)
+        trace(f"Items row({self.item=}, {app=}).Products executed")
+        return table_screen(Database.Products, app.screen, note=self, item=self.item)
 
     @property
     def product(self):
@@ -90,7 +94,7 @@ class Items(Row):
         return units, uncertainty
 
     def consumed(self, num_served, table_size=6, verbose=False):
-        r'''Returns the number of units consumed at breakfast.
+        r'''Returns the number of units consumed at a single breakfast.
         '''
         if self.num_per_serving is not None:
             ans = self.num_per_serving * num_served
@@ -111,9 +115,10 @@ class Items(Row):
                 print(f"{self.item}.consumed: no consumption set, {ans=}")
         return round(ans)
 
-    def order_stats(self, cur_month, table_size=6, override=False, verbose=False):
+    def order_stats(self, cur_month, override=False, verbose=False):
         r'''Returns order_stats_row_type (stored on this class).
         '''
+        table_size = cur_month.table_size
         def calc_needed(num_servings):
             r'''Calculates total needed to cover num_servings.
 
@@ -199,11 +204,10 @@ class Items(Row):
         stats.append(round(max(min1, min2, min3)))
         return self.order_stats_row_type(*stats)
 
-    def order(self, cur_month, table_size=6, override=False, verbose=False):
+    def order(self, cur_month, override=False, verbose=False):
         r'''Returns how many pkgs to order.
         '''
-        return self.order_stats(cur_month, table_size, override, verbose).order
-
+        return self.order_stats(cur_month, override, verbose).order
 
 class Name_column(Column):
     chosen_attr_pair = 0x02
@@ -213,9 +217,12 @@ class Name_column(Column):
             return self.chosen_attr_pair
         return None
 
+def get_items_keys():
+    return list(Database.Items.keys())
+
 class Products(Row):
     columns = (
-        Column("item", required=True, min_width=13),
+        Column("item", required=True, min_width=13, selection_fn=get_items_keys),
         Column("supplier", required=True),
         Column("supplier_id", "id", parse=int, default=1, can_edit=True),
         Name_column("name", required=True, min_width=26, edit_width=200),
@@ -238,7 +245,12 @@ class Products(Row):
             return 'Cancel',
         return 'Delete', 'Cancel'
 
-    row_popup_command_fns = "Select",
+    @property
+    def row_popup_command_fns(self):
+        if get_app().screen.note is not None:
+            return ("Select",)
+        else:
+            return ()
 
     @property
     def chosen(self):
@@ -247,10 +259,10 @@ class Products(Row):
 
     def Select(self, app):
         trace(f"Products row({self.item=}, {self.supplier=}, {self.supplier_id=}).Select executed")
-        item = Database.Items[self.item]
-        if item.supplier != self.supplier or item.supplier_id != self.supplier_id:
-            item.supplier = self.supplier
-            item.supplier_id = self.supplier_id
+        row = app.screen.note   # either an Item or Order
+        if row.supplier != self.supplier or row.supplier_id != self.supplier_id:
+            row.supplier = self.supplier
+            row.supplier_id = self.supplier_id
             app.set_changed()
             return 'REFRESH'
         return None
@@ -274,7 +286,7 @@ class Products(Row):
 class Inventory(Row):
     columns = (
         Date_column("date", required=True),
-        Column("item", required=True),
+        Column("item", required=True, selection_fn=get_items_keys),
         Column("code",
                choices=(
                    "count",
@@ -288,7 +300,7 @@ class Inventory(Row):
         Column("num_units", parse=int, default=0),
         Column("uncertainty", parse=int, default=0),
         Column("pkg_size", parse=int, calculated=True),
-        Column("total_units", parse=float, calculated=True),
+        Column("total_units", parse=int, calculated=True),
     )
     primary_keys = "date item code".split()
     foreign_keys = "Items",
@@ -310,10 +322,12 @@ class Months(Row):
         Column("month_str", "mth_str", calculated=True),
         Column("served_fudge", "srvFG", parse=float),
         Column("consumed_fudge", "cnsFG", parse=float),
+        Column("table_size", "tbl_sz", parse=int, default=8),
+        Column("meals_planned", "ml_pln", parse=int, calculated=True),
+        Column("num_tables", "#tbl", parse=int, calculated=True),
         Column("avg_staff_at_breakfast", "AVstf", parse=int, calculated=True),
         Column("avg_tickets_claimed", "AVtkt", parse=int, calculated=True),
         Column("avg_meals_served", "AVml", parse=int, calculated=True),
-        Column("meals_planned", "ml_pln", parse=int, calculated=True),
         Column("PO_index", "POidx", parse=int),
         Column("num_at_meeting", "#mtg", parse=int),
         Column("staff_at_breakfast", "#bf", parse=int),
@@ -392,9 +406,16 @@ class Months(Row):
     def meals_planned(self):
         return self.meals_fudged(self.served_fudge)
 
+    @property
+    def num_tables(self):
+        avg_tickets = self.avg_tickets_claimed
+        if avg_tickets is None or self.served_fudge is None:
+            return None
+        return int(math.ceil(avg_tickets * self.served_fudge / self.table_size))
+
 class Inv_checklist(Row):
     columns = (
-        Column("item", required=True),
+        Column("item", required=True, selection_fn=get_items_keys),
         Column("unit", calculated=True),
         Column("pkg_size", parse=int, calculated=True),
         Column("num_pkgs", parse=float),
@@ -420,7 +441,7 @@ class Inv_checklist(Row):
 
 class Orders(Row):
     columns = (
-        Column("item", required=True),
+        Column("item", required=True, selection_fn=get_items_keys),
         Column("qty", parse=int),             # None if no P.O. was created, and purchased_units used.
         Column("supplier"),
         Column("supplier_id", parse=int),
@@ -428,6 +449,7 @@ class Orders(Row):
         Column("purchased_units", parse=int), # added to purchased_pkgs
         Column("location"),                   # updates Products if not None
         Column("price", parse=Decimal),       # updates Products if not None
+       #Column("product", calculated=True),
        #Column("unit", calculated=True),
        #Column("pkg_size", parse=int, calculated=True),
        #Column("pkg_weight", parse=float, calculated=True),
@@ -437,7 +459,12 @@ class Orders(Row):
     foreign_keys = "Items", "Products"
    #omit = True
 
+    row_popup_command_fns = "Products",
     row_popup_commands_end = 'Delete', 'Cancel'
+
+    def Products(self, app):
+        trace(f"Orders row({self.item=}).Products executed")
+        return table_screen(Database.Products, app.screen, note=self, item=self.item)
 
     @property
     def item_row(self):
@@ -461,9 +488,41 @@ class Orders(Row):
    #def pkg_weight(self):
    #    return self.product.pkg_weight
 
+class Month_stats(Row):
+    columns = (
+        Column("month", parse=int, required=True),
+        Column("max_served1", parse=int, required=True, can_edit=False),
+        Column("max_served2", parse=int, required=True, can_edit=False),
+        Column("served_fudge", parse=float, required=True, can_edit=False),
+        Column("avg_served1", parse=int, required=True, can_edit=False),
+        Column("avg_served2", parse=int, required=True, can_edit=False),
+        Column("num_tables", parse=int, required=True, can_edit=False),
+        Column("table_size", parse=int, required=True, can_edit=False),
+        Column("consumed_fudge", parse=float, required=True, can_edit=False),
+    )
+    primary_key = 'month'
+
+class Order_stats(Row):
+    columns = (
+        Column("item", required=True),
+        Column("unit", required=True, can_edit=False),
+        Column("pkg_size", "pkg_sz", parse=int, required=True, can_edit=False),
+        Bool_column("perishable", "perish", required=True, can_edit=False),
+        Column("inv_units", "inv", parse=int, required=True, can_edit=False),
+        Column("uncertainty", "uncert", parse=int, required=True, can_edit=False),
+        Column("consumed1", "cons1", parse=int, required=True, can_edit=False),
+        Column("consumed2", "cons2", parse=int, required=True, can_edit=False),
+        Column("min_needed1", "min1", parse=int, required=True, can_edit=False),
+        Column("max_order", "max_ord", parse=int, can_edit=False),
+        Column("min_needed2", "min2", parse=int, can_edit=False),
+        Column("min_needed3", "min3", parse=int, can_edit=False),
+        Column("order", parse=int, required=True, can_edit=False),
+    )
+    primary_key = 'item'
+
 
 # These must be in logical order based on what has to be defined first
-Rows = (Months, Inv_checklist, Orders, Items, Products, Inventory, Steps,
+Rows = (Months, Inv_checklist, Orders, Items, Products, Inventory, Month_stats, Order_stats, Steps,
        )
 
 

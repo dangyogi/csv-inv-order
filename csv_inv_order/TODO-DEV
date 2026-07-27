@@ -6,5 +6,4 @@
 - ./set_bf_stats.py:    #FIX cur_month = Months[today.year, today.month]
 - ./read_inv.py:        # FIX: Truncate Inv-checklist.csv
 - have commands work even when done late
-- record commands run so we know where we stand on the checklist
 - print all new rows to be added to database in all commands so they can be validated

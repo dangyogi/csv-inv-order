@@ -20,5 +20,9 @@ Products = Tables['Products']
 
 Inventory = Tables['Inventory']
 
+Month_stats = Tables['Month_stats']
+
+Order_stats = Tables['Order_stats']
+
 Steps = Tables['Steps']
 
