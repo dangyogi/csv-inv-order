@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "csv-inv-order"
-version = "0.0.1"
+version = "0.0.2"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
@@ -23,7 +23,7 @@ recalibrate = "csv_inv_order.recalibrate:run"
 inv-order = "csv_inv_order.tui:run"
 
 [tool.setuptools.package-dir]
-csv_inv_order = ["csv_inv_order"]
+csv_inv_order = "csv_inv_order"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

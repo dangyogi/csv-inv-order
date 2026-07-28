@@ -40,14 +40,12 @@ def stub(step, app):
     app.set_changed()
     return step.mark_run(app)
 
-def save_stub(step, app):
-    trace(f"stub_save {step.name}")
+def save(step, app):
+    trace(f"save {step.name}")
+    if not app.testing:
+        save_database()
     app.reset_changed()
     return step.mark_run(app)
-
-def stub_error(step, app):
-    trace(f"stub_error {step.name}")
-    raise ActionFailed(f"{step.name} failed for some reason...")
 
 def print(table_name):
     def print_table(step, app):
@@ -178,7 +176,7 @@ Step(33, Task3, create_POs, 32, can_rerun=True, can_rerun_after_commit=True)
 Task4 = Task(4, 3)
 
 # set meeting attendance
-Step(41, Task4, set_meeting_attendance, can_rerun=True, can_rerun_after_commit=True)
+Step(41, Task4, set_meeting_attendance, 1, can_rerun=True, can_rerun_after_commit=True)
 
 # edit purchases/locations/prices
 Step(42, Task4, table('Orders'), 33, can_rerun=True)
@@ -191,7 +189,7 @@ Step(43, Task4, record_purchases, 42, commits_task=True)
 Task5 = Task(5, 1)
 
 # set breakfast stats
-Step(51, Task5, set_bf_stats, can_rerun=True)
+Step(51, Task5, set_bf_stats, 1, can_rerun=True)
 
 # calc consumed
 Step(52, Task5, calc_consumed, 51, disable_prereqs=True)
@@ -235,22 +233,19 @@ Step(69, Task6, table("Steps", mark_run=False), can_rerun=True)
 Task7 = Task(7)
 
 # save database
-Step(71, Task7, save_stub, can_rerun=True)
-
-# recalibrate
-Step(72, Task7, stub, can_rerun=True)
+Step(71, Task7, save, can_rerun=True)
 
 # est_cost_per_meal
-Step(73, Task7, est_cost_per_meal, can_rerun=True)
+Step(72, Task7, est_cost_per_meal, can_rerun=True)
 
 # git commit/push
-Step(74, Task7, stub, can_rerun=True)
+Step(73, Task7, stub, can_rerun=True)
 
 # exit
-ExitStep(75, Task7)
+ExitStep(74, Task7)
 
 # abort
-ExitStep(76, Task7, abort=True)
+ExitStep(75, Task7, abort=True)
 
 
 # special events

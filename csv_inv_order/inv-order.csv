@@ -650,11 +650,10 @@ id|number|name                             |state|last_run
 69|6.I   |Steps                            |     |        
  7|7     |Other                            |     |        
 71|7.A   |Save Database                    |     |        
-72|7.B   |Recalibrate                      |     |        
-73|7.C   |Est cost per meal                |     |        
-74|7.D   |git commit/push                  |     |        
-75|7.E   |Exit                             |     |        
-76|7.F   |Abort                            |     |        
+72|7.B   |Est cost per meal                |     |        
+73|7.C   |git commit/push                  |     |        
+74|7.D   |Exit                             |     |        
+75|7.E   |Abort                            |     |        
  8|8     |Special Events                   |     |        
 81|8.A   |Acquisitions                     |     |        
 82|8.B   |Items Used                       |     |        
