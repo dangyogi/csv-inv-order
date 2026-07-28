@@ -1,9 +1,12 @@
 # create_orders.py
 
 import math
+import logging
 
 from .database import *
 
+
+logger = logging.getLogger('csv-inv-order.create_orders')
 
 def create_orders(step, app, verbose=False):
     cur_month = Months.last_month()
@@ -24,9 +27,9 @@ def create_orders(step, app, verbose=False):
     max_served1 = cur_month.meals_planned
     num_tables = int(math.ceil(max_served1 / table_size))
 
-    trace(f"cur_month={cur_month.month_str}, {avg_served1=}, served_fudge={cur_month.served_fudge}, "
-          f"{max_served1=}, consumed_fudge={cur_month.consumed_fudge}, "
-          f"{table_size=}, {num_tables=}")
+    logger.info(f"cur_month={cur_month.month_str}, {avg_served1=}, served_fudge={cur_month.served_fudge}, "
+                f"{max_served1=}, consumed_fudge={cur_month.consumed_fudge}, "
+                f"{table_size=}, {num_tables=}")
 
     if cur_month.month in Month_stats:
         ms = Month_stats[cur_month.month]

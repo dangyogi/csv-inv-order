@@ -2,8 +2,8 @@
 
 import math
 from collections import namedtuple
+import logging
 
-from csv_app.trace import trace
 from csv_app.row import *
 from csv_app.table import Database, set_database_filename
 from csv_app.action import Steps
@@ -13,6 +13,7 @@ from tui_app.tui import get_app
 
 set_database_filename("inv-order.csv")
 
+logger = logging.getLogger('csv-inv-order.rows')
 
 class CheckInventory(Exception):
     pass
@@ -40,11 +41,11 @@ class Items(Row):
     row_popup_command_fns = "Inventory", "Products"
 
     def Inventory(self, app):
-        trace(f"Items row({self.item=}, {app=}).Inventory executed")
+        logger.info(f"Items row({self.item=}, {app=}).Inventory executed")
         return table_screen(Database.Inventory, app.screen, item=self.item)
 
     def Products(self, app):
-        trace(f"Items row({self.item=}, {app=}).Products executed")
+        logger.info(f"Items row({self.item=}, {app=}).Products executed")
         return table_screen(Database.Products, app.screen, note=self, item=self.item)
 
     @property
@@ -258,7 +259,7 @@ class Products(Row):
         return item.supplier == self.supplier and item.supplier_id == self.supplier_id
 
     def Select(self, app):
-        trace(f"Products row({self.item=}, {self.supplier=}, {self.supplier_id=}).Select executed")
+        logger.info(f"Products row({self.item=}, {self.supplier=}, {self.supplier_id=}).Select executed")
         row = app.screen.note   # either an Item or Order
         if row.supplier != self.supplier or row.supplier_id != self.supplier_id:
             row.supplier = self.supplier
@@ -343,7 +344,7 @@ class Months(Row):
     row_popup_command_fns = "Inventory",
 
     def Inventory(self, app):
-        trace(f"Months row({self.month=}, {self.year=}).Inventory executed")
+        logger.info(f"Months row({self.month=}, {self.year=}).Inventory executed")
         start_date = date(self.year, self.month, 1)
         end_date = date(self.year, self.month + 1, 1)
         return table_screen(Database.Inventory, app.screen, date__ge=start_date, date__lt=end_date)
@@ -450,9 +451,7 @@ class Orders(Row):
         Column("location"),                   # updates Products if not None
         Column("price", parse=Decimal),       # updates Products if not None
        #Column("product", calculated=True),
-       #Column("unit", calculated=True),
-       #Column("pkg_size", parse=int, calculated=True),
-       #Column("pkg_weight", parse=float, calculated=True),
+       #Column("order_supplier", calculated=True),
     )
    #in_database = False
     primary_key = 'item'
@@ -463,7 +462,7 @@ class Orders(Row):
     row_popup_commands_end = 'Delete', 'Cancel'
 
     def Products(self, app):
-        trace(f"Orders row({self.item=}).Products executed")
+        logger.info(f"Orders row({self.item=}).Products executed")
         return table_screen(Database.Products, app.screen, note=self, item=self.item)
 
     @property
@@ -475,18 +474,12 @@ class Orders(Row):
         if self.supplier is None or self.supplier_id is None:
             return self.item_row.product
         return Database.Products[self.item, self.supplier, self.supplier_id]
-   #
-   #@property
-   #def unit(self):
-   #    return self.item_row.unit
-   #
-   #@property
-   #def pkg_size(self):
-   #    return self.product.pkg_size
-   #
-   #@property
-   #def pkg_weight(self):
-   #    return self.product.pkg_weight
+
+    @property
+    def order_supplier(self):
+        if self.supplier is None:
+            return self.item_row.supplier
+        return supplier
 
 class Month_stats(Row):
     columns = (

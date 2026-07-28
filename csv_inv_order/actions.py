@@ -1,7 +1,10 @@
 # actions.py
 
+import logging
+
 from csv_app.action import *
 from csv_app.report import dump_table
+from tui_app.tui import get_app
 from tui_app.table_screen import table_screen
 from tui_app.row_screen import row_screen
 from . import tables
@@ -17,6 +20,8 @@ from .calc_consumed import calc_consumed
 from .calc_estimates import calc_estimates
 from .est_cost_per_meal import est_cost_per_meal
 
+
+logger = logging.getLogger('csv-inv-order.actions')
 
 def table(table_name, validate_fn=None, mark_run=True):
     def run_table_screen(step, app):
@@ -36,16 +41,17 @@ def validate_orders(table):
             return f"No order quantity entered for {row.item}"
 
 def stub(step, app):
-    trace(f"stub {step.name}")
+    logger.info(f"stub {step.name}")
     app.set_changed()
     return step.mark_run(app)
 
 def save(step, app):
-    trace(f"save {step.name}")
+    logger.info(f"save {step.name}")
     if not app.testing:
         save_database()
+    ans = step.mark_run(app)  # sets app.changed
     app.reset_changed()
-    return step.mark_run(app)
+    return ans
 
 def print(table_name):
     def print_table(step, app):
@@ -54,8 +60,8 @@ def print(table_name):
     return print_table
 
 class ExitStep(Step):
-    def __init__(self, id, task, abort=False):
-        super().__init__(id, task, self.fn)
+    def __init__(self, id, task, abort=False, ok_fn=None):
+        super().__init__(id, task, self.fn, ok_fn=ok_fn)
         self.abort = abort
 
     @property
@@ -83,11 +89,11 @@ def create_month(step, app):
             else:
                 if not (1 <= month <= 4 or 11 <= month <= 12):
                     raise ValueError(f"{month=} must be 1-4 or 11-12")
-            trace(f"month_is: {month=}")
+            logger.info(f"month_is: {month=}")
             Months.insert(year=year, month=month, served_fudge=1.35, consumed_fudge=0.9)
             app.set_changed()
             return step.mark_run(app)
-        trace(f"year_is: {year=}")
+        logger.info(f"year_is: {year=}")
         today = date.today()
         if not (today.year <= year <= today.year + 1):
             raise ValueError(f"Invalid {year=}, must be between {today.year} and {today.year + 1}")
@@ -98,13 +104,13 @@ def create_month(step, app):
         next_yr, next_mth = yr, 11
     else:
         next_yr, next_mth = Months.inc_month(yr, mth)
-    trace(f"create_month: {yr=}, {mth=}, {next_yr=}, {next_mth=}")
+    logger.info(f"create_month: {yr=}, {mth=}, {next_yr=}, {next_mth=}")
     app.screen.ask_question("year", year_is, str(next_yr), convert_fn=int)
 
 def check_fudge_factors(row_screen):
     other = None
     for field in row_screen.fields:
-        trace(f"check_fudge_factors: got {field.name=}")
+        logger.info(f"check_fudge_factors: got {field.name=}")
         if field.name == 'served_fudge':
             if field.text:
                 fudge = float(field.text)
@@ -153,7 +159,7 @@ Step(22, Task2, create_inv_checklist, 21, can_rerun=True, can_rerun_after_commit
 Step(23, Task2, print("Inv_checklist"), 22, can_rerun=True)
 
 # edit Inv_checklist
-Step(24, Task2, table('Inv_checklist', validate_inv_checklist), 23, can_rerun=True)
+Step(24, Task2, table('Inv_checklist', validate_inv_checklist), 22, can_rerun=True)
 
 # import Inv_checklist
 Step(25, Task2, read_inv_command, 24, commits_task=True)
@@ -233,7 +239,7 @@ Step(69, Task6, table("Steps", mark_run=False), can_rerun=True)
 Task7 = Task(7)
 
 # save database
-Step(71, Task7, save, can_rerun=True)
+Step(71, Task7, save, ok_fn=lambda: get_app().changed, can_rerun=True)
 
 # est_cost_per_meal
 Step(72, Task7, est_cost_per_meal, can_rerun=True)
@@ -242,10 +248,10 @@ Step(72, Task7, est_cost_per_meal, can_rerun=True)
 Step(73, Task7, stub, can_rerun=True)
 
 # exit
-ExitStep(74, Task7)
+ExitStep(74, Task7, ok_fn=lambda: not get_app().changed)
 
 # abort
-ExitStep(75, Task7, abort=True)
+ExitStep(75, Task7, abort=True, ok_fn=lambda: get_app().changed)
 
 
 # special events

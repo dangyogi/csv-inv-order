@@ -7,8 +7,12 @@ r'''
   #   -- don't have price paid, might go to two different people...
 '''
 
+import logging
+
 from .database import *
 
+
+logger = logging.getLogger('csv-inv-order.record_purchases')
 
 def record_purchases(step, app):
     today = date.today()
@@ -32,7 +36,7 @@ def record_purchases(step, app):
     return None
 
 def record_purchases_in_inventory(step, app, purchase_date):
-    trace(f"record_purchases {purchase_date=:%b %d, %y}")
+    logger.info(f"record_purchases {purchase_date=:%b %d, %y}")
 
     num_orders = 0
     inv_rows_added = 0
@@ -55,16 +59,16 @@ def record_purchases_in_inventory(step, app, purchase_date):
             Inventory.insert(**attrs)
             inv_rows_added += 1
         if order.location is not None:
-            trace(f"Updating Product[{order.product.item}, {order.product.supplier}, "
-                  f"{order.product.supplier_id}].location to", order.location)
+            logger.info(f"Updating Product[{order.product.item}, {order.product.supplier}, "
+                        f"{order.product.supplier_id}].location to", order.location)
             order.product.location = order.location
         if order.price is not None:
             print(f"Updating Product[{order.product.item}, {order.product.supplier}, "
                                    f"{order.product.supplier_id}].price to", order.price)
             order.product.price = order.price
 
-    trace(f"record_purchases: {num_orders=}, {inv_rows_added=}")
-    trace("Clearing Orders")
+    logger.info(f"record_purchases: {num_orders=}, {inv_rows_added=}")
+    logger.info("Clearing Orders")
     Orders.clear()
     app.set_changed()
     return step.mark_run(app)

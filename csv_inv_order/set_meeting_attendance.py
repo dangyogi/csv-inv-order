@@ -3,8 +3,12 @@
 r'''Stores num_at_meeting in current Month.
 '''
 
+import logging
+
 from .database import *
 
+
+logger = logging.getLogger('csv-inv-order.set_meeting_attendance')
 
 def set_meeting_attendance(step, app):
     cur_month = Months.last_month()
@@ -23,8 +27,8 @@ def set_meeting_attendance(step, app):
             def attendance_is(attendance):
                 if not (0 <= attendance <= 150):
                     raise ValueError(f"{attendance=} must be 0-150")
-                trace(f"Current month: {abbr_month(month)} '{str(year)[2:]}")
-                trace("Setting num_at_meeting to", attendance)
+                logger.info(f"Current month: {abbr_month(month)} '{str(year)[2:]}")
+                logger.info("Setting num_at_meeting to", attendance)
                 target_month.num_at_meeting = attendance
                 app.set_changed()
                 return step.mark_run(app)

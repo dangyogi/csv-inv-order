@@ -4,9 +4,12 @@ r'''Inserts code="consumed" rows into Inventory table.
 '''
 
 import math
+import logging
 
 from .database import *
 
+
+logger = logging.getLogger('csv-inv-order.calc_consumed')
 
 def calc_consumed(step, app):
     cur_month = Months.last_month()
@@ -26,18 +29,18 @@ def calc_consumed2(step, app, cur_month, table_size, uncertainty_pct):
     meals_served = cur_month.meals_served
     if meals_served is None:
         raise ValueError(f"You haven't run set_bf_stats for {cur_month.month_str}")
-    trace(f"Calculating consumption of {meals_served=}, {table_size=}, {uncertainty_pct=}, "
-          f"effective {eff_date:%b %d, %y}")
+    logger.info(f"Calculating consumption of {meals_served=}, {table_size=}, {uncertainty_pct=}, "
+                f"effective {eff_date:%b %d, %y}")
 
     for item in Items.values():
         units_consumed = item.consumed(meals_served, table_size)
         if units_consumed:
             uncertainty = int(math.ceil(units_consumed * uncertainty_pct))
-            trace(f"Item {item.item}: {units_consumed} consumed, {uncertainty=}")
+            logger.info(f"Item {item.item}: {units_consumed} consumed, {uncertainty=}")
             Inventory.insert(date=eff_date, item=item.item, code="consumed", num_units=units_consumed,
                              uncertainty=uncertainty)
         else:
-            trace(f"Item {item.item}: none consumed")
+            logger.info(f"Item {item.item}: none consumed")
 
     app.set_changed()
     return step.mark_run(app)

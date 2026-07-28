@@ -1,10 +1,12 @@
 # create_inv_checklist.py
 
 from operator import attrgetter
-from functools import partial
+import logging
 
 from .database import *
 
+
+logger = logging.getLogger('csv-inv-order.create_inv_checklist')
 
 def create_inv_checklist(step, app):
     app.screen.clear_message()
@@ -14,13 +16,13 @@ def create_inv_checklist(step, app):
             app.set_changed()
             return step.mark_run(app)
     else:
-        app.screen.ask_question("Table size", partial(load_inv_checklist, step, app), "8", convert_fn=int)
+        return load_inv_checklist(step, app)
 
 def load_inv_checklist(step, app):
     cur_month = Months.last_month()
     if not (4 <= cur_month.table_size <= 12):
         raise ValueError(f"{cur_month.table_size=} must be between 4 and 12")
-    trace(f"Create Inv_checklist: cur_month={cur_month.month_str}, {cur_month.table_size=}")
+    logger.info(f"Create Inv_checklist: cur_month={cur_month.month_str}, {cur_month.table_size=}")
 
     Inv_checklist.clear()
     items = sorted(Items.values(), key=attrgetter('item'))

@@ -2,10 +2,13 @@
 
 from operator import attrgetter
 from itertools import groupby
+import logging
 
 from .database import *
 from csv_app.report import *
 
+
+logger = logging.getLogger('csv-inv-order.create_POs')
 
 def create_POs(step, app, pdf=True):
     cur_month = Months.last_month()
@@ -16,13 +19,23 @@ def create_POs(step, app, pdf=True):
     else:
         po_num_index += 1
     po_num = f"{str(bf_date.year)[2:]}{bf_date.month:02}{po_num_index}"
+    _suppliers = set()
+    for p in Products.values():
+        _suppliers.add(p.supplier)
+    suppliers = []
+    for supplier in "Sams Walmart".split():
+        if supplier in _suppliers:
+            suppliers.append(supplier)
+            _suppliers.remove(supplier)
+    suppliers.extend(sorted(_suppliers, reverse=True))
+    logger.info(f"create_POs({pdf=}): {po_num=}, {suppliers=}")
 
     set_canvas("Purchase-Orders-" + str(po_num), landscape=True)
     reports = {}  # {supplier: report}
     grand_total = 0
-    for supplier, items in groupby(sorted(Orders.values(), key=attrgetter("supplier", "item")),
-                                   key=attrgetter("supplier")):
-       #print(f"in for: {supplier=}")
+    for supplier, items in groupby(sorted(Orders.values(), key=attrgetter("order_supplier", "item")),
+                                   key=attrgetter("order_supplier")):
+        logger.info(f"in for: {supplier=}")
         report, total = gen_PO(supplier, items, po_num, bf_date)
         if total:
             reports[supplier] = report
@@ -36,36 +49,42 @@ def create_POs(step, app, pdf=True):
         gap = 15  # between reports in points
         left_margin = 2
         max_width = 0
-        total_width, height = total_report.draw_init()
+        total_width, height = total_report.draw_init()  # may set_landscape
         y_offset = top_margin + height + total_gap
         widths = {}
-        y_offsets = {}
-        for supplier in "Sams Walmart Gordon Amazon".split():
+        heights = {}
+        for supplier in suppliers:
             if supplier in reports:
                 report = reports[supplier]
-                y_offsets[supplier] = y_offset
-                width, height = report.draw_init()
+                width, height = report.draw_init()  # may set_landscape
                 widths[supplier] = width
                 if width > max_width:
                     max_width = width
-                y_offset += height + gap
+                heights[supplier] = height
 
-        page_width = get_pagesize()[0]
+        page_width, page_height = get_pagesize()
 
         total_report.draw(x_offset=(page_width - total_width) // 2 + left_margin,
                           y_offset=top_margin)
-        for supplier in "Sams Walmart Gordon Amazon".split():
+        for supplier in suppliers:
             if supplier in reports:
                 report = reports[supplier]
+                height = heights[supplier]
+                if y_offset + height > page_height:
+                    # throw a page first
+                    logger.info(f"create_POs throwing a page before {supplier=}")
+                    canvas_showPage()
+                    y_offset = top_margin
                 report.draw(x_offset=(page_width - widths[supplier]) // 2 + left_margin,
-                            y_offset=y_offsets[supplier])
+                            y_offset=y_offset)
+                y_offset += height + gap
 
         canvas_showPage()
         canvas_save()
     else:
         total_report.print_init()
         total_report.print()
-        for supplier in "Sams Walmart Gordon Amazon".split():
+        for supplier in suppliers:
             if supplier in reports:
                 report = reports[supplier]
                 report.print_init()
@@ -79,7 +98,7 @@ def gen_PO(supplier, items, po_num, bf_date):
     r'''Returns report, total
     '''
     # generate POs Report
-   #print(f"gen_PO({supplier=}, {po_num=}, {bf_date:%b %d, %y}")
+    logger.info(f"gen_PO({supplier=}, {po_num=}, {bf_date:%b %d, %y}")
     report = Report(# 7 columns
                     title=(Centered(span=7, size="title", bold=True),),
                     header1=(Left(bold=True, span=2), Left(skip=4)),
@@ -97,7 +116,7 @@ def gen_PO(supplier, items, po_num, bf_date):
 
     total = 0
     for line, item in enumerate(items, 1):
-       #print(f"gen_PO: {item=}")
+        logger.info(f"gen_PO: {item=}")
         qty = item.qty
         product = item.product
         price = product.price
