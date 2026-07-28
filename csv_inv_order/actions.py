@@ -47,11 +47,11 @@ def stub(step, app):
 
 def save(step, app):
     logger.info(f"save {step.name}")
+    step.mark_run(app)    # sets app.changed, run this first so mark is saved
     if not app.testing:
         save_database()
-    ans = step.mark_run(app)  # sets app.changed
     app.reset_changed()
-    return ans
+    return 'REFRESH'
 
 def print(table_name):
     def print_table(step, app):
