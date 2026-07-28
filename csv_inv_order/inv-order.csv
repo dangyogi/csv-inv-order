@@ -1,36 +1,36 @@
 Months
-month|year|served_fudge|consumed_fudge|PO_index|num_at_meeting|staff_at_breakfast|tickets_claimed
-    1|2024|            |              |        |              |                  |               
-    2|2024|            |              |        |              |                  |             99
-    3|2024|            |              |        |            21|                12|             70
-    4|2024|            |              |        |            12|                 9|             42
-   10|2024|            |              |        |              |                  |               
-   11|2024|            |              |        |             8|                11|             44
-   12|2024|            |              |        |             9|                11|             48
-    1|2025|            |              |        |            12|                13|             54
-    2|2025|            |              |        |            12|                10|             64
-    3|2025|            |              |        |             9|                10|             59
-    4|2025|            |              |        |             8|                11|             37
-   10|2025|            |              |        |             5|                  |               
-   11|2025|        60.0|          80.0|        |            14|                14|             61
-   12|2025|        1.44|           0.9|        |            13|                 8|             54
-    1|2026|        1.35|           0.9|        |            14|                12|             64
-    2|2026|        1.35|           0.9|        |            15|                13|             93
-    3|2026|        1.35|           0.9|        |            15|                13|             64
-    4|2026|        1.25|           0.9|        |             9|                 8|             36
+month|year|served_fudge|consumed_fudge|table_size|PO_index|num_at_meeting|staff_at_breakfast|tickets_claimed
+    1|2024|            |              |         8|        |              |                  |               
+    2|2024|            |              |         8|        |              |                  |             99
+    3|2024|            |              |         8|        |            21|                12|             70
+    4|2024|            |              |         8|        |            12|                 9|             42
+   10|2024|            |              |         8|        |              |                  |               
+   11|2024|            |              |         8|        |             8|                11|             44
+   12|2024|            |              |         8|        |             9|                11|             48
+    1|2025|            |              |         8|        |            12|                13|             54
+    2|2025|            |              |         8|        |            12|                10|             64
+    3|2025|            |              |         8|        |             9|                10|             59
+    4|2025|            |              |         8|        |             8|                11|             37
+   10|2025|            |              |         8|        |             5|                  |               
+   11|2025|        60.0|          80.0|         8|        |            14|                14|             61
+   12|2025|        1.44|           0.9|         8|        |            13|                 8|             54
+    1|2026|        1.35|           0.9|         8|        |            14|                12|             64
+    2|2026|        1.35|           0.9|         8|        |            15|                13|             93
+    3|2026|        1.35|           0.9|         8|        |            15|                13|             64
+    4|2026|        1.25|           0.9|         8|        |             9|                 8|             36
 
 Inv_checklist
 item          |num_pkgs|num_units
+Bacon         |     2.0|         
 Coffee Creamer|        |    150.0
 Eggs          |     2.5|         
 Milk          |        |      0.0
-Orange Juice  |     2.0|         
 OJ cups       |        |     40.0
+Orange Juice  |     2.0|         
+Pancake Mix   |     2.0|         
 Paper Towels  |        |      2.0
 Sausage       |     2.0|         
 Serving Plates|        |    180.0
-Bacon         |     2.0|         
-Pancake Mix   |     2.0|         
 
 Orders
 item|qty|supplier|supplier_id|purchased_pkgs|purchased_units|location|price
@@ -41,13 +41,13 @@ Aprons              |ea           |     False|Walmart |          1|            |
 Bacon               |slice        |      True|Sams    |          1|            |             |           1.36
 Bowls               |ea           |     False|Sams    |          1|            |          3.0|            0.0
 Butter              |chip         |     False|Gordon  |          1|            |         12.0|            1.0
-Coffee, ground      |cup of coffee|     False|Sams    |          1|        70.0|             |               
 Coffee Creamer      |ea           |     False|Sams    |          2|            |         10.0|            1.6
-Coffee cups, 12 oz  |ea           |     False|Sams    |          1|            |             |               
-Coffee cups, 10 oz  |ea           |     False|Sams    |          1|            |             |               
-Coffee cups, 8 oz   |ea           |     False|Sams    |          1|            |         10.0|            0.5
 Coffee Stirrer 5"   |ea           |     False|Gordon  |          1|            |         10.0|            1.6
 Coffee Stirrer 7"   |ea           |     False|Walmart |          1|            |             |               
+Coffee cups, 10 oz  |ea           |     False|Sams    |          1|            |             |               
+Coffee cups, 12 oz  |ea           |     False|Sams    |          1|            |             |               
+Coffee cups, 8 oz   |ea           |     False|Sams    |          1|            |         10.0|            0.5
+Coffee, ground      |cup of coffee|     False|Sams    |          1|        70.0|             |               
 Cutlery Packets     |ea           |     False|Sams    |          1|            |         10.0|            1.0
 Eggs                |ea           |      True|Sams    |          1|            |             |            2.2
 Gloves              |pair         |     False|Walmart |          1|        10.0|             |               
@@ -69,8 +69,8 @@ Small Plates        |ea           |     False|Sams    |          1|            |
 Splenda             |ea           |     False|Sams    |          1|            |          5.0|           0.33
 Sugar               |ea           |     False|Sams    |          1|            |          5.0|           0.33
 Sweet'N Low         |ea           |     False|Sams    |          1|            |          5.0|           0.33
-Syrup bottle, reg   |bottle       |     False|Walmart |          1|            |          1.0|           0.07
 Syrup bottle, SF    |bottle       |     False|Walmart |          1|            |          1.0|           0.06
+Syrup bottle, reg   |bottle       |     False|Walmart |          1|            |          1.0|           0.07
 Syrup, reg          |oz           |     False|Walmart |          1|            |             |           1.67
 Syrup, sugar free   |oz           |     False|Walmart |          1|            |             |           1.67
 Tea                 |bag          |     False|Sams    |          1|            |             |            0.1
@@ -90,16 +90,16 @@ Bacon               |Walmart |          5|HORMEL BLACK LABEL Pork Bacon, Fully C
 Bacon               |Walmart |          6|Oscar Mayer Fully Cooked Original Bacon, 2.52 Oz Box                                                                                                                                                 |         |A28      | 4.48|      10|      2.52|                                                                           
 Bowls               |Sams    |          1|Hefty Supreme Heavyweight Foam Bowls (12 oz., 300 ct.)                                                                                                                                               |309203   |         |13.28|     300|          |                                                                           
 Butter              |Gordon  |          1|Butter Chips, Continental, Salted, Foil-Wrapped, Grade AA, 4.25 Lb Package                                                                                                                           |271991   |Cooler   |19.99|     200|          |                                                                           
-Coffee, ground      |Sams    |          1|Folgers Decaffeinated Classic Roast Coffee (28.8 oz.)                                                                                                                                                |990007890|G26-6    |20.58|     360|          |pkg_size was 192                                                           
-Coffee, ground      |Sams    |          2|Maxwell House Original Roast Ground Coffee (48 oz.)                                                                                                                                                  |980186253|         |10.98|     600|          |pkg_size was 320                                                           
 Coffee Creamer      |Sams    |          1|Land O'Lakes Mini Moo's Half and Half (192 ct.)                                                                                                                                                      |342903   |23-7     |12.88|     192|          |discontinued                                                               
 Coffee Creamer      |Sams    |          2|Nestle Coffee-mate Coffee Creamer Singles, Original 180 ct.                                                                                                                                          |990004691|F-9      |12.58|     180|          |                                                                           
-Coffee cups, 12 oz  |Sams    |          1|WinCup Foam Drink Cups, White (12 oz)                                                                                                                                                                |497482   |         |37.98|    1000|          |                                                                           
-Coffee cups, 10 oz  |Sams    |          1|Dixie to go Insulated Paper Cups, Choose Size (10 oz)                                                                                                                                                |980135024|         |59.98|     500|          |                                                                           
-Coffee cups, 8 oz   |Sams    |          1|Dixie to go Insulated Paper Cups, Choose Size (8 oz)                                                                                                                                                 |980135020|         |52.48|     500|          |                                                                           
-Coffee cups, 8 oz   |Walmart |          1|Great Value Disposable Foam Cups, 8 Ounce, 50 Count                                                                                                                                                  |         |Aisle A22| 1.72|      50|          |                                                                           
 Coffee Stirrer 5"   |Gordon  |          1|Stirrers, 5.5 Inch, Plastic, Black, 1000 Ct Package                                                                                                                                                  |485463   |Aisle 4  | 5.99|    1000|          |                                                                           
 Coffee Stirrer 7"   |Walmart |          1|Comfy Package 7” Coffee Stir Sticks Coffee Straws Drink Stirrers, Black 1000-Pack                                                                                                                    |         |         | 7.99|    1000|          |                                                                           
+Coffee cups, 10 oz  |Sams    |          1|Dixie to go Insulated Paper Cups, Choose Size (10 oz)                                                                                                                                                |980135024|         |59.98|     500|          |                                                                           
+Coffee cups, 12 oz  |Sams    |          1|WinCup Foam Drink Cups, White (12 oz)                                                                                                                                                                |497482   |         |37.98|    1000|          |                                                                           
+Coffee cups, 8 oz   |Sams    |          1|Dixie to go Insulated Paper Cups, Choose Size (8 oz)                                                                                                                                                 |980135020|         |52.48|     500|          |                                                                           
+Coffee cups, 8 oz   |Walmart |          1|Great Value Disposable Foam Cups, 8 Ounce, 50 Count                                                                                                                                                  |         |Aisle A22| 1.72|      50|          |                                                                           
+Coffee, ground      |Sams    |          1|Folgers Decaffeinated Classic Roast Coffee (28.8 oz.)                                                                                                                                                |990007890|G26-6    |20.58|     360|          |pkg_size was 192                                                           
+Coffee, ground      |Sams    |          2|Maxwell House Original Roast Ground Coffee (48 oz.)                                                                                                                                                  |980186253|         |10.98|     600|          |pkg_size was 320                                                           
 Cutlery Packets     |Sams    |          1|Member's Mark White Plastic Cutlery Packets (200 ct.)                                                                                                                                                |624381   |G21-9    |26.38|     200|          |                                                                           
 Eggs                |Aldis   |          1|Goldhen Grade A Large Eggs                                                                                                                                                                           |         |         | 1.99|      12|          |                                                                           
 Eggs                |Gordon  |          1|Eggs, Shell, Large Grade A, Refrigerated, 30 Ct                                                                                                                                                      |434288   |         | 6.99|      30|          |                                                                           
@@ -128,8 +128,8 @@ Pancake Mix         |Sams    |          2|Pearl Milling Company Original Complet
 Pancake Mix         |Walmart |          1|Great Value Complete Pancake & Waffle Mix, Extra Fluffy, Original, 5 lbs                                                                                                                             |         |         | 4.98|      40|          |                                                                           
 Paper Towels        |Walmart |          1|Great Value Ultra Strong Paper Towels, White, 6 Double Rolls                                                                                                                                         |         |Aisle A23|10.22|       6|          |                                                                           
 Place Mats          |Gordon  |          1|Placemats, 9.75 x 14 Inch, Paper, Embossed Floral Design, 1000 Per Case                                                                                                                              |271217   |Aisle 4  |35.49|    1000|          |                                                                           
-Raffle Tickets      |Walmart |          1|Pen+Gear Double Ticket Roll, Red, Consecutively Numbered, 2000 Count                                                                                                                                 |         |J23      |11.44|    2000|          |                                                                           
 Raffle Tickets      |Gordon  |          1|Tickets, Raffle, Deluxe, Orange, 2000 Ct Roll                                                                                                                                                        |221007   |Aisle 3  |14.99|    2000|          |                                                                           
+Raffle Tickets      |Walmart |          1|Pen+Gear Double Ticket Roll, Red, Consecutively Numbered, 2000 Count                                                                                                                                 |         |J23      |11.44|    2000|          |                                                                           
 Rubber Bands        |Walmart |          1|Alliance Advantage Rubber Bands, Size #32 (3" x 1/8"), Approx. 350 Bands per 8 oz Bag, Natural                                                                                                       |         |J23      | 3.68|     350|          |                                                                           
 Sausage             |Sams    |          1|Jimmy Dean Fully Cooked Original Pork Sausage Links, 48 ct.                                                                                                                                          |990420247|M-3      | 9.98|      48|          |                                                                           
 Sausage             |Walmart |          1|Banq Brown'N Serve Orig Fully Cooked Saus Links, Froz Brkfast, 32 oz., 50-Ct                                                                                                                         |         |A3       | 6.98|      50|          |                                                                           
@@ -142,13 +142,13 @@ Small Plates        |Sams    |          1|Member's Mark Ultra Dessert/Snack Pape
 Splenda             |Sams    |          1|Splenda Zero Calorie Sweetener Packets (1,000 ct.)                                                                                                                                                   |990057973|         |18.98|    1000|          |                                                                           
 Sugar               |Sams    |          1|Member's Mark Premium Cane Sugar (2,000 ct.)                                                                                                                                                         |980059085|         |12.98|    2000|          |                                                                           
 Sweet'N Low         |Sams    |          1|Sweet'N Low Zero-Calorie Sweetener Packets (1,500 ct.)                                                                                                                                               |6052     |         |14.58|    1500|          |                                                                           
+Syrup bottle, SF    |Aldis   |          1|Millville Lite Pancake Syrup                                                                                                                                                                         |         |         | 2.59|       1|          |                                                                           
+Syrup bottle, SF    |Walmart |          1|Great Value Sugar Free Syrup, 24 fl oz                                                                                                                                                               |         |A17      | 2.36|       1|          |                                                                           
 Syrup bottle, reg   |Aldis   |          1|Millville Original Pancake Syrup                                                                                                                                                                     |         |         | 2.59|       1|          |                                                                           
 Syrup bottle, reg   |Sams    |          1|Pearl Milling Company Original Syrup (64 oz.)                                                                                                                                                        |990000183|         | 6.79|       1|          |                                                                           
 Syrup bottle, reg   |Walmart |          1|Great Value Original Syrup, 24 oz                                                                                                                                                                    |         |Aisle A16| 2.36|       1|          |                                                                           
 Syrup bottle, reg   |Walmart |          2|Great Value Original Syrup, Family Size, 36 fl oz                                                                                                                                                    |         |         | 3.12|       1|          |                                                                           
 Syrup bottle, reg   |Walmart |          3|Log Cabin Original Pancake Syrup, 64 fl oz                                                                                                                                                           |         |Aisle A16| 6.98|       1|          |                                                                           
-Syrup bottle, SF    |Aldis   |          1|Millville Lite Pancake Syrup                                                                                                                                                                         |         |         | 2.59|       1|          |                                                                           
-Syrup bottle, SF    |Walmart |          1|Great Value Sugar Free Syrup, 24 fl oz                                                                                                                                                               |         |A17      | 2.36|       1|          |                                                                           
 Syrup, reg          |Aldis   |          1|Millville Original Pancake Syrup                                                                                                                                                                     |         |         | 2.59|      24|          |                                                                           
 Syrup, reg          |Sams    |          1|Pearl Milling Company Original Syrup (64 oz.)                                                                                                                                                        |990000183|         | 6.79|      64|          |                                                                           
 Syrup, reg          |Walmart |          1|Great Value Original Syrup, 24 oz                                                                                                                                                                    |         |Aisle A16| 2.36|      24|          |                                                                           
@@ -165,13 +165,13 @@ date      |item                |code     |num_pkgs|num_units|uncertainty
 Nov 18, 25|Bacon               |estimate |     0.0|      144|         14
 Nov 18, 25|Bowls               |estimate |     0.0|      325|         33
 Nov 18, 25|Butter              |estimate |     0.0|        6|          1
-Nov 18, 25|Coffee, ground      |estimate |     0.0|       77|          8
-Nov 18, 25|Coffee cups, 8 oz   |estimate |     0.0|        0|          0
+Nov 18, 25|Coffee Creamer      |estimate |     0.0|      170|         17
 Nov 18, 25|Coffee Stirrer 5"   |estimate |     0.0|      495|         50
+Nov 18, 25|Coffee cups, 8 oz   |estimate |     0.0|        0|          0
+Nov 18, 25|Coffee, ground      |estimate |     0.0|       77|          8
 Nov 18, 25|Cutlery Packets     |estimate |     0.0|        0|          0
 Nov 18, 25|Eggs                |estimate |     0.0|        0|          0
 Nov 18, 25|Gloves              |estimate |     0.0|     1463|        146
-Nov 18, 25|Coffee Creamer      |estimate |     0.0|      170|         17
 Nov 18, 25|Milk                |estimate |     0.0|        0|          0
 Nov 18, 25|Nonstick Spray      |estimate |     0.0|       10|          1
 Nov 18, 25|OJ cups             |estimate |     0.0|      350|         35
@@ -191,8 +191,8 @@ Nov 18, 25|Tea                 |estimate |     0.0|       84|          8
 Nov 18, 25|To-Go Containers    |estimate |     0.0|      160|         16
 Nov 20, 25|Bacon               |purchased|     1.0|        0|          0
 Nov 20, 25|Butter              |purchased|     1.0|        0|          0
-Nov 20, 25|Coffee, ground      |purchased|     1.0|        0|          0
 Nov 20, 25|Coffee cups, 8 oz   |purchased|     1.0|        0|          0
+Nov 20, 25|Coffee, ground      |purchased|     1.0|        0|          0
 Nov 20, 25|Cutlery Packets     |purchased|     1.0|        0|          0
 Nov 20, 25|Eggs                |purchased|     9.0|        0|          0
 Nov 20, 25|Milk                |purchased|     1.0|        0|          0
@@ -202,6 +202,7 @@ Nov 20, 25|Serving Plates      |purchased|     0.0|      200|          0
 Nov 28, 25|Bacon               |count    |     0.0|       40|          0
 Nov 28, 25|Bowls               |count    |     0.0|      150|          0
 Nov 28, 25|Butter              |count    |     0.0|      200|          0
+Nov 28, 25|Coffee Creamer      |count    |     0.0|      110|          0
 Nov 28, 25|Coffee Stirrer 5"   |count    |     0.0|      400|          0
 Nov 28, 25|Coffee Stirrer 7"   |count    |     0.0|        0|          0
 Nov 28, 25|Coffee cups, 10 oz  |count    |     0.0|        0|          0
@@ -212,7 +213,6 @@ Nov 28, 25|Cutlery Packets     |count    |     0.0|      150|          0
 Nov 28, 25|Eggs                |count    |     3.0|        0|          0
 Nov 28, 25|Gloves              |count    |     2.0|      450|          0
 Nov 28, 25|Grill Cleaning Brick|count    |     0.0|        2|          0
-Nov 28, 25|Coffee Creamer      |count    |     0.0|      110|          0
 Nov 28, 25|Milk                |count    |     0.8|        0|          0
 Nov 28, 25|Nonstick Spray      |count    |     9.0|        0|          0
 Nov 28, 25|OJ cups             |count    |     0.0|      310|          0
@@ -232,22 +232,22 @@ Nov 28, 25|To-Go Containers    |count    |     0.0|      145|          0
 Dec 09, 25|Bacon               |count    |     0.0|        0|          0
 Dec 09, 25|OJ cups             |used     |     0.0|       30|         10
 Dec 11, 25|Bacon               |purchased|     3.0|        0|          0
-Dec 11, 25|Eggs                |purchased|    10.0|        0|          0
 Dec 11, 25|Coffee Creamer      |purchased|     1.0|        0|          0
+Dec 11, 25|Eggs                |purchased|    10.0|        0|          0
 Dec 11, 25|Milk                |purchased|     1.0|        0|          0
 Dec 11, 25|Orange Juice        |purchased|     4.0|        0|          0
 Dec 11, 25|Pancake Mix         |purchased|     5.0|        0|          0
-Dec 11, 25|Syrup bottle, reg   |purchased|     9.0|        0|          0
 Dec 11, 25|Syrup bottle, SF    |purchased|    10.0|        0|          0
+Dec 11, 25|Syrup bottle, reg   |purchased|     9.0|        0|          0
 Dec 13, 25|Bacon               |consumed |     0.0|      163|         17
 Dec 13, 25|Butter              |consumed |     0.0|       93|         10
-Dec 13, 25|Coffee, ground      |consumed |     0.0|      120|         12
-Dec 13, 25|Coffee cups, 8 oz   |consumed |     0.0|       62|          7
+Dec 13, 25|Coffee Creamer      |consumed |     0.0|       62|          7
 Dec 13, 25|Coffee Stirrer 5"   |consumed |     0.0|       62|          7
+Dec 13, 25|Coffee cups, 8 oz   |consumed |     0.0|       62|          7
+Dec 13, 25|Coffee, ground      |consumed |     0.0|      120|         12
 Dec 13, 25|Cutlery Packets     |consumed |     0.0|       62|          7
 Dec 13, 25|Eggs                |consumed |     0.0|      180|         18
 Dec 13, 25|Gloves              |consumed |     0.0|       10|          1
-Dec 13, 25|Coffee Creamer      |consumed |     0.0|       62|          7
 Dec 13, 25|Milk                |consumed |     0.0|       39|          4
 Dec 13, 25|Nonstick Spray      |consumed |     0.0|        1|          1
 Dec 13, 25|OJ cups             |consumed |     0.0|       62|          7
@@ -261,8 +261,8 @@ Dec 13, 25|Serving Plates      |consumed |     0.0|       62|          7
 Dec 13, 25|Splenda             |consumed |     0.0|       20|          2
 Dec 13, 25|Sugar               |consumed |     0.0|       20|          2
 Dec 13, 25|Sweet'N Low         |consumed |     0.0|       20|          2
-Dec 13, 25|Syrup bottle, reg   |consumed |     0.0|        4|          1
 Dec 13, 25|Syrup bottle, SF    |consumed |     0.0|        4|          1
+Dec 13, 25|Syrup bottle, reg   |consumed |     0.0|        4|          1
 Dec 13, 25|Syrup, reg          |consumed |     0.0|      104|         11
 Dec 13, 25|Syrup, sugar free   |consumed |     0.0|      104|         11
 Dec 13, 25|Tea                 |consumed |     0.0|        6|          1
@@ -270,17 +270,17 @@ Dec 13, 25|To-Go Containers    |consumed |     0.0|        5|          1
 Dec 17, 25|Bacon               |estimate |     0.0|       53|         17
 Dec 17, 25|Bowls               |estimate |     0.0|      150|          0
 Dec 17, 25|Butter              |estimate |     0.0|      107|         10
-Dec 17, 25|Coffee, ground      |estimate |     0.0|      312|         12
-Dec 17, 25|Coffee cups, 12 oz  |estimate |     0.0|        0|          0
-Dec 17, 25|Coffee cups, 10 oz  |estimate |     0.0|        0|          0
-Dec 17, 25|Coffee cups, 8 oz   |estimate |     0.0|      188|          7
+Dec 17, 25|Coffee Creamer      |estimate |     0.0|      240|          7
 Dec 17, 25|Coffee Stirrer 5"   |estimate |     0.0|      338|          7
 Dec 17, 25|Coffee Stirrer 7"   |estimate |     0.0|        0|          0
+Dec 17, 25|Coffee cups, 10 oz  |estimate |     0.0|        0|          0
+Dec 17, 25|Coffee cups, 12 oz  |estimate |     0.0|        0|          0
+Dec 17, 25|Coffee cups, 8 oz   |estimate |     0.0|      188|          7
+Dec 17, 25|Coffee, ground      |estimate |     0.0|      312|         12
 Dec 17, 25|Cutlery Packets     |estimate |     0.0|       88|          7
 Dec 17, 25|Eggs                |estimate |     0.0|      132|         18
 Dec 17, 25|Gloves              |estimate |     0.0|      680|          1
 Dec 17, 25|Grill Cleaning Brick|estimate |     0.0|        2|          0
-Dec 17, 25|Coffee Creamer      |estimate |     0.0|      240|          7
 Dec 17, 25|Milk                |estimate |     0.0|       76|          4
 Dec 17, 25|Nonstick Spray      |estimate |     0.0|       17|          1
 Dec 17, 25|OJ cups             |estimate |     0.0|      218|         17
@@ -296,42 +296,37 @@ Dec 17, 25|Small Plates        |estimate |     0.0|        0|          0
 Dec 17, 25|Splenda             |estimate |     0.0|     1380|          2
 Dec 17, 25|Sugar               |estimate |     0.0|       70|          2
 Dec 17, 25|Sweet'N Low         |estimate |     0.0|     1580|          2
-Dec 17, 25|Syrup bottle, reg   |estimate |     0.0|       19|          1
 Dec 17, 25|Syrup bottle, SF    |estimate |     0.0|       19|          1
+Dec 17, 25|Syrup bottle, reg   |estimate |     0.0|       19|          1
 Dec 17, 25|Syrup, reg          |estimate |     0.0|      133|         35
 Dec 17, 25|Syrup, sugar free   |estimate |     0.0|      133|         35
 Dec 17, 25|Tea                 |estimate |     0.0|       64|          1
 Dec 17, 25|To-Go Containers    |estimate |     0.0|      140|          1
-Dec 30, 25|Pancake Mix         |count    |    5.83|        0|          0
-Dec 30, 25|Butter              |count    |    0.66|        0|          0
 Dec 30, 25|Bacon               |count    |     1.0|        0|          0
+Dec 30, 25|Butter              |count    |    0.66|        0|          0
+Dec 30, 25|Coffee Creamer      |count    |     0.5|        0|          0
+Dec 30, 25|Coffee Stirrer 5"   |count    |     0.0|      300|          0
+Dec 30, 25|Coffee cups, 8 oz   |count    |     0.0|      220|          0
+Dec 30, 25|Coffee, ground      |count    |     1.0|        0|          0
 Dec 30, 25|Eggs                |count    |     7.0|        0|          0
 Dec 30, 25|Milk                |count    |    0.75|        0|          0
-Dec 30, 25|Coffee Creamer      |count    |     0.5|        0|          0
+Dec 30, 25|OJ cups             |count    |     0.0|      210|          0
 Dec 30, 25|Orange Juice        |count    |     2.0|        0|          0
-Dec 30, 25|Coffee Stirrer 5"   |count    |     0.0|      300|          0
-Dec 30, 25|Coffee, ground      |count    |     1.0|        0|          0
+Dec 30, 25|Pancake Mix         |count    |    5.83|        0|          0
 Dec 30, 25|Paper Towels        |count    |     0.0|        2|          0
-Dec 30, 25|Syrup bottle, reg   |count    |    19.0|        0|          0
-Dec 30, 25|Syrup bottle, SF    |count    |    23.0|        0|          0
 Dec 30, 25|Raffle Tickets      |count    |     0.0|     1247|          0
 Dec 30, 25|Serving Plates      |count    |     0.0|        0|          0
-Dec 30, 25|OJ cups             |count    |     0.0|      210|          0
-Dec 30, 25|Coffee cups, 8 oz   |count    |     0.0|      220|          0
-Jan 11, 26|Bacon               |purchased|     3.0|        0|          0
-Jan 11, 26|Eggs                |purchased|     6.0|        0|          0
-Jan 11, 26|Coffee Creamer      |purchased|     1.0|        0|          0
-Jan 11, 26|Orange Juice        |purchased|     3.0|        0|          0
-Jan 11, 26|Sausage             |purchased|     3.0|        0|          0
+Dec 30, 25|Syrup bottle, SF    |count    |    23.0|        0|          0
+Dec 30, 25|Syrup bottle, reg   |count    |    19.0|        0|          0
 Jan 10, 26|Bacon               |consumed |     0.0|      200|         40
 Jan 10, 26|Butter              |consumed |     0.0|      114|         23
-Jan 10, 26|Coffee, ground      |consumed |     0.0|      120|         24
-Jan 10, 26|Coffee cups, 8 oz   |consumed |     0.0|       76|         16
+Jan 10, 26|Coffee Creamer      |consumed |     0.0|       76|         16
 Jan 10, 26|Coffee Stirrer 5"   |consumed |     0.0|       76|         16
+Jan 10, 26|Coffee cups, 8 oz   |consumed |     0.0|       76|         16
+Jan 10, 26|Coffee, ground      |consumed |     0.0|      120|         24
 Jan 10, 26|Cutlery Packets     |consumed |     0.0|       76|         16
 Jan 10, 26|Eggs                |consumed |     0.0|      220|         44
 Jan 10, 26|Gloves              |consumed |     0.0|       10|          2
-Jan 10, 26|Coffee Creamer      |consumed |     0.0|       76|         16
 Jan 10, 26|Milk                |consumed |     0.0|       48|         10
 Jan 10, 26|Nonstick Spray      |consumed |     0.0|        1|          1
 Jan 10, 26|OJ cups             |consumed |     0.0|       76|         16
@@ -346,27 +341,32 @@ Jan 10, 26|Serving Plates      |consumed |     0.0|       76|         16
 Jan 10, 26|Splenda             |consumed |     0.0|       25|          5
 Jan 10, 26|Sugar               |consumed |     0.0|       25|          5
 Jan 10, 26|Sweet'N Low         |consumed |     0.0|       25|          5
-Jan 10, 26|Syrup bottle, reg   |consumed |     0.0|        5|          1
 Jan 10, 26|Syrup bottle, SF    |consumed |     0.0|        5|          1
+Jan 10, 26|Syrup bottle, reg   |consumed |     0.0|        5|          1
 Jan 10, 26|Syrup, reg          |consumed |     0.0|      127|         26
 Jan 10, 26|Syrup, sugar free   |consumed |     0.0|      127|         26
 Jan 10, 26|Tea                 |consumed |     0.0|        8|          2
 Jan 10, 26|To-Go Containers    |consumed |     0.0|        6|          2
+Jan 11, 26|Bacon               |purchased|     3.0|        0|          0
+Jan 11, 26|Coffee Creamer      |purchased|     1.0|        0|          0
+Jan 11, 26|Eggs                |purchased|     6.0|        0|          0
+Jan 11, 26|Orange Juice        |purchased|     3.0|        0|          0
+Jan 11, 26|Sausage             |purchased|     3.0|        0|          0
 Jan 25, 26|Aprons              |estimate |     0.0|        0|          0
 Jan 25, 26|Bacon               |estimate |     0.0|       88|         40
 Jan 25, 26|Bowls               |estimate |     0.0|      150|          0
 Jan 25, 26|Butter              |estimate |     0.0|       18|         23
-Jan 25, 26|Coffee, ground      |estimate |     0.0|      240|         24
-Jan 25, 26|Coffee cups, 12 oz  |estimate |     0.0|        0|          0
-Jan 25, 26|Coffee cups, 10 oz  |estimate |     0.0|        0|          0
-Jan 25, 26|Coffee cups, 8 oz   |estimate |     0.0|      144|         16
+Jan 25, 26|Coffee Creamer      |estimate |     0.0|      194|         16
 Jan 25, 26|Coffee Stirrer 5"   |estimate |     0.0|      224|         16
 Jan 25, 26|Coffee Stirrer 7"   |estimate |     0.0|        0|          0
+Jan 25, 26|Coffee cups, 10 oz  |estimate |     0.0|        0|          0
+Jan 25, 26|Coffee cups, 12 oz  |estimate |     0.0|        0|          0
+Jan 25, 26|Coffee cups, 8 oz   |estimate |     0.0|      144|         16
+Jan 25, 26|Coffee, ground      |estimate |     0.0|      240|         24
 Jan 25, 26|Cutlery Packets     |estimate |     0.0|       12|         23
 Jan 25, 26|Eggs                |estimate |     0.0|       92|         44
 Jan 25, 26|Gloves              |estimate |     0.0|      670|          3
 Jan 25, 26|Grill Cleaning Brick|estimate |     0.0|        2|          0
-Jan 25, 26|Coffee Creamer      |estimate |     0.0|      194|         16
 Jan 25, 26|Milk                |estimate |     0.0|        0|         10
 Jan 25, 26|Nonstick Spray      |estimate |     0.0|       16|          2
 Jan 25, 26|OJ cups             |estimate |     0.0|      134|         16
@@ -383,44 +383,44 @@ Jan 25, 26|Small Plates        |estimate |     0.0|        0|          0
 Jan 25, 26|Splenda             |estimate |     0.0|     1355|          7
 Jan 25, 26|Sugar               |estimate |     0.0|       45|          7
 Jan 25, 26|Sweet'N Low         |estimate |     0.0|     1555|          7
-Jan 25, 26|Syrup bottle, reg   |estimate |     0.0|       14|          1
 Jan 25, 26|Syrup bottle, SF    |estimate |     0.0|       18|          1
+Jan 25, 26|Syrup bottle, reg   |estimate |     0.0|       14|          1
 Jan 25, 26|Syrup, reg          |estimate |     0.0|        6|         61
 Jan 25, 26|Syrup, sugar free   |estimate |     0.0|        6|         61
 Jan 25, 26|Tea                 |estimate |     0.0|       56|          3
 Jan 25, 26|To-Go Containers    |estimate |     0.0|      134|          3
-Jan 26, 26|Cutlery Packets     |count    |    0.67|        0|          0
-Jan 26, 26|Eggs                |count    |     6.0|        0|          0
-Jan 26, 26|Milk                |count    |    0.67|        0|          0
-Jan 26, 26|Orange Juice        |count    |     1.0|        0|          0
-Jan 26, 26|Paper Towels        |count    |     0.0|        2|          0
-Jan 26, 26|Sausage             |count    |     1.0|        0|          0
-Jan 26, 26|Sugar               |count    |     0.0|       67|          0
-Jan 26, 26|Syrup, reg          |count    |    18.0|        0|          0
-Jan 26, 26|Syrup, sugar free   |count    |    22.0|        0|          0
-Jan 26, 26|Pancake Mix         |count    |    4.25|        0|          0
 Jan 26, 26|Bacon               |count    |     1.5|        0|          0
 Jan 26, 26|Butter              |count    |     0.0|       60|          0
 Jan 26, 26|Coffee Creamer      |count    |     0.0|      151|          0
-Jan 26, 26|OJ cups             |count    |     0.0|      200|          0
 Jan 26, 26|Coffee, ground      |count    |  0.8333|        0|          0
+Jan 26, 26|Cutlery Packets     |count    |    0.67|        0|          0
+Jan 26, 26|Eggs                |count    |     6.0|        0|          0
+Jan 26, 26|Milk                |count    |    0.67|        0|          0
+Jan 26, 26|OJ cups             |count    |     0.0|      200|          0
+Jan 26, 26|Orange Juice        |count    |     1.0|        0|          0
+Jan 26, 26|Pancake Mix         |count    |    4.25|        0|          0
+Jan 26, 26|Paper Towels        |count    |     0.0|        2|          0
+Jan 26, 26|Sausage             |count    |     1.0|        0|          0
 Jan 26, 26|Serving Plates      |count    |     0.0|       45|          0
+Jan 26, 26|Sugar               |count    |     0.0|       67|          0
+Jan 26, 26|Syrup, reg          |count    |    18.0|        0|          0
+Jan 26, 26|Syrup, sugar free   |count    |    22.0|        0|          0
 Feb 10, 26|Bacon               |purchased|     3.0|        0|          0
 Feb 10, 26|Butter              |purchased|     1.0|        0|          0
 Feb 10, 26|Eggs                |purchased|     4.0|        0|          0
+Feb 10, 26|Ketchup             |purchased|     1.0|        0|          0
 Feb 10, 26|Orange Juice        |purchased|     4.0|        0|          0
 Feb 10, 26|Sausage             |purchased|     4.0|        0|          0
 Feb 10, 26|Serving Plates      |purchased|     1.0|        0|          0
-Feb 10, 26|Ketchup             |purchased|     1.0|        0|          0
 Feb 14, 26|Bacon               |consumed |     0.0|      279|         56
 Feb 14, 26|Butter              |consumed |     0.0|      159|         32
-Feb 14, 26|Coffee, ground      |consumed |     0.0|      120|         24
-Feb 14, 26|Coffee cups, 8 oz   |consumed |     0.0|      106|         22
+Feb 14, 26|Coffee Creamer      |consumed |     0.0|      106|         22
 Feb 14, 26|Coffee Stirrer 5"   |consumed |     0.0|      106|         22
+Feb 14, 26|Coffee cups, 8 oz   |consumed |     0.0|      106|         22
+Feb 14, 26|Coffee, ground      |consumed |     0.0|      120|         24
 Feb 14, 26|Cutlery Packets     |consumed |     0.0|      106|         22
 Feb 14, 26|Eggs                |consumed |     0.0|      307|         62
 Feb 14, 26|Gloves              |consumed |     0.0|       10|          2
-Feb 14, 26|Coffee Creamer      |consumed |     0.0|      106|         22
 Feb 14, 26|Ketchup             |consumed |     0.0|        4|          1
 Feb 14, 26|Milk                |consumed |     0.0|       67|         14
 Feb 14, 26|Nonstick Spray      |consumed |     0.0|        1|          1
@@ -436,8 +436,8 @@ Feb 14, 26|Serving Plates      |consumed |     0.0|      106|         22
 Feb 14, 26|Splenda             |consumed |     0.0|       35|          7
 Feb 14, 26|Sugar               |consumed |     0.0|       35|          7
 Feb 14, 26|Sweet'N Low         |consumed |     0.0|       35|          7
-Feb 14, 26|Syrup bottle, reg   |consumed |     0.0|        7|          2
 Feb 14, 26|Syrup bottle, SF    |consumed |     0.0|        7|          2
+Feb 14, 26|Syrup bottle, reg   |consumed |     0.0|        7|          2
 Feb 14, 26|Syrup, reg          |consumed |     0.0|      177|         36
 Feb 14, 26|Syrup, sugar free   |consumed |     0.0|      177|         36
 Feb 14, 26|Tea                 |consumed |     0.0|       11|          3
@@ -446,17 +446,17 @@ Mar 03, 26|Aprons              |estimate |     0.0|        0|          0
 Mar 03, 26|Bacon               |estimate |     0.0|       45|         56
 Mar 03, 26|Bowls               |estimate |     0.0|      150|          0
 Mar 03, 26|Butter              |estimate |     0.0|      101|         32
-Mar 03, 26|Coffee, ground      |estimate |     0.0|      179|         24
-Mar 03, 26|Coffee cups, 12 oz  |estimate |     0.0|        0|          0
-Mar 03, 26|Coffee cups, 10 oz  |estimate |     0.0|        0|          0
-Mar 03, 26|Coffee cups, 8 oz   |estimate |     0.0|       38|         38
+Mar 03, 26|Coffee Creamer      |estimate |     0.0|       45|         22
 Mar 03, 26|Coffee Stirrer 5"   |estimate |     0.0|      118|         38
 Mar 03, 26|Coffee Stirrer 7"   |estimate |     0.0|        0|          0
+Mar 03, 26|Coffee cups, 10 oz  |estimate |     0.0|        0|          0
+Mar 03, 26|Coffee cups, 12 oz  |estimate |     0.0|        0|          0
+Mar 03, 26|Coffee cups, 8 oz   |estimate |     0.0|       38|         38
+Mar 03, 26|Coffee, ground      |estimate |     0.0|      179|         24
 Mar 03, 26|Cutlery Packets     |estimate |     0.0|       28|         22
 Mar 03, 26|Eggs                |estimate |     0.0|      -67|         62
 Mar 03, 26|Gloves              |estimate |     0.0|      660|          5
 Mar 03, 26|Grill Cleaning Brick|estimate |     0.0|        2|          0
-Mar 03, 26|Coffee Creamer      |estimate |     0.0|       45|         22
 Mar 03, 26|Ketchup             |estimate |     0.0|       10|          1
 Mar 03, 26|Milk                |estimate |     0.0|      -24|         14
 Mar 03, 26|Nonstick Spray      |estimate |     0.0|       15|          3
@@ -474,28 +474,28 @@ Mar 03, 26|Small Plates        |estimate |     0.0|        0|          0
 Mar 03, 26|Splenda             |estimate |     0.0|     1320|         14
 Mar 03, 26|Sugar               |estimate |     0.0|       32|          7
 Mar 03, 26|Sweet'N Low         |estimate |     0.0|     1520|         14
-Mar 03, 26|Syrup bottle, reg   |estimate |     0.0|        7|          3
 Mar 03, 26|Syrup bottle, SF    |estimate |     0.0|       11|          3
+Mar 03, 26|Syrup bottle, reg   |estimate |     0.0|        7|          3
 Mar 03, 26|Syrup, reg          |estimate |     0.0|      255|         36
 Mar 03, 26|Syrup, sugar free   |estimate |     0.0|      351|         36
 Mar 03, 26|Tea                 |estimate |     0.0|       45|          6
 Mar 03, 26|To-Go Containers    |estimate |     0.0|      126|          5
 Mar 11, 26|Bacon               |count    |     2.5|        0|          0
 Mar 11, 26|Butter              |count    |     1.0|        0|          0
+Mar 11, 26|Coffee Creamer      |count    |     0.7|        0|          0
 Mar 11, 26|Coffee Stirrer 5"   |count    |     0.5|        0|          0
 Mar 11, 26|Coffee cups, 8 oz   |count    |     0.0|      176|          0
 Mar 11, 26|Cutlery Packets     |count    |     1.0|        0|          0
-Mar 11, 26|Coffee Creamer      |count    |     0.7|        0|          0
+Mar 11, 26|Eggs                |count    |     1.0|        0|          0
 Mar 11, 26|Milk                |count    |     0.0|        0|          0
 Mar 11, 26|OJ cups             |count    |     0.0|      200|          0
 Mar 11, 26|Orange Juice        |count    |     1.0|        0|          0
 Mar 11, 26|Paper Towels        |count    |     0.0|        2|          0
+Mar 11, 26|Raffle Tickets      |count    |     0.0|        0|          0
 Mar 11, 26|Sausage             |count    |     2.0|        0|          0
 Mar 11, 26|Sugar               |count    |     0.9|        0|          0
 Mar 11, 26|Syrup bottle, SF    |count    |     0.0|       12|          0
 Mar 11, 26|Syrup bottle, reg   |count    |     0.0|       12|          0
-Mar 11, 26|Raffle Tickets      |count    |     0.0|        0|          0
-Mar 11, 26|Eggs                |count    |     1.0|        0|          0
 Mar 13, 26|Bacon               |purchased|     2.0|        0|          0
 Mar 13, 26|Eggs                |purchased|     7.0|        0|          0
 Mar 13, 26|Milk                |purchased|     1.0|        0|          0
@@ -503,14 +503,14 @@ Mar 13, 26|Orange Juice        |purchased|     4.0|        0|          0
 Mar 13, 26|Pancake Mix         |purchased|     1.0|        0|          0
 Mar 13, 26|Raffle Tickets      |purchased|     1.0|        0|          0
 Mar 13, 26|Sausage             |purchased|     2.0|        0|          0
-Mar 13, 26|Syrup bottle, reg   |purchased|     2.0|        0|          0
 Mar 13, 26|Syrup bottle, SF    |purchased|     2.0|        0|          0
+Mar 13, 26|Syrup bottle, reg   |purchased|     2.0|        0|          0
 Mar 14, 26|Bacon               |consumed |     0.0|      105|         21
 Mar 14, 26|Butter              |consumed |     0.0|       77|         16
-Mar 14, 26|Coffee, ground      |consumed |     0.0|       70|         14
 Mar 14, 26|Coffee Creamer      |consumed |     0.0|      123|         25
-Mar 14, 26|Coffee cups, 8 oz   |consumed |     0.0|       38|          8
 Mar 14, 26|Coffee Stirrer 5"   |consumed |     0.0|      123|         25
+Mar 14, 26|Coffee cups, 8 oz   |consumed |     0.0|       38|          8
+Mar 14, 26|Coffee, ground      |consumed |     0.0|       70|         14
 Mar 14, 26|Cutlery Packets     |consumed |     0.0|       77|         16
 Mar 14, 26|Eggs                |consumed |     0.0|      169|         34
 Mar 14, 26|Gloves              |consumed |     0.0|       10|          2
@@ -529,70 +529,70 @@ Mar 14, 26|Serving Plates      |consumed |     0.0|       77|         16
 Mar 14, 26|Splenda             |consumed |     0.0|       25|          5
 Mar 14, 26|Sugar               |consumed |     0.0|       25|          5
 Mar 14, 26|Sweet'N Low         |consumed |     0.0|       25|          5
-Mar 14, 26|Syrup bottle, reg   |consumed |     0.0|        5|          1
 Mar 14, 26|Syrup bottle, SF    |consumed |     0.0|        5|          1
+Mar 14, 26|Syrup bottle, reg   |consumed |     0.0|        5|          1
 Mar 14, 26|Syrup, reg          |consumed |     0.0|      129|         26
 Mar 14, 26|Syrup, sugar free   |consumed |     0.0|      129|         26
 Mar 14, 26|Tea                 |consumed |     0.0|        8|          2
 Mar 14, 26|To-Go Containers    |consumed |     0.0|        6|          2
 Apr 03, 26|Aprons              |estimate |     0.0|        0|          0
+Apr 03, 26|Bacon               |count    |     2.0|        0|          0
 Apr 03, 26|Bacon               |estimate |     0.0|      219|         21
 Apr 03, 26|Bowls               |estimate |     0.0|      150|          0
 Apr 03, 26|Butter              |estimate |     0.0|      123|         16
-Apr 03, 26|Coffee, ground      |estimate |     0.0|      109|         38
+Apr 03, 26|Coffee Creamer      |count    |     0.0|      150|          0
 Apr 03, 26|Coffee Creamer      |estimate |     0.0|        2|         25
-Apr 03, 26|Coffee cups, 12 oz  |estimate |     0.0|        0|          0
-Apr 03, 26|Coffee cups, 10 oz  |estimate |     0.0|        0|          0
-Apr 03, 26|Coffee cups, 8 oz   |estimate |     0.0|      138|          8
 Apr 03, 26|Coffee Stirrer 5"   |estimate |     0.0|      377|         25
 Apr 03, 26|Coffee Stirrer 7"   |estimate |     0.0|        0|          0
+Apr 03, 26|Coffee cups, 10 oz  |estimate |     0.0|        0|          0
+Apr 03, 26|Coffee cups, 12 oz  |estimate |     0.0|        0|          0
+Apr 03, 26|Coffee cups, 8 oz   |estimate |     0.0|      138|          8
+Apr 03, 26|Coffee, ground      |estimate |     0.0|      109|         38
 Apr 03, 26|Cutlery Packets     |estimate |     0.0|      123|         16
+Apr 03, 26|Eggs                |count    |     2.5|        0|          0
 Apr 03, 26|Eggs                |estimate |     0.0|       23|         34
 Apr 03, 26|Gloves              |estimate |     0.0|      650|          7
 Apr 03, 26|Grill Cleaning Brick|estimate |     0.0|        2|          0
 Apr 03, 26|Ketchup             |estimate |     0.0|        6|          2
+Apr 03, 26|Milk                |count    |     0.0|        0|          0
 Apr 03, 26|Milk                |estimate |     0.0|       32|          7
 Apr 03, 26|Nonstick Spray      |estimate |     0.0|       14|          4
+Apr 03, 26|OJ cups             |count    |     0.0|       40|          0
 Apr 03, 26|OJ cups             |estimate |     0.0|      123|         16
+Apr 03, 26|Orange Juice        |count    |     2.0|        0|          0
 Apr 03, 26|Orange Juice        |estimate |     0.0|      174|         70
+Apr 03, 26|Pancake Mix         |count    |     2.0|        0|          0
 Apr 03, 26|Pancake Mix         |estimate |     0.0|      -59|         62
+Apr 03, 26|Paper Towels        |count    |     0.0|        2|          0
 Apr 03, 26|Paper Towels        |estimate |     0.0|        1|          1
 Apr 03, 26|Place Mats          |estimate |     0.0|      979|         61
 Apr 03, 26|Raffle Tickets      |estimate |     0.0|     1476|        105
 Apr 03, 26|Rubber Bands        |estimate |     0.0|        0|          0
+Apr 03, 26|Sausage             |count    |     2.0|        0|          0
 Apr 03, 26|Sausage             |estimate |     0.0|       91|         22
 Apr 03, 26|Scrubbers           |estimate |     0.0|        2|          4
+Apr 03, 26|Serving Plates      |count    |     0.0|      180|          0
 Apr 03, 26|Serving Plates      |estimate |     0.0|       62|         38
 Apr 03, 26|Small Plates        |estimate |     0.0|        0|          0
 Apr 03, 26|Splenda             |estimate |     0.0|     1295|         19
 Apr 03, 26|Sugar               |estimate |     0.0|     1775|          5
 Apr 03, 26|Sweet'N Low         |estimate |     0.0|     1495|         19
-Apr 03, 26|Syrup bottle, reg   |estimate |     0.0|        9|          1
 Apr 03, 26|Syrup bottle, SF    |estimate |     0.0|        9|          1
+Apr 03, 26|Syrup bottle, reg   |estimate |     0.0|        9|          1
 Apr 03, 26|Syrup, reg          |estimate |     0.0|      126|         62
 Apr 03, 26|Syrup, sugar free   |estimate |     0.0|      222|         62
 Apr 03, 26|Tea                 |estimate |     0.0|       37|          8
 Apr 03, 26|To-Go Containers    |estimate |     0.0|      120|          7
-Apr 03, 26|Coffee Creamer      |count    |     0.0|      150|          0
-Apr 03, 26|Eggs                |count    |     2.5|        0|          0
-Apr 03, 26|Milk                |count    |     0.0|        0|          0
-Apr 03, 26|Orange Juice        |count    |     2.0|        0|          0
-Apr 03, 26|OJ cups             |count    |     0.0|       40|          0
-Apr 03, 26|Paper Towels        |count    |     0.0|        2|          0
-Apr 03, 26|Sausage             |count    |     2.0|        0|          0
-Apr 03, 26|Serving Plates      |count    |     0.0|      180|          0
-Apr 03, 26|Bacon               |count    |     2.0|        0|          0
-Apr 03, 26|Pancake Mix         |count    |     2.0|        0|          0
 Apr 10, 26|Eggs                |purchased|     3.0|        0|          0
 Apr 10, 26|Milk                |purchased|     0.0|        0|          0
 Apr 10, 26|OJ cups             |purchased|     1.0|        0|          0
 Apr 10, 26|Orange Juice        |purchased|     1.0|        0|          0
 Apr 11, 26|Bacon               |consumed |     0.0|       60|         12
 Apr 11, 26|Butter              |consumed |     0.0|       44|          9
-Apr 11, 26|Coffee, ground      |consumed |     0.0|       70|         14
 Apr 11, 26|Coffee Creamer      |consumed |     0.0|       70|         14
-Apr 11, 26|Coffee cups, 8 oz   |consumed |     0.0|       22|          5
 Apr 11, 26|Coffee Stirrer 5"   |consumed |     0.0|       70|         14
+Apr 11, 26|Coffee cups, 8 oz   |consumed |     0.0|       22|          5
+Apr 11, 26|Coffee, ground      |consumed |     0.0|       70|         14
 Apr 11, 26|Cutlery Packets     |consumed |     0.0|       44|          9
 Apr 11, 26|Eggs                |consumed |     0.0|       97|         20
 Apr 11, 26|Gloves              |consumed |     0.0|       10|          2
@@ -610,35 +610,43 @@ Apr 11, 26|Serving Plates      |consumed |     0.0|       44|          9
 Apr 11, 26|Splenda             |consumed |     0.0|       15|          3
 Apr 11, 26|Sugar               |consumed |     0.0|       15|          3
 Apr 11, 26|Sweet'N Low         |consumed |     0.0|       15|          3
-Apr 11, 26|Syrup bottle, reg   |consumed |     0.0|        3|          1
 Apr 11, 26|Syrup bottle, SF    |consumed |     0.0|        3|          1
+Apr 11, 26|Syrup bottle, reg   |consumed |     0.0|        3|          1
 Apr 11, 26|Syrup, reg          |consumed |     0.0|       73|         15
 Apr 11, 26|Syrup, sugar free   |consumed |     0.0|       73|         15
 Apr 11, 26|Tea                 |consumed |     0.0|        4|          1
 Apr 11, 26|To-Go Containers    |consumed |     0.0|        4|          1
 
+Month_stats
+month|max_served1|max_served2|served_fudge|avg_served1|avg_served2|num_tables|table_size|consumed_fudge
+
+Order_stats
+item|unit|pkg_size|perishable|inv_units|uncertainty|consumed1|consumed2|min_needed1|max_order|min_needed2|min_needed3|order
+
 Steps
 id|number|name                             |state|last_run
  1|1     |Create Month                     |     |        
  2|2     |Do Inventory                     |     |        
+ 3|3     |Create P.O.s                     |     |        
+ 4|4     |After Member Meeting             |     |        
+ 5|5     |After Breakfast                  |     |        
+ 6|6     |View/Edit Tables                 |     |        
+ 7|7     |Other                            |     |        
+ 8|8     |Special Events                   |     |        
 21|2.A   |Set Fudge Factors & table_size   |     |        
 22|2.B   |Create Inv_checklist             |     |        
 23|2.C   |Print Inv_checklist              |     |        
 24|2.D   |Edit Inv_checklist               |     |        
 25|2.E   |Import Inv_checklist             |     |        
- 3|3     |Create P.O.s                     |     |        
 31|3.A   |Create Orders                    |     |        
 32|3.B   |Edit Orders                      |     |        
 33|3.C   |Create P.O.s                     |     |        
- 4|4     |After Member Meeting             |     |        
 41|4.A   |Set Meeting Attendance           |     |        
 42|4.B   |Edit purchases/locations/prices  |     |        
 43|4.C   |Import purchases/locations/prices|     |        
- 5|5     |After Breakfast                  |     |        
 51|5.A   |Set Breakfast Stats              |     |        
 52|5.B   |Calc Consumed                    |     |        
 53|5.C   |Calc Estimates                   |     |        
- 6|6     |View/Edit Tables                 |     |        
 61|6.A   |Items                            |     |        
 62|6.B   |Products                         |     |        
 63|6.C   |Inventory                        |     |        
@@ -648,13 +656,11 @@ id|number|name                             |state|last_run
 67|6.G   |Order_stats                      |     |        
 68|6.H   |Month_stats                      |     |        
 69|6.I   |Steps                            |     |        
- 7|7     |Other                            |     |        
 71|7.A   |Save Database                    |     |        
 72|7.B   |Est cost per meal                |     |        
 73|7.C   |git commit/push                  |     |        
 74|7.D   |Exit                             |     |        
 75|7.E   |Abort                            |     |        
- 8|8     |Special Events                   |     |        
 81|8.A   |Acquisitions                     |     |        
 82|8.B   |Items Used                       |     |        
 
