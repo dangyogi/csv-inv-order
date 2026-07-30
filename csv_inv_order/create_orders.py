@@ -50,27 +50,10 @@ def create_orders(step, app, verbose=False):
     Order_stats.clear()
     for item in Items.values():
         order_stats = item.order_stats(cur_month, override=True, verbose=verbose)
-
-        optional_fields = {}
-        for f in "max_order min_needed2 min_needed3".split():
-            x = getattr(order_stats, f)
-            if x is not None:
-                optional_fields[f] = x
-        Order_stats.insert(
-          item=order_stats.item,
-          unit=order_stats.unit,
-          pkg_size=order_stats.pkg_size,
-          perishable=order_stats.perishable,
-          inv_units=order_stats.inv,
-          uncertainty=order_stats.uncertainty,
-          consumed1=order_stats.consumed1,
-          consumed2=order_stats.consumed2,
-          min_needed1=order_stats.min_needed1,
-          order=order_stats.order,
-          **optional_fields)
-
-        if order_stats.order:
-            Orders.insert(item=order_stats.item, qty=order_stats.order)
+        Order_stats.insert(**order_stats)
+        order = order_stats['order']
+        if order:
+            Orders.insert(item=order_stats["item"], qty=order)
 
     app.set_changed()
     return step.mark_run(app)

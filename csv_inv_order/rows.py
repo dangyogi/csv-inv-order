@@ -24,19 +24,15 @@ class Items(Row):
         Column("unit", required=True),
         Bool_column("perishable", "perish", required=True),
         Column("supplier"),
-        Column("supplier_id", "supp_id", parse=int),
-        Column("num_per_meal", "#/meal", parse=float),
-        Column("num_per_table", "#/table", parse=float),
-        Column("num_per_serving", "#/serving", parse=float),
+        Column("supplier_id", "supp_id", parse=int),          #  Order    Consumed
+        Column("num_per_meal", "#/meal", parse=float),        #  first    second
+        Column("num_per_table", "#/table", parse=float),      #  second   third
+        Column("num_per_serving", "#/serving", parse=float),  #  third    first
         Column("pkg_size", parse=int, calculated=True),
         Column("pkg_weight", parse=float, calculated=True),
     )
     primary_key = 'item'
     foreign_keys = "Products",
-
-    order_stats_headers = "item unit pkg_size perishable inv uncertainty consumed1 consumed2 " \
-                          "min_needed1 max_order min_needed2 min_needed3 order".split()
-    order_stats_row_type = namedtuple("order_stats", order_stats_headers)
 
     row_popup_command_fns = "Inventory", "Products"
 
@@ -94,6 +90,26 @@ class Items(Row):
                         raise AssertionError(f"Item({self.item}).in_stock: unknown Inventory.code={inv.code}")
         return units, uncertainty
 
+    def calc_needed(self, num_servings, table_size):
+        r'''Calculates total needed, in units, to cover num_servings.
+
+        Goes in this order:
+            num_per_meal
+            num_per_table * num_tables
+            num_per_serving * num_servings
+
+        Does not subtract inventory.
+        '''
+        needed = 0
+        if self.num_per_meal:
+            needed = self.num_per_meal
+        elif self.num_per_table:
+            tables = int(math.ceil(num_servings / table_size))
+            needed = self.num_per_table * tables
+        elif self.num_per_serving:
+            needed = self.num_per_serving * num_servings
+        return round(needed)
+
     def consumed(self, num_served, table_size=6, verbose=False):
         r'''Returns the number of units consumed at a single breakfast.
         '''
@@ -117,43 +133,18 @@ class Items(Row):
         return round(ans)
 
     def order_stats(self, cur_month, override=False, verbose=False):
-        r'''Returns order_stats_row_type (stored on this class).
+        r'''Returns dict to insert into order_stats.
         '''
-        table_size = cur_month.table_size
-        def calc_needed(num_servings):
-            r'''Calculates total needed to cover num_servings.
-
-            Does not subtract inventory.
-            '''
-            def print_next(msg):
-                if verbose:
-                    print(f"{self.item}, {num_servings=}: {msg}")
-            needed = 0
-            if self.num_per_meal:
-                needed = self.num_per_meal
-                print_next(f"num_per_meal={self.num_per_meal}")
-            elif self.num_per_table:
-                tables = int(math.ceil(num_servings / table_size))
-                needed = self.num_per_table * tables
-                print_next(f"num_per_table={self.num_per_table} * {tables=} == {needed}")
-            elif self.num_per_serving:
-                needed = self.num_per_serving * num_servings
-                print_next(f"num_per_serving={self.num_per_serving} * {num_servings=} == {needed}")
-            ans = round(needed)
-            if verbose:
-                print(f"final needed={ans}")
-            return ans
-
-        stats = [self.item, self.unit, self.pkg_size, self.perishable]
-        units, uncertainty = self.in_stock(verbose=verbose)  # may be < 0
-        if units < 0:
-            uncertainty += units  # reduce uncertainty
+        inv_units, uncertainty = self.in_stock(verbose=verbose)  # may be < 0
+        if inv_units < 0:
+            uncertainty += inv_units  # reduce uncertainty
             if uncertainty < 0:
                 uncertainty = 0
-            units = 0
-        stats.extend((units, uncertainty))
+            inv_units = 0
+        stats = dict(item=self.item, unit=self.unit, pkg_size=self.pkg_size, perishable=self.perishable,
+                     inv_units=inv_units, uncertainty=uncertainty)
 
-
+        # includes staff + tickets_claimed
         avg_served1 = cur_month.avg_meals_served
         if cur_month.month == 4:  # Apr
             next_month = None
@@ -162,53 +153,66 @@ class Items(Row):
             _, next_month = Database.Months.inc_month(cur_month.year, cur_month.month)
             avg_served2 = Database.Months.avg_meals_served(next_month)
 
-        consumed1 = self.consumed(cur_month.consumed_fudge * avg_served1, table_size, verbose)
-        consumed2 = self.consumed(cur_month.consumed_fudge * avg_served2, table_size, verbose)
-        stats.extend((consumed1, consumed2))
+        table_size = cur_month.table_size
 
-        min_needed1 = calc_needed(cur_month.meals_planned)
-        stats.append(min_needed1)
-        if units - uncertainty >= min_needed1:
-            stats.extend((None, None, None, 0))
-            return self.order_stats_row_type(*stats)
-        min1 = int(math.ceil((min_needed1 - (units - uncertainty)) / self.pkg_size))
+        # in units
+        min_needed1 = self.calc_needed(cur_month.meals_planned, table_size)
+        stats.update(min_needed1=min_needed1)
+        if inv_units - uncertainty >= min_needed1:
+            # we have enough in stock already!  order 0
+            stats.update(order=0)
+            return stats
+
+        # min pkgs needed assuming low-side (min) of inventory
+        min1 = int(math.ceil((min_needed1 - max(0, inv_units - uncertainty)) / self.pkg_size))
+        # max pkgs needed assuming high-side (max) of inventory, should be <= min1
+        max1 = int(math.ceil((min_needed1 - (inv_units + uncertainty)) / self.pkg_size))
+        stats.update(min1=min1, max1=max1)
         if verbose:
-            print(f"{min_needed1=}; in_stock: {units=}, {uncertainty=}; "
-                  f"min1 order: {min1}, pkg_size={self.pkg_size}")
+            print(f"{min_needed1=}; in_stock: {inv_units=}, {uncertainty=}; "
+                  f"min1 order: {min1}, max1 order: {max1}, pkg_size={self.pkg_size}")
         if self.perishable:
-            max_order = consumed1 + consumed2
-            stats.append(max_order)
-            max_limit = int((max_order - (units + uncertainty)) / self.pkg_size)   # floor
-            if verbose:
-                print(f"{max_order=}, {max_limit=}")
-            if max_limit < min1 and not override:
+            if max1 < min1 and not override:
+                # uncertainty crosses order line
                 raise CheckInventory(self.item)
-            stats.extend((None, None, round(max(min1, max_limit))))
-            return self.order_stats_row_type(*stats)
+            stats.update(order=min1)
+            return stats
+
         # else non_perishable
-        stats.append(None)  # max_order
+        # min consumed, in units, this month
+        consumed1 = self.consumed(cur_month.consumed_fudge * avg_served1, table_size, verbose)
+        stats.update(consumed1=consumed1)
         if next_month is not None:
-            min_needed2 = calc_needed(Database.Months.meals_planned(next_month, cur_month.served_fudge))
+            min_next = self.calc_needed(Database.Months.meals_planned(next_month, cur_month.served_fudge),
+                                        table_size)
+            stats.update(min_next=min_next)
         else:
-            min_needed2 = 0
-        stats.append(min_needed2)
-        min2 = int(math.ceil((min_needed2 - (units - uncertainty)) / self.pkg_size))
+            min_next = 0
+
         if verbose:
-            print(f"{min_needed2=}, {min2=}, {consumed1=}")
-        if uncertainty > 0.3 * consumed1 and not override:
-            raise CheckInventory(self.item)
-        min_needed3 = consumed1 + min_needed2
-        stats.append(min_needed3)
-        min3 = int(math.ceil((min_needed3 - (units - uncertainty)) / self.pkg_size))
+            print(f"{consumed1=}, {min_next=}")
+        min_needed2 = consumed1 + min_next
+        min2 = int(math.ceil((min_needed2 - max(0, inv_units - uncertainty)) / self.pkg_size))
+        max2 = int(math.ceil((min_needed2 - (inv_units + uncertainty)) / self.pkg_size))
+        stats.update(min_needed2=min_needed2, min2=min2, max2=max2)
         if verbose:
-            print(f"{min_needed3=}, {min3=}")
-        stats.append(round(max(min1, min2, min3)))
-        return self.order_stats_row_type(*stats)
+            print(f"{min_needed2=}, {min2=}, {max2=}")
+        if min1 >= min2:
+            if max1 < min1 and not override:
+                # uncertainty crosses order line
+                raise CheckInventory(self.item)
+            stats.update(order=min1)
+        else:  # min2 > min1
+            if max2 < min2 and not override:
+                # uncertainty crosses order line
+                raise CheckInventory(self.item)
+            stats.update(order=min2)
+        return stats
 
     def order(self, cur_month, override=False, verbose=False):
         r'''Returns how many pkgs to order.
         '''
-        return self.order_stats(cur_month, override, verbose).order
+        return self.order_stats(cur_month, override, verbose)['order']
 
 class Name_column(Column):
     chosen_attr_pair = 0x02
@@ -503,12 +507,14 @@ class Order_stats(Row):
         Bool_column("perishable", "perish", required=True, can_edit=False),
         Column("inv_units", "inv", parse=int, required=True, can_edit=False),
         Column("uncertainty", "uncert", parse=int, required=True, can_edit=False),
-        Column("consumed1", "cons1", parse=int, required=True, can_edit=False),
-        Column("consumed2", "cons2", parse=int, required=True, can_edit=False),
-        Column("min_needed1", "min1", parse=int, required=True, can_edit=False),
-        Column("max_order", "max_ord", parse=int, can_edit=False),
-        Column("min_needed2", "min2", parse=int, can_edit=False),
-        Column("min_needed3", "min3", parse=int, can_edit=False),
+        Column("min_needed1", "need1", parse=int, required=True, can_edit=False),
+        Column("min1", parse=int, can_edit=False),
+        Column("max1", parse=int, can_edit=False),
+        Column("consumed1", "cons1", parse=int, can_edit=False),
+        Column("min_next", "next", parse=int, can_edit=False),
+        Column("min_needed2", "need2", parse=int, can_edit=False),
+        Column("min2", parse=int, can_edit=False),
+        Column("max2", parse=int, can_edit=False),
         Column("order", parse=int, required=True, can_edit=False),
     )
     primary_key = 'item'
