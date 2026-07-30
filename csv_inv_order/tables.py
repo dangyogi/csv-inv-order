@@ -90,6 +90,8 @@ class Months(Table_unique):
         '''
         avg_staff = self.avg_staff_at_breakfast(month)
         avg_tickets = self.avg_tickets_claimed(month)
+        if avg_staff is None or avg_tickets is None or served_fudge is None:
+            return None
         return round(avg_staff + avg_tickets * served_fudge)
 
 

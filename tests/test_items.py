@@ -8,6 +8,7 @@ from csv_inv_order.database import *
 
 @pytest.fixture(scope="module", autouse=True)
 def create_database():
+    Items.clear()
     items = [("Eggs", "ea", True, 24), ("Butter", "chip", False, 200), ("Milk", "oz", True, 64),
              ("Nonstick Spray", "can", False, 2)]
     for item, unit, perishable, pkg_size in items:
@@ -20,6 +21,7 @@ def create_database():
     Items["Nonstick Spray"].num_per_meal = 1.0
     Items["Nonstick Spray"].num_per_serving = 0.01
 
+    Inventory.clear()
     Eggs = [("count", 10), ("purchased", 24), ("consumed", 14)]                          # 20
     for code, num_units in Eggs:
         Inventory.insert(date='Jan 01, 26', item="Eggs", code=code, num_units=num_units)
@@ -42,6 +44,7 @@ def create_database():
         Inventory.insert(date='Jan 01, 26', item="Nonstick Spray", code=code, num_units=num_units)
     Inventory["Jan 01, 26", "Nonstick Spray", "consumed"].uncertainty = 0.5
 
+    Months.clear()
     Months.insert(month=1, year=2026, served_fudge=1.1, consumed_fudge=0.5, table_size=8,
                   staff_at_breakfast=10, tickets_claimed=173)                     # 200 w/fudge, 92 consumed
     Months.insert(month=2, year=2026, staff_at_breakfast=10, tickets_claimed=82)  # 100 w/fudge
