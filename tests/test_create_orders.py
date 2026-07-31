@@ -1,15 +1,13 @@
-# test_items.py
+# test_create_orders.py
+
+r'''Includes test_items tests to share create_database fixture.
+'''
 
 from decimal import Decimal
 import pytest
 
 from csv_inv_order.database import *
-
-
-# Skip this entire file for testing.
-# FIX: delete this file
-pytestmark = pytest.mark.skip(reason="Tests moved to test_create_orders.py")
-
+from csv_inv_order.create_orders import create_month_stats, create_order_stats, create_orders
 
 
 @pytest.fixture(scope="module", autouse=True)
@@ -61,6 +59,21 @@ def create_database():
 def cur_month():
     return Months[2026, 1]
 
+@pytest.fixture
+def month_stats():
+    class attrs:
+        def __init__(self, **attrs):
+            self._keys = []
+            for key, value in attrs.items():
+                self._keys.append(key)
+                setattr(self, key, value)
+    return attrs(month=1, next_month=2, avg_served1=183, avg_served2=92, served_fudge=1.1,
+                 meals_planned1=200, meals_planned2=100, num_tables1=24, num_tables2=12, table_size=8,
+                 consumed_fudge=0.5)
+
+
+# item tests:
+
 def test_inventory():
     rows = list(Inventory.values())
     assert rows[0].item == 'Eggs'
@@ -98,3 +111,96 @@ def test_consumed():
     assert Items["Milk"].consumed(92, 24) == 32
     assert Items["Nonstick Spray"].consumed(92, 24) == 1
 
+
+# create_order tests:
+
+def test_create_month_stats(cur_month, month_stats):
+    ms = create_month_stats(cur_month)
+    for attr in month_stats._keys:
+        assert getattr(ms, attr) == getattr(month_stats, attr)
+
+@pytest.mark.parametrize("item, attr, value", [
+    ("Eggs", "item", "Eggs"),
+    ("Eggs", "unit", "ea"),
+    ("Eggs", "pkg_size", 24),
+    ("Eggs", "perishable", True),
+    ("Eggs", "inv_units", 20),
+    ("Eggs", "uncertainty", 5),
+    ("Eggs", "min_needed1", 440),
+    ("Eggs", "min1", 18),
+    ("Eggs", "max1", 18),
+    ("Eggs", "consumed1", None),
+    ("Eggs", "min_next", None),
+    ("Eggs", "min_needed2", None),
+    ("Eggs", "min2", None),
+    ("Eggs", "max2", None),
+    ("Eggs", "order", 18),
+
+    ("Butter", "item", "Butter"),
+    ("Butter", "unit", "chip"),
+    ("Butter", "pkg_size", 200),
+    ("Butter", "perishable", False),
+    ("Butter", "inv_units", 50),
+    ("Butter", "uncertainty", 22),
+    ("Butter", "min_needed1", 288),
+    ("Butter", "min1", 2),
+    ("Butter", "max1", 2),
+    ("Butter", "consumed1", 92),
+    ("Butter", "min_next", 144),
+    ("Butter", "min_needed2", 236),
+    ("Butter", "min2", 2),
+    ("Butter", "max2", 1),
+    ("Butter", "order", 2),
+
+    ("Milk", "item", "Milk"),
+    ("Milk", "unit", "oz"),
+    ("Milk", "pkg_size", 64),
+    ("Milk", "perishable", True),
+    ("Milk", "inv_units", 32),
+    ("Milk", "uncertainty", 10),
+    ("Milk", "min_needed1", 32),
+    ("Milk", "min1", 1),
+    ("Milk", "max1", 0),
+    ("Milk", "consumed1", None),
+    ("Milk", "min_next", None),
+    ("Milk", "min_needed2", None),
+    ("Milk", "min2", None),
+    ("Milk", "max2", None),
+    ("Milk", "order", 1),
+
+    ("Nonstick Spray", "item", "Nonstick Spray"),
+    ("Nonstick Spray", "unit", "can"),
+    ("Nonstick Spray", "pkg_size", 2),
+    ("Nonstick Spray", "perishable", False),
+    ("Nonstick Spray", "inv_units", 0),
+    ("Nonstick Spray", "uncertainty", 0.5),
+    ("Nonstick Spray", "min_needed1", 1),
+    ("Nonstick Spray", "min1", 1),
+    ("Nonstick Spray", "max1", 1),
+    ("Nonstick Spray", "consumed1", 1),
+    ("Nonstick Spray", "min_next", 1),
+    ("Nonstick Spray", "min_needed2", 2),
+    ("Nonstick Spray", "min2", 1),
+    ("Nonstick Spray", "max2", 1),
+    ("Nonstick Spray", "order", 1),
+
+])
+def test_create_order_stats(cur_month, month_stats, item, attr, value):
+    order_stats = create_order_stats(Items[item], cur_month, month_stats, override=True)
+    if value is None:
+        assert attr not in order_stats
+    else:
+        assert order_stats[attr] == value
+
+@pytest.mark.parametrize("item, exc", [
+    ("Eggs", False),
+    ("Butter", False),
+    ("Milk", True),
+    ("Nonstick Spray", False),
+])
+def test_CheckInventory(cur_month, month_stats, item, exc):
+    if exc:
+        with pytest.raises(CheckInventory):
+            create_order_stats(Items[item], cur_month, month_stats, override=False)
+    else:
+        create_order_stats(Items[item], cur_month, month_stats, override=False)

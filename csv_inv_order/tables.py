@@ -1,5 +1,6 @@
 # tables.py
 
+import math
 from statistics import mean
 
 from csv_app.table import *
@@ -84,6 +85,12 @@ class Months(Table_unique):
         r'''Rounds answer to nearest integer.
         '''
         return self.avg(month, 'meals_served')
+
+    def num_tables(self, month, served_fudge, table_size):
+        avg_tickets = self.avg_tickets_claimed(month)
+        if avg_tickets is None or served_fudge is None:
+            return None
+        return int(math.ceil(avg_tickets * served_fudge / table_size))
 
     def meals_planned(self, month, served_fudge):
         r'''Rounds answer to nearest integer.

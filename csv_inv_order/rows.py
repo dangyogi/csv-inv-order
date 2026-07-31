@@ -90,7 +90,7 @@ class Items(Row):
                         raise AssertionError(f"Item({self.item}).in_stock: unknown Inventory.code={inv.code}")
         return units, uncertainty
 
-    def calc_needed(self, num_servings, table_size):
+    def calc_needed(self, num_servings, num_tables):
         r'''Calculates total needed, in units, to cover num_servings.
 
         Goes in this order:
@@ -104,13 +104,12 @@ class Items(Row):
         if self.num_per_meal:
             needed = self.num_per_meal
         elif self.num_per_table:
-            tables = int(math.ceil(num_servings / table_size))
-            needed = self.num_per_table * tables
+            needed = self.num_per_table * num_tables
         elif self.num_per_serving:
             needed = self.num_per_serving * num_servings
         return round(needed)
 
-    def consumed(self, num_served, table_size=6, verbose=False):
+    def consumed(self, num_served, num_tables, verbose=False):
         r'''Returns the number of units consumed at a single breakfast.
         '''
         if self.num_per_serving is not None:
@@ -122,92 +121,14 @@ class Items(Row):
             if verbose:
                 print(f"{self.item}.consumed: num_per_meal={self.num_per_meal}, {ans=}")
         elif self.num_per_table is not None:
-            tables = round(math.ceil(num_served / table_size))
-            ans = self.num_per_table * tables
+            ans = self.num_per_table * num_tables
             if verbose:
-                print(f"{self.item}.consumed: num_per_table={self.num_per_table}, {tables=}, {ans=}")
+                print(f"{self.item}.consumed: num_per_table={self.num_per_table}, {num_tables=}, {ans=}")
         else:
             ans = 0
             if verbose:
                 print(f"{self.item}.consumed: no consumption set, {ans=}")
         return round(ans)
-
-    def order_stats(self, cur_month, override=False, verbose=False):
-        r'''Returns dict to insert into order_stats.
-        '''
-        inv_units, uncertainty = self.in_stock(verbose=verbose)  # may be < 0
-        if inv_units < 0:
-            uncertainty += inv_units  # reduce uncertainty
-            if uncertainty < 0:
-                uncertainty = 0
-            inv_units = 0
-        stats = dict(item=self.item, unit=self.unit, pkg_size=self.pkg_size, perishable=self.perishable,
-                     inv_units=inv_units, uncertainty=uncertainty)
-
-        # includes staff + tickets_claimed
-        avg_served1 = cur_month.avg_meals_served
-        if cur_month.month == 4:  # Apr
-            next_month = None
-            avg_served2 = 0
-        else:
-            _, next_month = Database.Months.inc_month(cur_month.year, cur_month.month)
-            avg_served2 = Database.Months.avg_meals_served(next_month)
-
-        table_size = cur_month.table_size
-
-        # in units
-        min_needed1 = self.calc_needed(cur_month.meals_planned, table_size)
-        stats.update(min_needed1=min_needed1)
-        if inv_units - uncertainty >= min_needed1:
-            # we have enough in stock already!  order 0
-            stats.update(order=0)
-            return stats
-
-        # min pkgs needed assuming low-side (min) of inventory
-        min1 = int(math.ceil((min_needed1 - max(0, inv_units - uncertainty)) / self.pkg_size))
-        # max pkgs needed assuming high-side (max) of inventory, should be <= min1
-        max1 = int(math.ceil((min_needed1 - (inv_units + uncertainty)) / self.pkg_size))
-        stats.update(min1=min1, max1=max1)
-        if verbose:
-            print(f"{min_needed1=}; in_stock: {inv_units=}, {uncertainty=}; "
-                  f"min1 order: {min1}, max1 order: {max1}, pkg_size={self.pkg_size}")
-        if self.perishable:
-            if max1 < min1 and not override:
-                # uncertainty crosses order line
-                raise CheckInventory(self.item)
-            stats.update(order=min1)
-            return stats
-
-        # else non_perishable
-        # min consumed, in units, this month
-        consumed1 = self.consumed(cur_month.consumed_fudge * avg_served1, table_size, verbose)
-        stats.update(consumed1=consumed1)
-        if next_month is not None:
-            min_next = self.calc_needed(Database.Months.meals_planned(next_month, cur_month.served_fudge),
-                                        table_size)
-            stats.update(min_next=min_next)
-        else:
-            min_next = 0
-
-        if verbose:
-            print(f"{consumed1=}, {min_next=}")
-        min_needed2 = consumed1 + min_next
-        min2 = int(math.ceil((min_needed2 - max(0, inv_units - uncertainty)) / self.pkg_size))
-        max2 = int(math.ceil((min_needed2 - (inv_units + uncertainty)) / self.pkg_size))
-        stats.update(min_needed2=min_needed2, min2=min2, max2=max2)
-        if verbose:
-            print(f"{min_needed2=}, {min2=}, {max2=}")
-        if min1 >= min2:
-            if max1 < min1 and not override:
-                # uncertainty crosses order line
-                raise CheckInventory(self.item)
-            stats.update(order=min1)
-        else:  # min2 > min1
-            if max2 < min2 and not override:
-                # uncertainty crosses order line
-                raise CheckInventory(self.item)
-            stats.update(order=min2)
-        return stats
 
     def order(self, cur_month, override=False, verbose=False):
         r'''Returns how many pkgs to order.
@@ -413,6 +334,8 @@ class Months(Row):
 
     @property
     def num_tables(self):
+        r'''Factoring in served_fudge on avg_tickets_claimed.
+        '''
         avg_tickets = self.avg_tickets_claimed
         if avg_tickets is None or self.served_fudge is None:
             return None
@@ -488,12 +411,14 @@ class Orders(Row):
 class Month_stats(Row):
     columns = (
         Column("month", parse=int, required=True),
-        Column("max_served1", parse=int, required=True, can_edit=False),
-        Column("max_served2", parse=int, required=True, can_edit=False),
-        Column("served_fudge", parse=float, required=True, can_edit=False),
+        Column("next_month", parse=int, can_edit=False),
         Column("avg_served1", parse=int, required=True, can_edit=False),
-        Column("avg_served2", parse=int, required=True, can_edit=False),
-        Column("num_tables", parse=int, required=True, can_edit=False),
+        Column("avg_served2", parse=int, can_edit=False),
+        Column("served_fudge", parse=float, required=True, can_edit=False),
+        Column("meals_planned1", parse=int, required=True, can_edit=False),
+        Column("meals_planned2", parse=int, can_edit=False),
+        Column("num_tables1", parse=int, required=True, can_edit=False),
+        Column("num_tables2", parse=int, can_edit=False),
         Column("table_size", parse=int, required=True, can_edit=False),
         Column("consumed_fudge", parse=float, required=True, can_edit=False),
     )
