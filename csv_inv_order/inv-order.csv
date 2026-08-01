@@ -536,11 +536,9 @@ Mar 14, 26|Syrup, sugar free   |consumed |     0.0|      129|         26
 Mar 14, 26|Tea                 |consumed |     0.0|        8|          2
 Mar 14, 26|To-Go Containers    |consumed |     0.0|        6|          2
 Apr 03, 26|Aprons              |estimate |     0.0|        0|          0
-Apr 03, 26|Bacon               |count    |     2.0|        0|          0
 Apr 03, 26|Bacon               |estimate |     0.0|      219|         21
 Apr 03, 26|Bowls               |estimate |     0.0|      150|          0
 Apr 03, 26|Butter              |estimate |     0.0|      123|         16
-Apr 03, 26|Coffee Creamer      |count    |     0.0|      150|          0
 Apr 03, 26|Coffee Creamer      |estimate |     0.0|        2|         25
 Apr 03, 26|Coffee Stirrer 5"   |estimate |     0.0|      377|         25
 Apr 03, 26|Coffee Stirrer 7"   |estimate |     0.0|        0|          0
@@ -549,29 +547,21 @@ Apr 03, 26|Coffee cups, 12 oz  |estimate |     0.0|        0|          0
 Apr 03, 26|Coffee cups, 8 oz   |estimate |     0.0|      138|          8
 Apr 03, 26|Coffee, ground      |estimate |     0.0|      109|         38
 Apr 03, 26|Cutlery Packets     |estimate |     0.0|      123|         16
-Apr 03, 26|Eggs                |count    |     2.5|        0|          0
 Apr 03, 26|Eggs                |estimate |     0.0|       23|         34
 Apr 03, 26|Gloves              |estimate |     0.0|      650|          7
 Apr 03, 26|Grill Cleaning Brick|estimate |     0.0|        2|          0
 Apr 03, 26|Ketchup             |estimate |     0.0|        6|          2
-Apr 03, 26|Milk                |count    |     0.0|        0|          0
 Apr 03, 26|Milk                |estimate |     0.0|       32|          7
 Apr 03, 26|Nonstick Spray      |estimate |     0.0|       14|          4
-Apr 03, 26|OJ cups             |count    |     0.0|       40|          0
 Apr 03, 26|OJ cups             |estimate |     0.0|      123|         16
-Apr 03, 26|Orange Juice        |count    |     2.0|        0|          0
 Apr 03, 26|Orange Juice        |estimate |     0.0|      174|         70
-Apr 03, 26|Pancake Mix         |count    |     2.0|        0|          0
 Apr 03, 26|Pancake Mix         |estimate |     0.0|      -59|         62
-Apr 03, 26|Paper Towels        |count    |     0.0|        2|          0
 Apr 03, 26|Paper Towels        |estimate |     0.0|        1|          1
 Apr 03, 26|Place Mats          |estimate |     0.0|      979|         61
 Apr 03, 26|Raffle Tickets      |estimate |     0.0|     1476|        105
 Apr 03, 26|Rubber Bands        |estimate |     0.0|        0|          0
-Apr 03, 26|Sausage             |count    |     2.0|        0|          0
 Apr 03, 26|Sausage             |estimate |     0.0|       91|         22
 Apr 03, 26|Scrubbers           |estimate |     0.0|        2|          4
-Apr 03, 26|Serving Plates      |count    |     0.0|      180|          0
 Apr 03, 26|Serving Plates      |estimate |     0.0|       62|         38
 Apr 03, 26|Small Plates        |estimate |     0.0|        0|          0
 Apr 03, 26|Splenda             |estimate |     0.0|     1295|         19
@@ -583,6 +573,16 @@ Apr 03, 26|Syrup, reg          |estimate |     0.0|      126|         62
 Apr 03, 26|Syrup, sugar free   |estimate |     0.0|      222|         62
 Apr 03, 26|Tea                 |estimate |     0.0|       37|          8
 Apr 03, 26|To-Go Containers    |estimate |     0.0|      120|          7
+Apr 03, 26|Bacon               |count    |     2.0|        0|          0
+Apr 03, 26|Coffee Creamer      |count    |     0.0|      150|          0
+Apr 03, 26|Eggs                |count    |     2.5|        0|          0
+Apr 03, 26|Milk                |count    |     0.0|        0|          0
+Apr 03, 26|OJ cups             |count    |     0.0|       40|          0
+Apr 03, 26|Orange Juice        |count    |     2.0|        0|          0
+Apr 03, 26|Pancake Mix         |count    |     2.0|        0|          0
+Apr 03, 26|Paper Towels        |count    |     0.0|        2|          0
+Apr 03, 26|Sausage             |count    |     2.0|        0|          0
+Apr 03, 26|Serving Plates      |count    |     0.0|      180|          0
 Apr 10, 26|Eggs                |purchased|     3.0|        0|          0
 Apr 10, 26|Milk                |purchased|     0.0|        0|          0
 Apr 10, 26|OJ cups             |purchased|     1.0|        0|          0
@@ -618,10 +618,10 @@ Apr 11, 26|Tea                 |consumed |     0.0|        4|          1
 Apr 11, 26|To-Go Containers    |consumed |     0.0|        4|          1
 
 Month_stats
-month|max_served1|max_served2|served_fudge|avg_served1|avg_served2|num_tables|table_size|consumed_fudge
+month|next_month|avg_served1|avg_served2|served_fudge|meals_planned1|meals_planned2|num_tables1|num_tables2|table_size|consumed_fudge
 
 Order_stats
-item|unit|pkg_size|perishable|inv_units|uncertainty|consumed1|consumed2|min_needed1|max_order|min_needed2|min_needed3|order
+item|unit|pkg_size|perishable|inv_units|uncertainty|min_needed1|min1|max1|consumed1|min_next|min_needed2|min2|max2|order
 
 Steps
 id|number|name                             |state|last_run

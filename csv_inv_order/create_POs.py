@@ -36,7 +36,7 @@ def create_POs(step, app, pdf=True):
     for supplier, items in groupby(sorted(Orders.values(), key=attrgetter("order_supplier", "item")),
                                    key=attrgetter("order_supplier")):
         logger.info(f"in for: {supplier=}")
-        report, total = gen_PO(supplier, items, po_num, bf_date)
+        report, total = gen_PO(supplier, (i for i in items if i.qty), po_num, bf_date)
         if total:
             reports[supplier] = report
             grand_total += total

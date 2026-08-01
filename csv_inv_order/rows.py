@@ -229,6 +229,7 @@ class Inventory(Row):
         Column("total_units", parse=int, calculated=True),
     )
     primary_keys = "date item code".split()
+    sort = False
     foreign_keys = "Items",
 
     table_popup_commands_end = 'Print',

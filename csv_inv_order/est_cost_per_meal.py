@@ -24,13 +24,14 @@ def est_cost_per_meal(step, app):
     avg_meals_served = mean(Months.avg_meals_served(mth) for mth in (1,2,3,4,11,12))
     avg_tickets_claimed = mean(Months.avg_tickets_claimed(mth) for mth in (1,2,3,4,11,12))
     table_size = Months.last_month().table_size
+
+    if not (4 <= table_size <= 12):
+        raise ValueError(f"{table_size=} must be 4-12")
+
     avg_num_tables = avg_tickets_claimed / table_size
 
     logger.info(f"est_cost_per_meal: {avg_meals_served=}, {avg_tickets_claimed=}, "\
                 f"{avg_num_tables=:.2f}, {table_size=}")
-
-    if not (4 <= table_size <= 12):
-        raise ValueError(f"{table_size=} must be 4-12")
 
     cost_per_meal = 0
     for item in Items.values():
