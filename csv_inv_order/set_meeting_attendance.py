@@ -32,7 +32,6 @@ def set_meeting_attendance(step, app):
                 target_month.num_at_meeting = attendance
                 app.set_changed()
                 return step.mark_run(app)
-                return None
             app.screen.ask_question("Meeting attendance", attendance_is, "", convert_fn=int)
             return None
         app.screen.ask_question("Year", year_is, str(cur_month.year), convert_fn=int)

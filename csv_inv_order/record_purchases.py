@@ -26,7 +26,7 @@ def record_purchases(step, app):
 
     def date_is(purchase_date):        # a date (convert_fn parses the typed string)
         if not app.testing and not (earliest <= purchase_date <= latest):
-            raise ValueError(f"{purchase_date:{Date_format}} must be between "
+            raise ValueError(f"{purchase_date=:{Date_format}} must be between "
                              f"{earliest:{Date_format}} and {latest:{Date_format}}")
         return record_purchases_in_inventory(step, app, purchase_date)
 
@@ -34,6 +34,20 @@ def record_purchases(step, app):
                             today.strftime(Date_format),
                             convert_fn=lambda s: datetime.strptime(s, Date_format).date())
     return None
+
+def get_counts(order):
+    r'''Returns count attrs to set on Inventory row.
+    '''
+    attrs = {}
+    if order.purchased_units:
+        attrs["num_units"] = order.purchased_units
+        if order.purchased_pkgs is not None:
+            attrs["num_pkgs"] = order.purchased_pkgs
+    elif order.purchased_pkgs:
+        attrs["num_pkgs"] = order.purchased_pkgs
+    elif order.qty:
+        attrs["num_pkgs"] = order.qty
+    return attrs
 
 def record_purchases_in_inventory(step, app, purchase_date):
     logger.info(f"record_purchases {purchase_date=:%b %d, %y}")
@@ -44,19 +58,9 @@ def record_purchases_in_inventory(step, app, purchase_date):
         if order.item not in Items:
             raise ValueError(f"{order.item=} not in Items table")
         num_orders += 1
-        attrs = dict(date=purchase_date, item=order.item, code="purchased")
-        got_count = False
-        if order.purchased_pkgs is not None:
-            attrs["num_pkgs"] = order.purchased_pkgs
-            got_count = True
-        elif order.qty is not None:
-            attrs["num_pkgs"] = order.qty
-            got_count = True
-        if order.purchased_units is not None:
-            attrs["num_units"] = order.purchased_units
-            got_count = True
-        if got_count:
-            Inventory.insert(**attrs)
+        count_attrs = get_counts(order)
+        if count_attrs:
+            Inventory.insert(date=purchase_date, item=order.item, code="purchased", **count_attrs)
             inv_rows_added += 1
         if order.location is not None:
             logger.info(f"Updating Product[{order.product.item}, {order.product.supplier}, "
