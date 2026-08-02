@@ -3,6 +3,7 @@
 r'''Inserts code="consumed" rows into Inventory table.
 '''
 
+from operator import attrgetter
 import math
 import logging
 
@@ -32,7 +33,7 @@ def calc_consumed2(step, app, cur_month, uncertainty_pct):
     logger.info(f"Calculating consumption of {meals_served=}, {uncertainty_pct=}, "
                 f"effective {eff_date:%b %d, %y}")
 
-    for item in Items.values():
+    for item in sorted(Items.values(), key=attrgetter("item")):
         units_consumed = item.consumed(meals_served, cur_month.num_tables)
         if units_consumed:
             uncertainty = int(math.ceil(units_consumed * uncertainty_pct))

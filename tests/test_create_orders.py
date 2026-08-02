@@ -29,24 +29,24 @@ def create_database():
     Eggs = [("count", 10), ("purchased", 24), ("consumed", 14)]                          # 20
     for code, num_units in Eggs:
         Inventory.insert(date='Jan 01, 26', item="Eggs", code=code, num_units=num_units)
-    Inventory["Jan 01, 26", "Eggs", "consumed"].uncertainty = 5
+    Inventory[-1].uncertainty = 5
 
     Butter  = [("estimate", 50), ("purchased", 24), ("consumed", 14), ("used", 10)]      # 50
     for code, num_units in Butter:
         Inventory.insert(date='Jan 01, 26', item="Butter", code=code, num_units=num_units)
-    Inventory["Jan 01, 26", "Butter", "estimate"].uncertainty = 5
-    Inventory["Jan 01, 26", "Butter", "consumed"].uncertainty = 10
-    Inventory["Jan 01, 26", "Butter", "used"].uncertainty = 7
+    Inventory[-4].uncertainty = 5
+    Inventory[-2].uncertainty = 10
+    Inventory[-1].uncertainty = 7
 
     Milk = [("count", 64), ("consumed", 32)]                                             # 32
     for code, num_units in Milk:
         Inventory.insert(date='Jan 01, 26', item="Milk", code=code, num_units=num_units)
-    Inventory["Jan 01, 26", "Milk", "consumed"].uncertainty = 10
+    Inventory[-1].uncertainty = 10
 
     Spray = [("count", 0.5), ("consumed", 0.4)]                                          # 0.1
     for code, num_units in Spray:
         Inventory.insert(date='Jan 01, 26', item="Nonstick Spray", code=code, num_units=num_units)
-    Inventory["Jan 01, 26", "Nonstick Spray", "consumed"].uncertainty = 0.5
+    Inventory[-1].uncertainty = 0.5
 
     Months.clear()
     Months.insert(month=1, year=2026, served_fudge=1.1, consumed_fudge=0.5, table_size=8,

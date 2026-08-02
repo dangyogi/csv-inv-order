@@ -3,6 +3,7 @@
 r'''Inserts code="estimate" rows into Inventory table.
 '''
 
+from operator import attrgetter
 import logging
 
 from .actions import reset
@@ -17,7 +18,7 @@ def calc_estimates(step, app, verbose=False):
 
     logger.info(f"Calculating estimates effective {today:%b %d, %y}")
 
-    for item in Items.values():
+    for item in sorted(Items.values(), key=attrgetter("item")):
         units, uncertainty = item.in_stock(verbose)
         if verbose:
             logger.info(f"Item {item.item}: {units=}, {uncertainty=}")

@@ -7,6 +7,7 @@ r'''
   #   -- don't have price paid, might go to two different people...
 '''
 
+from operator import attrgetter
 import logging
 
 from .database import *
@@ -54,7 +55,7 @@ def record_purchases_in_inventory(step, app, purchase_date):
 
     num_orders = 0
     inv_rows_added = 0
-    for order in Orders.values():
+    for order in sorted(Orders.values(), key=attrgetter("item")):
         if order.item not in Items:
             raise ValueError(f"{order.item=} not in Items table")
         num_orders += 1

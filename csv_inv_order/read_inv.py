@@ -3,6 +3,7 @@
 r'''Loads Inv_checklist into Transactions table.
 '''
 
+from operator import attrgetter
 import logging
 
 from .database import *
@@ -31,7 +32,7 @@ def read_inv_command(step, app):
     def read_inv(inventory_date):
         logger.info(f"read_inv.read_inv({inventory_date=:{Date_format}})")
         changed = False
-        for row in Inv_checklist.values():
+        for row in sorted(Inv_checklist.values(), key=attrgetter("item")):
             if row.num_pkgs or row.num_units:
                 columns = dict(date=inventory_date, item=row.item, code="count")
                 if row.num_pkgs:
