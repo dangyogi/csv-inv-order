@@ -28,7 +28,7 @@ def set_meeting_attendance(step, app):
                 if not (0 <= attendance <= 150):
                     raise ValueError(f"{attendance=} must be 0-150")
                 logger.info(f"Current month: {abbr_month(month)} '{str(year)[2:]}")
-                logger.info("Setting num_at_meeting to", attendance)
+                logger.info(f"Setting num_at_meeting to {attendance}")
                 target_month.num_at_meeting = attendance
                 app.set_changed()
                 return step.mark_run(app)

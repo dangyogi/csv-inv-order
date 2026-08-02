@@ -3,8 +3,6 @@
 r'''
   - add "purchased" rows to Inventory table
   - update location and price in Products
-  # write receipt slips (computer figures out bills?)
-  #   -- don't have price paid, might go to two different people...
 '''
 
 from operator import attrgetter

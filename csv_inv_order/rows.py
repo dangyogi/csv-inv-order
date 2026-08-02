@@ -130,11 +130,6 @@ class Items(Row):
                 print(f"{self.item}.consumed: no consumption set, {ans=}")
         return round(ans)
 
-    def order(self, cur_month, override=False, verbose=False):
-        r'''Returns how many pkgs to order.
-        '''
-        return self.order_stats(cur_month, override, verbose)['order']
-
 class Name_column(Column):
     chosen_attr_pair = 0x02
 
@@ -228,7 +223,6 @@ class Inventory(Row):
         Column("pkg_size", parse=int, calculated=True),
         Column("total_units", parse=int, calculated=True),
     )
-   #primary_keys = "date item code".split()
     foreign_keys = "Items",
 
     table_popup_commands_end = 'Print',
@@ -351,7 +345,6 @@ class Inv_checklist(Row):
     )
     primary_key = 'item'
     foreign_keys = "Items",
-   #omit = True
 
     row_popup_commands_end = 'Delete', 'Cancel'
 
@@ -380,10 +373,8 @@ class Orders(Row):
        #Column("product", calculated=True),
        #Column("order_supplier", calculated=True),
     )
-   #in_database = False
     primary_key = 'item'
     foreign_keys = "Items", "Products"
-   #omit = True
 
     row_popup_command_fns = "Products",
     row_popup_commands_end = 'Delete', 'Cancel'
@@ -411,16 +402,16 @@ class Orders(Row):
 class Month_stats(Row):
     columns = (
         Column("month", parse=int, required=True),
-        Column("next_month", parse=int, can_edit=False),
-        Column("avg_served1", parse=int, required=True, can_edit=False),
-        Column("avg_served2", parse=int, can_edit=False),
-        Column("served_fudge", parse=float, required=True, can_edit=False),
-        Column("meals_planned1", parse=int, required=True, can_edit=False),
-        Column("meals_planned2", parse=int, can_edit=False),
-        Column("num_tables1", parse=int, required=True, can_edit=False),
-        Column("num_tables2", parse=int, can_edit=False),
-        Column("table_size", parse=int, required=True, can_edit=False),
-        Column("consumed_fudge", parse=float, required=True, can_edit=False),
+        Column("next_month", "nxt_mth", parse=int, can_edit=False),
+        Column("avg_served1", "AVsrv1", parse=int, required=True, can_edit=False),
+        Column("avg_served2", "AVsrv2", parse=int, can_edit=False),
+        Column("served_fudge", "srvFG", parse=float, required=True, can_edit=False),
+        Column("meals_planned1", "ml_pln1", parse=int, required=True, can_edit=False),
+        Column("meals_planned2", "ml_pln2", parse=int, can_edit=False),
+        Column("num_tables1", "#tbl1", parse=int, required=True, can_edit=False),
+        Column("num_tables2", "#tbl2", parse=int, can_edit=False),
+        Column("table_size", "tbl_sz", parse=int, required=True, can_edit=False),
+        Column("consumed_fudge", "cnsFG", parse=float, required=True, can_edit=False),
     )
     primary_key = 'month'
 

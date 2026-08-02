@@ -10,6 +10,8 @@ from csv_app.report import *
 
 logger = logging.getLogger('csv-inv-order.create_POs')
 
+Max_name = 75  # max Product.name len for PO report
+
 def create_POs(step, app, pdf=True):
     cur_month = Months.last_month()
     bf_date = cur_month.breakfast_date
@@ -122,7 +124,7 @@ def gen_PO(supplier, items, po_num, bf_date):
         price = product.price
         ext_price = qty * price
         total += ext_price
-        report.new_row("body", line, qty, product.name, product.item_num, product.location,
+        report.new_row("body", line, qty, product.name[:Max_name], product.item_num, product.location,
                        price, ext_price)
     report.new_row("total", "Total", total, pad=10)
     return report, total

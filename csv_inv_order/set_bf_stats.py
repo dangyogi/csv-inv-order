@@ -31,9 +31,9 @@ def set_bf_stats(step, app):
                     if not (0 <= tickets_claimed <= 350):
                         raise ValueError(f"{tickets_claimed=} must be 0-350")
                     logger.info(f"Current month: {abbr_month(month)} '{str(year)[2:]}")
-                    logger.info("Setting staff to", staff)
+                    logger.info(f"Setting staff to {staff}")
                     target_month.staff_at_breakfast = staff
-                    logger.info("Setting tickets claimed to", tickets_claimed)
+                    logger.info(f"Setting tickets claimed to {tickets_claimed}")
                     target_month.tickets_claimed = tickets_claimed
                     app.set_changed()
                     return step.mark_run(app)

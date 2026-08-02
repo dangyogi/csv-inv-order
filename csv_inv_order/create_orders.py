@@ -38,31 +38,7 @@ def create_month_stats(cur_month):
                 f"consumed_fudge={cur_month.consumed_fudge}")
 
     if cur_month.month in Month_stats:
-        del Months_stats[cur_month.month]
-   #    ms = Month_stats[cur_month.month]
-   #    ms.next_month = next_month
-   #    ms.avg_served1 = avg_served1
-   #    ms.avg_served2 = avg_served2
-   #    ms.served_fudge = cur_month.served_fudge
-   #    ms.meals_planned1 = meals_planned1
-   #    ms.meals_planned2 = meals_planned2
-   #    ms.num_tables1 = num_tables1
-   #    ms.num_tables2 = num_tables2
-   #    ms.table_size = table_size
-   #    ms.consumed_fudge = cur_month.consumed_fudge
-   #else:
-   #    Month_stats.insert(month=cur_month.month, avg_served1=avg_served1, avg_served2=avg_served2,
-   #                       served_fudge=cur_month.served_fudge,
-   #                       meals_planned1=meals_planned1, meals_planned2=meals_planned2,
-   #                       num_tables1=num_tables1, table_size=table_size,
-   #                       consumed_fudge=cur_month.consumed_fudge)
-   #    ms = Month_stats[cur_month.month]
-   #    if next_month is not None:
-   #        ms.next_month = next_month
-   #        ms.avg_served2 = avg_served2
-   #        ms.meals_planned2 = meals_planned2
-   #        ms.num_tables2 = num_tables2
-   #return ms
+        del Month_stats[cur_month.month]
     if next_month is None:
         opt = {}
     else:
@@ -77,7 +53,7 @@ def create_month_stats(cur_month):
                        consumed_fudge=cur_month.consumed_fudge, **opt)
     return Month_stats[cur_month.month]
 
-def create_order_stats(item, cur_month, month_stats, override=False, verbose=False):
+def create_order_stats(item, cur_month, override=False, verbose=False):
     r'''Returns dict to insert into order_stats.
     '''
     inv_units, uncertainty = item.in_stock(verbose=verbose)  # may be < 0
@@ -88,6 +64,8 @@ def create_order_stats(item, cur_month, month_stats, override=False, verbose=Fal
         inv_units = 0
     stats = dict(item=item.item, unit=item.unit, pkg_size=item.pkg_size, perishable=item.perishable,
                  inv_units=inv_units, uncertainty=uncertainty)
+
+    month_stats = Month_stats[cur_month.month]
 
     # in units
     min_needed1 = item.calc_needed(month_stats.meals_planned1, month_stats.num_tables1)
@@ -145,12 +123,12 @@ def create_order_stats(item, cur_month, month_stats, override=False, verbose=Fal
 
 def create_orders(step, app, verbose=False):
     cur_month = Months.last_month()
-    month_stats = create_month_stats(cur_month)
+    create_month_stats(cur_month)   # just to be safe...
 
     Orders.clear()
     Order_stats.clear()
     for item in Items.values():
-        order_stats = create_order_stats(item, cur_month, month_stats, override=True, verbose=verbose)
+        order_stats = create_order_stats(item, cur_month, override=True, verbose=verbose)
         Order_stats.insert(**order_stats)
         order = order_stats['order']
         if order:

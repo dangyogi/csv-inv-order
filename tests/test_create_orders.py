@@ -118,6 +118,7 @@ def test_create_month_stats(cur_month, month_stats):
     ms = create_month_stats(cur_month)
     for attr in month_stats._keys:
         assert getattr(ms, attr) == getattr(month_stats, attr)
+    assert len(ms.stored_names) == len(month_stats._keys)
 
 @pytest.mark.parametrize("item, attr, value", [
     ("Eggs", "item", "Eggs"),
@@ -185,8 +186,9 @@ def test_create_month_stats(cur_month, month_stats):
     ("Nonstick Spray", "order", 1),
 
 ])
-def test_create_order_stats(cur_month, month_stats, item, attr, value):
-    order_stats = create_order_stats(Items[item], cur_month, month_stats, override=True)
+def test_create_order_stats(cur_month, item, attr, value):
+    create_month_stats(cur_month)
+    order_stats = create_order_stats(Items[item], cur_month, override=True)
     if value is None:
         assert attr not in order_stats
     else:
@@ -198,9 +200,10 @@ def test_create_order_stats(cur_month, month_stats, item, attr, value):
     ("Milk", True),
     ("Nonstick Spray", False),
 ])
-def test_CheckInventory(cur_month, month_stats, item, exc):
+def test_CheckInventory(cur_month, item, exc):
+    create_month_stats(cur_month)
     if exc:
         with pytest.raises(CheckInventory):
-            create_order_stats(Items[item], cur_month, month_stats, override=False)
+            create_order_stats(Items[item], cur_month, override=False)
     else:
-        create_order_stats(Items[item], cur_month, month_stats, override=False)
+        create_order_stats(Items[item], cur_month, override=False)
