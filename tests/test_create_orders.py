@@ -120,90 +120,91 @@ def test_create_month_stats(cur_month, month_stats):
         assert getattr(ms, attr) == getattr(month_stats, attr)
     assert len(ms.stored_names) == len(month_stats._keys)
 
-@pytest.mark.parametrize("item, attr, value", [
-    ("Eggs", "item", "Eggs"),
-    ("Eggs", "unit", "ea"),
-    ("Eggs", "pkg_size", 24),
-    ("Eggs", "perishable", True),
-    ("Eggs", "inv_units", 20),
-    ("Eggs", "uncertainty", 5),
-    ("Eggs", "min_needed1", 440),
-    ("Eggs", "min1", 18),
-    ("Eggs", "max1", 18),
-    ("Eggs", "consumed1", None),
-    ("Eggs", "min_next", None),
-    ("Eggs", "min_needed2", None),
-    ("Eggs", "min2", None),
-    ("Eggs", "max2", None),
-    ("Eggs", "order", 18),
+@pytest.mark.parametrize("item, attr_values", [
+    ("Eggs", [
+        ("item", "Eggs"),
+        ("unit", "ea"),
+        ("pkg_size", 24),
+        ("perishable", True),
+        ("inv_units", 20),
+        ("uncertainty", 5),
+        ("min_needed1", 440),
+        ("min1", 18),
+        ("max1", 18),
+        ("consumed1", None),
+        ("min_next", None),
+        ("min_needed2", None),
+        ("min2", None),
+        ("max2", None),
+        ("order", 18),
+        ("chk_inventory", False),
+    ]),
 
-    ("Butter", "item", "Butter"),
-    ("Butter", "unit", "chip"),
-    ("Butter", "pkg_size", 200),
-    ("Butter", "perishable", False),
-    ("Butter", "inv_units", 50),
-    ("Butter", "uncertainty", 22),
-    ("Butter", "min_needed1", 288),
-    ("Butter", "min1", 2),
-    ("Butter", "max1", 2),
-    ("Butter", "consumed1", 92),
-    ("Butter", "min_next", 144),
-    ("Butter", "min_needed2", 236),
-    ("Butter", "min2", 2),
-    ("Butter", "max2", 1),
-    ("Butter", "order", 2),
+    ("Butter", [
+        ("item", "Butter"),
+        ("unit", "chip"),
+        ("pkg_size", 200),
+        ("perishable", False),
+        ("inv_units", 50),
+        ("uncertainty", 22),
+        ("min_needed1", 288),
+        ("min1", 2),
+        ("max1", 2),
+        ("consumed1", 92),
+        ("min_next", 144),
+        ("min_needed2", 236),
+        ("min2", 2),
+        ("max2", 1),
+        ("order", 2),
+        ("chk_inventory", False),
+    ]),
 
-    ("Milk", "item", "Milk"),
-    ("Milk", "unit", "oz"),
-    ("Milk", "pkg_size", 64),
-    ("Milk", "perishable", True),
-    ("Milk", "inv_units", 32),
-    ("Milk", "uncertainty", 10),
-    ("Milk", "min_needed1", 32),
-    ("Milk", "min1", 1),
-    ("Milk", "max1", 0),
-    ("Milk", "consumed1", None),
-    ("Milk", "min_next", None),
-    ("Milk", "min_needed2", None),
-    ("Milk", "min2", None),
-    ("Milk", "max2", None),
-    ("Milk", "order", 1),
+    ("Milk", [
+        ("item", "Milk"),
+        ("unit", "oz"),
+        ("pkg_size", 64),
+        ("perishable", True),
+        ("inv_units", 32),
+        ("uncertainty", 10),
+        ("min_needed1", 32),
+        ("min1", 1),
+        ("max1", 0),
+        ("consumed1", None),
+        ("min_next", None),
+        ("min_needed2", None),
+        ("min2", None),
+        ("max2", None),
+        ("order", 1),
+        ("chk_inventory", True),
+    ]),
 
-    ("Nonstick Spray", "item", "Nonstick Spray"),
-    ("Nonstick Spray", "unit", "can"),
-    ("Nonstick Spray", "pkg_size", 2),
-    ("Nonstick Spray", "perishable", False),
-    ("Nonstick Spray", "inv_units", 0),
-    ("Nonstick Spray", "uncertainty", 0.5),
-    ("Nonstick Spray", "min_needed1", 1),
-    ("Nonstick Spray", "min1", 1),
-    ("Nonstick Spray", "max1", 1),
-    ("Nonstick Spray", "consumed1", 1),
-    ("Nonstick Spray", "min_next", 1),
-    ("Nonstick Spray", "min_needed2", 2),
-    ("Nonstick Spray", "min2", 1),
-    ("Nonstick Spray", "max2", 1),
-    ("Nonstick Spray", "order", 1),
+    ("Nonstick Spray", [
+        ("item", "Nonstick Spray"),
+        ("unit", "can"),
+        ("pkg_size", 2),
+        ("perishable", False),
+        ("inv_units", 0),
+        ("uncertainty", 0.5),
+        ("min_needed1", 1),
+        ("min1", 1),
+        ("max1", 1),
+        ("consumed1", 1),
+        ("min_next", 1),
+        ("min_needed2", 2),
+        ("min2", 1),
+        ("max2", 1),
+        ("order", 1),
+        ("chk_inventory", False),
+    ]),
 
 ])
-def test_create_order_stats(cur_month, item, attr, value):
+def test_create_order_stats(cur_month, item, attr_values):
     create_month_stats(cur_month)
-    order_stats = create_order_stats(Items[item], cur_month, override=True)
-    if value is None:
-        assert attr not in order_stats
-    else:
-        assert order_stats[attr] == value
+    order_stats = create_order_stats(Items[item], cur_month)
+    for attr, value in attr_values:
+        if value is None:
+            assert attr not in order_stats
+        else:
+            assert order_stats[attr] == value
+    assert not (order_stats.keys() - (attr for attr, value in attr_values))
 
-@pytest.mark.parametrize("item, exc", [
-    ("Eggs", False),
-    ("Butter", False),
-    ("Milk", True),
-    ("Nonstick Spray", False),
-])
-def test_CheckInventory(cur_month, item, exc):
-    create_month_stats(cur_month)
-    if exc:
-        with pytest.raises(CheckInventory):
-            create_order_stats(Items[item], cur_month, override=False)
-    else:
-        create_order_stats(Items[item], cur_month, override=False)

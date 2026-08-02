@@ -26,10 +26,11 @@ def create_inv_checklist(step, app):
 
 def load_inv_checklist(step, app, cur_month):
     Inv_checklist.clear()
+    Order_stats.clear()
     for i in sorted(Items.values(), key=attrgetter('item')):
-        try:
-            create_order_stats(i, cur_month, override=False)
-        except CheckInventory:
+        order_stats = create_order_stats(i, cur_month)
+        Order_stats.insert(**order_stats)
+        if order_stats['chk_inventory']:
             Inv_checklist.insert(item=i.item)
     app.set_changed()
     return step.mark_run(app)

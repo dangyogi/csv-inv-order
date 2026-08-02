@@ -15,9 +15,6 @@ set_database_filename("inv-order.csv")
 
 logger = logging.getLogger('csv-inv-order.rows')
 
-class CheckInventory(Exception):
-    pass
-
 class Items(Row):
     columns = (
         Column("item", required=True),
@@ -432,6 +429,7 @@ class Order_stats(Row):
         Column("min2", parse=int, can_edit=False),
         Column("max2", parse=int, can_edit=False),
         Column("order", parse=int, required=True, can_edit=False),
+        Bool_column("chk_inventory", "chk", required=True, can_edit=False),
     )
     primary_key = 'item'
 
@@ -441,7 +439,7 @@ Rows = (Months, Inv_checklist, Orders, Items, Products, Inventory, Month_stats, 
        )
 
 
-__all__ = "CheckInventory Decimal date datetime timedelta abbr_month Rows".split()
+__all__ = "Decimal date datetime timedelta abbr_month Rows".split()
 
 
 def run():

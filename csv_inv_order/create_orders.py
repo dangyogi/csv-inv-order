@@ -1,5 +1,6 @@
 # create_orders.py
 
+from operator import attrgetter
 import math
 import logging
 
@@ -53,7 +54,7 @@ def create_month_stats(cur_month):
                        consumed_fudge=cur_month.consumed_fudge, **opt)
     return Month_stats[cur_month.month]
 
-def create_order_stats(item, cur_month, override=False, verbose=False):
+def create_order_stats(item, cur_month, verbose=False):
     r'''Returns dict to insert into order_stats.
     '''
     inv_units, uncertainty = item.in_stock(verbose=verbose)  # may be < 0
@@ -72,7 +73,7 @@ def create_order_stats(item, cur_month, override=False, verbose=False):
     stats.update(min_needed1=min_needed1)
     if inv_units - uncertainty >= min_needed1:
         # we have enough in stock already!  order 0
-        stats.update(order=0)
+        stats.update(order=0, chk_inventory=False)
         return stats
 
     # min pkgs needed assuming low-side (min) of inventory
@@ -84,10 +85,7 @@ def create_order_stats(item, cur_month, override=False, verbose=False):
         print(f"{min_needed1=}; in_stock: {inv_units=}, {uncertainty=}; "
               f"min1 order: {min1}, max1 order: {max1}, pkg_size={item.pkg_size}")
     if item.perishable:
-        if max1 < min1 and not override:
-            # uncertainty crosses order line
-            raise CheckInventory(item.item)
-        stats.update(order=min1)
+        stats.update(order=min1, chk_inventory=max1 < min1)
         return stats
 
     # else non_perishable
@@ -110,15 +108,9 @@ def create_order_stats(item, cur_month, override=False, verbose=False):
     if verbose:
         print(f"{min_needed2=}, {min2=}, {max2=}")
     if min1 >= min2:
-        if max1 < min1 and not override:
-            # uncertainty crosses order line
-            raise CheckInventory(item.item)
-        stats.update(order=min1)
+        stats.update(order=min1, chk_inventory=max1 < min1)
     else:  # min2 > min1
-        if max2 < min2 and not override:
-            # uncertainty crosses order line
-            raise CheckInventory(item.item)
-        stats.update(order=min2)
+        stats.update(order=min2, chk_inventory=max2 < min2)
     return stats
 
 def create_orders(step, app, verbose=False):
@@ -127,8 +119,8 @@ def create_orders(step, app, verbose=False):
 
     Orders.clear()
     Order_stats.clear()
-    for item in Items.values():
-        order_stats = create_order_stats(item, cur_month, override=True, verbose=verbose)
+    for item in sorted(Items.values(), key=attrgetter("item")):
+        order_stats = create_order_stats(item, cur_month, verbose=verbose)
         Order_stats.insert(**order_stats)
         order = order_stats['order']
         if order:

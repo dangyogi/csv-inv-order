@@ -31,8 +31,11 @@ def table(table_name, validate_fn=None, mark_run=True):
     return run_table_screen
 
 def validate_inv_checklist(table):
+    logger.info(f"validate_inv_checklist")
     for row in table.values():
+        logger.info(f"  row {row.item=}, {row.num_pkgs=}, {row.num_units=}")
         if row.num_pkgs is None and row.num_units is None:
+            logger.info(f"  failed")
             return f"No count entered for {row.item}"
 
 def validate_orders(table):

@@ -4,7 +4,7 @@ import math
 from statistics import mean
 
 from csv_app.table import *
-from .rows import Rows, CheckInventory
+from .rows import Rows
 
 
 class No_results(Exception):
@@ -105,7 +105,7 @@ class Months(Table_unique):
 load_rows(Rows, Months)
 
 
-__all__ = "Decimal date datetime timedelta CheckInventory abbr_month Date_format Datetime_format " \
+__all__ = "Decimal date datetime timedelta abbr_month Date_format Datetime_format " \
           "Tables Database load_database save_database load_csv load_all clear_all check_foreign_keys " \
           "CSV_dialect CSV_format".split()
 

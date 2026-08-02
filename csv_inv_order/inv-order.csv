@@ -621,7 +621,7 @@ Month_stats
 month|next_month|avg_served1|avg_served2|served_fudge|meals_planned1|meals_planned2|num_tables1|num_tables2|table_size|consumed_fudge
 
 Order_stats
-item|unit|pkg_size|perishable|inv_units|uncertainty|min_needed1|min1|max1|consumed1|min_next|min_needed2|min2|max2|order
+item|unit|pkg_size|perishable|inv_units|uncertainty|min_needed1|min1|max1|consumed1|min_next|min_needed2|min2|max2|order|chk_inventory
 
 Steps
 id|number|name                             |state|last_run
