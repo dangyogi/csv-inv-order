@@ -212,7 +212,6 @@ class Products(Row):
 class Inventory(Row):
     columns = (
         Date_column("date", required=True),
-        Column("item", required=True, selection_fn=get_items_keys),
         Column("code",
                choices=(
                    "count",
@@ -222,14 +221,14 @@ class Inventory(Row):
                    "estimate",  # includes uncertainty
                ),
                required=True),
+        Column("item", required=True, selection_fn=get_items_keys),
         Column("num_pkgs", parse=float, default=0),
         Column("num_units", parse=int, default=0),
         Column("uncertainty", parse=int, default=0),
         Column("pkg_size", parse=int, calculated=True),
         Column("total_units", parse=int, calculated=True),
     )
-    primary_keys = "date item code".split()
-    sort = False
+   #primary_keys = "date item code".split()
     foreign_keys = "Items",
 
     table_popup_commands_end = 'Print',
