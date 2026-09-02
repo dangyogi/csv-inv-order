@@ -1,7 +1,6 @@
 # rows.py
 
 import math
-from collections import namedtuple
 import logging
 
 from csv_app.row import *
@@ -262,7 +261,8 @@ class Months(Row):
     def Inventory(self, app):
         logger.info(f"Months row({self.month=}, {self.year=}).Inventory executed")
         start_date = date(self.year, self.month, 1)
-        end_date = date(self.year, self.month + 1, 1)
+        yr2, mth2 = Months.inc_month(self.year, self.month)
+        end_date = date(yr2, mth2, 1)
         return table_screen(Database.Inventory, app.screen, date__ge=start_date, date__lt=end_date)
 
     @property
