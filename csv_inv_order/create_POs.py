@@ -15,12 +15,11 @@ Max_name = 75  # max Product.name len for PO report
 def create_POs(step, app, pdf=True):
     cur_month = Months.last_month()
     bf_date = cur_month.breakfast_date
-    po_num_index = cur_month.PO_index
-    if po_num_index is None:
-        po_num_index = 1
+    if cur_month.PO_index is None:
+        cur_month.PO_index = 1
     else:
-        po_num_index += 1
-    po_num = f"{str(bf_date.year)[2:]}{bf_date.month:02}{po_num_index}"
+        cur_month.PO_index += 1
+    po_num = cur_month.po_num
     _suppliers = set()
     for p in Products.values():
         _suppliers.add(p.supplier)
@@ -92,7 +91,6 @@ def create_POs(step, app, pdf=True):
                 report.print_init()
                 print()
                 report.print()
-    cur_month.PO_index = po_num_index
     app.set_changed()
     return step.mark_run(app)
 

@@ -7,6 +7,7 @@ from csv_app.report import dump_table
 from tui_app.tui import get_app
 from tui_app.table_screen import table_screen
 from tui_app.row_screen import row_screen
+from tui_app.run_program import git_commit_push, print_file
 from . import tables
 from .database import *
 from .create_inv_checklist import create_inv_checklist
@@ -59,8 +60,25 @@ def save(step, app):
 def print(table_name):
     def print_table(step, app):
         dump_table(table_name, pdf=True, load=False)
-        return step.mark_run(app)
+        return lp_file(f"{table_name}.pdf")(step, app)
     return print_table
+
+def lp_file(filename):
+    def lp(step, app):
+        print_file("~/Documents/" + filename)
+        return step.mark_run(app)
+    return lp
+
+def lp_POs(step, app):
+    return lp_file(f"Purchase-Orders-{Months.last_month().po_num}.pdf")(step, app)
+
+def git_commit(step, app):
+    def message_is(message):
+        git_commit_push(message, [get_database_filename()],
+                        partial(app.screen.show_message, attr=app.screen.default_pair))
+        return step.mark_run(app)
+    app.screen.ask_question("Commit message", message_is, "")
+    return None
 
 class ExitStep(Step):
     def __init__(self, id, task, abort=False, ok_fn=None):
@@ -180,6 +198,10 @@ Step(32, Task3, table('Orders', validate_orders), 31, can_rerun=True, can_rerun_
 # create P.O.s
 Step(33, Task3, create_POs, 32, can_rerun=True, can_rerun_after_commit=True)
 
+# print P.O.s
+Step(34, Task3, lp_POs, 33,
+     can_rerun=True, can_rerun_after_commit=True, commits_task=True)
+
 
 # after member meeting
 Task4 = Task(4, 3)
@@ -248,7 +270,7 @@ Step(71, Task7, save, ok_fn=lambda: get_app().changed, can_rerun=True)
 Step(72, Task7, est_cost_per_meal, can_rerun=True)
 
 # git commit/push
-Step(73, Task7, stub, can_rerun=True)
+Step(73, Task7, git_commit, 71, ok_fn=lambda: not get_app().changed, can_rerun=True)
 
 # exit
 ExitStep(74, Task7, ok_fn=lambda: not get_app().changed)

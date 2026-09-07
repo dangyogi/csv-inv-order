@@ -251,6 +251,7 @@ class Months(Row):
         Column("meals_served", "ml_srv", parse=int, calculated=True),
         Date_column("meeting_date", "mtg_date", calculated=True),
         Date_column("breakfast_date", "bf_date", calculated=True),
+        Column("po_num", "PO#", calculated=True),
     )
    #hidden = frozenset(("month_str", "meeting_date", "breakfast_date"))
     primary_keys = "year", "month"
@@ -331,6 +332,13 @@ class Months(Row):
         if avg_tickets is None or self.served_fudge is None:
             return None
         return int(math.ceil(avg_tickets * self.served_fudge / self.table_size))
+
+    @property
+    def po_num(self):
+        r'''Last PO number generated (as a str).
+        '''
+        bf_date = self.breakfast_date
+        return f"{str(bf_date.year)[2:]}{bf_date.month:02}{self.PO_index}"
 
 class Inv_checklist(Row):
     columns = (

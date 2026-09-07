@@ -641,6 +641,7 @@ id|number|name                             |state|last_run
 31|3.A   |Create Orders                    |     |        
 32|3.B   |Edit Orders                      |     |        
 33|3.C   |Create P.O.s                     |     |        
+34|3.D   |Print P.O.s                      |     |        
 41|4.A   |Set Meeting Attendance           |     |        
 42|4.B   |Edit purchases/locations/prices  |     |        
 43|4.C   |Import purchases/locations/prices|     |        
