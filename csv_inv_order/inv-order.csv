@@ -628,40 +628,45 @@ id|number|name                             |state|last_run
  1|1     |Create Month                     |     |        
  2|2     |Do Inventory                     |     |        
  3|3     |Create P.O.s                     |     |        
- 4|4     |After Member Meeting             |     |        
- 5|5     |After Breakfast                  |     |        
- 6|6     |View/Edit Tables                 |     |        
- 7|7     |Other                            |     |        
- 8|8     |Special Events                   |     |        
+ 4|4     |Print Forms                      |     |        
+ 5|5     |After Member Meeting             |     |        
+ 6|6     |After Breakfast                  |     |        
+ 7|7     |View/Edit Tables                 |     |        
+ 8|8     |Other                            |     |        
+ 9|9     |Special Events                   |     |        
 21|2.A   |Set Fudge Factors & table_size   |     |        
 22|2.B   |Create Inv_checklist             |     |        
 23|2.C   |Print Inv_checklist              |     |        
-24|2.D   |Edit Inv_checklist               |     |        
+24|2.D   |Do Inventory & Update Inv_checklist|     |        
 25|2.E   |Import Inv_checklist             |     |        
 31|3.A   |Create Orders                    |     |        
-32|3.B   |Edit Orders                      |     |        
+32|3.B   |Adjust Orders as needed          |     |        
 33|3.C   |Create P.O.s                     |     |        
-34|3.D   |Print P.O.s                      |     |        
-41|4.A   |Set Meeting Attendance           |     |        
-42|4.B   |Edit purchases/locations/prices  |     |        
-43|4.C   |Import purchases/locations/prices|     |        
-51|5.A   |Set Breakfast Stats              |     |        
-52|5.B   |Calc Consumed                    |     |        
-53|5.C   |Calc Estimates                   |     |        
-61|6.A   |Items                            |     |        
-62|6.B   |Products                         |     |        
-63|6.C   |Inventory                        |     |        
-64|6.D   |Months                           |     |        
-65|6.E   |Inv_checklist                    |     |        
-66|6.F   |Orders                           |     |        
-67|6.G   |Order_stats                      |     |        
-68|6.H   |Month_stats                      |     |        
-69|6.I   |Steps                            |     |        
-71|7.A   |Save Database                    |     |        
-72|7.B   |Est cost per meal                |     |        
-73|7.C   |git commit/push                  |     |        
-74|7.D   |Exit                             |     |        
-75|7.E   |Abort                            |     |        
-81|8.A   |Acquisitions                     |     |        
-82|8.B   |Items Used                       |     |        
+34|3.D   |Print 3 copies of P.O.s          |     |        
+41|4.A   |Member Sign In(2)                |     |        
+42|4.B   |Advance Ticket Sales             |     |        
+43|4.C   |Inv Check List                   |     |        
+51|5.A   |Set Meeting Attendance           |     |        
+52|5.B   |Update Orders locations/prices   |     |        
+53|5.C   |Import locations/prices          |     |        
+61|6.A   |Set Breakfast Stats              |     |        
+62|6.B   |Calc Consumed                    |     |        
+63|6.C   |Calc Estimates                   |     |        
+71|7.A   |Items                            |     |        
+72|7.B   |Products                         |     |        
+73|7.C   |Inventory                        |     |        
+74|7.D   |Months                           |     |        
+75|7.E   |Inv_checklist                    |     |        
+76|7.F   |Orders                           |     |        
+77|7.G   |Order_stats                      |     |        
+78|7.H   |Month_stats                      |     |        
+79|7.I   |Steps                            |     |        
+81|8.A   |Save Database                    |     |        
+82|8.B   |Est cost per meal                |     |        
+83|8.C   |git commit/push                  |     |        
+84|8.D   |Exit                             |     |        
+85|8.E   |Abort                            |     |        
+86|8.F   |Run recalibrate (at shell prompt)|     |        
+91|9.A   |Acquisitions                     |     |        
+92|9.B   |Items Used                       |     |        
 

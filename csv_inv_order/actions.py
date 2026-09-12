@@ -8,6 +8,7 @@ from tui_app.tui import get_app
 from tui_app.table_screen import table_screen
 from tui_app.row_screen import row_screen
 from tui_app.run_program import git_commit_push, print_file
+from tui_app.print_sheet import print_sheet
 from . import tables
 from .database import *
 from .create_inv_checklist import create_inv_checklist
@@ -71,6 +72,14 @@ def lp_file(filename):
 
 def lp_POs(step, app):
     return lp_file(f"Purchase-Orders-{Months.last_month().po_num}.pdf")(step, app)
+
+def print_form(sheet, copies=1, mark_run=True):
+    def print_form_step_fn(step, app):
+        print_sheet(sheet, copies)
+        if mark_run:
+            return step.mark_run(app)
+        return None
+    return print_form_step_fn
 
 def git_commit(step, app):
     def message_is(message):
@@ -203,88 +212,104 @@ Step(34, Task3, lp_POs, 33,
      can_rerun=True, can_rerun_after_commit=True, commits_task=True)
 
 
-# after member meeting
+# print forms
 Task4 = Task(4, 3)
 
+# member sign in
+Step(41, Task4, print_form('member_sign_in', copies=2), can_rerun=True, can_rerun_after_commit=True)
+
+# advance ticket sales
+Step(42, Task4, print_form('adv_ticket_sales'), can_rerun=True, can_rerun_after_commit=True)
+
+# inv check list
+Step(43, Task4, print_form('inv_check_list'), can_rerun=True, can_rerun_after_commit=True)
+
+
+# after member meeting
+Task5 = Task(5, 3)
+
 # set meeting attendance
-Step(41, Task4, set_meeting_attendance, 1, can_rerun=True, can_rerun_after_commit=True)
+Step(51, Task5, set_meeting_attendance, 1, can_rerun=True, can_rerun_after_commit=True)
 
 # edit purchases/locations/prices
-Step(42, Task4, table('Orders'), 33, can_rerun=True)
+Step(52, Task5, table('Orders'), 33, can_rerun=True)
 
 # import purchases/locations/prices
-Step(43, Task4, record_purchases, 42, commits_task=True)
+Step(53, Task5, record_purchases, 52, commits_task=True)
 
 
 # after breakfast
-Task5 = Task(5, 1)
+Task6 = Task(6, 1)
 
 # set breakfast stats
-Step(51, Task5, set_bf_stats, 1, can_rerun=True)
+Step(61, Task6, set_bf_stats, 1, can_rerun=True)
 
 # calc consumed
-Step(52, Task5, calc_consumed, 51, disable_prereqs=True)
+Step(62, Task6, calc_consumed, 61, disable_prereqs=True)
 
 # calc estimates
-Step(53, Task5, calc_estimates, 25, 43, 52, commits_task=True)
+Step(63, Task6, calc_estimates, 25, 53, 62, commits_task=True)
 
 
 # view/edit tables
-Task6 = Task(6, column_break=True)
+Task7 = Task(7, column_break=True)
 
 # Items
-Step(61, Task6, table("Items", mark_run=False), can_rerun=True)
+Step(71, Task7, table("Items", mark_run=False), can_rerun=True)
 
 # Products
-Step(62, Task6, table("Products", mark_run=False), can_rerun=True)
+Step(72, Task7, table("Products", mark_run=False), can_rerun=True)
 
 # Inventory
-Step(63, Task6, table("Inventory", mark_run=False), can_rerun=True)
+Step(73, Task7, table("Inventory", mark_run=False), can_rerun=True)
 
 # Months
-Step(64, Task6, table("Months", mark_run=False), can_rerun=True)
+Step(74, Task7, table("Months", mark_run=False), can_rerun=True)
 
 # Inv_checklist
-Step(65, Task6, table("Inv_checklist", mark_run=False), can_rerun=True)
+Step(75, Task7, table("Inv_checklist", mark_run=False), can_rerun=True)
 
 # Orders
-Step(66, Task6, table("Orders", mark_run=False), can_rerun=True)
+Step(76, Task7, table("Orders", mark_run=False), can_rerun=True)
 
 # Order_stats
-Step(67, Task6, table("Order_stats", mark_run=False), can_rerun=True)
+Step(77, Task7, table("Order_stats", mark_run=False), can_rerun=True)
 
 # Month_stats
-Step(68, Task6, table("Month_stats", mark_run=False), can_rerun=True)
+Step(78, Task7, table("Month_stats", mark_run=False), can_rerun=True)
 
 # Steps
-Step(69, Task6, table("Steps", mark_run=False), can_rerun=True)
+Step(79, Task7, table("Steps", mark_run=False), can_rerun=True)
 
 
 # other
-Task7 = Task(7)
+Task8 = Task(8)
 
 # save database
-Step(71, Task7, save, ok_fn=lambda: get_app().changed, can_rerun=True)
+Step(81, Task8, save, ok_fn=lambda: get_app().changed, can_rerun=True)
 
 # est_cost_per_meal
-Step(72, Task7, est_cost_per_meal, can_rerun=True)
+Step(82, Task8, est_cost_per_meal, can_rerun=True)
 
 # git commit/push
-Step(73, Task7, git_commit, 71, ok_fn=lambda: not get_app().changed, can_rerun=True)
+Step(83, Task8, git_commit, 81, ok_fn=lambda: not get_app().changed, can_rerun=True)
 
 # exit
-ExitStep(74, Task7, ok_fn=lambda: not get_app().changed)
+ExitStep(84, Task8, ok_fn=lambda: not get_app().changed)
 
 # abort
-ExitStep(75, Task7, abort=True, ok_fn=lambda: get_app().changed)
+ExitStep(85, Task8, abort=True, ok_fn=lambda: get_app().changed)
+
+# run recalibrate (at shell prompt)
+Step(86, Task8, stub, can_rerun=True)
 
 
 # special events
-Task8 = Task(8)
+Task9 = Task(9)
 
 # acquisitions
-Step(81, Task8, stub, can_rerun=True)
+Step(91, Task9, stub, can_rerun=True)
 
 # used
-Step(82, Task8, stub, can_rerun=True)
+Step(92, Task9, stub, can_rerun=True)
 
