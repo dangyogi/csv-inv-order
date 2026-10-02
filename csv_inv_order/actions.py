@@ -205,7 +205,7 @@ Step(31, Task3, create_orders, 25, can_rerun=True, can_rerun_after_commit=True)
 Step(32, Task3, table('Orders', validate_orders), 31, can_rerun=True, can_rerun_after_commit=True)
 
 # create P.O.s
-Step(33, Task3, create_POs, 32, can_rerun=True, can_rerun_after_commit=True)
+Step(33, Task3, create_POs, 32)
 
 # print P.O.s
 Step(34, Task3, lp_POs, 33,
