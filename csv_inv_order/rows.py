@@ -33,11 +33,11 @@ class Items(Row):
     row_popup_command_fns = "Inventory", "Products"
 
     def Inventory(self, app):
-        logger.info(f"Items row({self.item=}, {app=}).Inventory executed")
+        logger.info(f"Items row({self.item=}, {app=}).Inventory method executed")
         return table_screen(Database.Inventory, app.screen, item=self.item)
 
     def Products(self, app):
-        logger.info(f"Items row({self.item=}, {app=}).Products executed")
+        logger.info(f"Items row({self.item=}, {app=}).Products method executed")
         return table_screen(Database.Products, app.screen, note=self, item=self.item)
 
     @property
@@ -175,7 +175,7 @@ class Products(Row):
         return item.supplier == self.supplier and item.supplier_id == self.supplier_id
 
     def Select(self, app):
-        logger.info(f"Products row({self.item=}, {self.supplier=}, {self.supplier_id=}).Select executed")
+        logger.info(f"Products row({self.item=}, {self.supplier=}, {self.supplier_id=}).Select method executed")
         row = app.screen.note   # either an Item or Order
         if row.supplier != self.supplier or row.supplier_id != self.supplier_id:
             row.supplier = self.supplier
@@ -260,7 +260,7 @@ class Months(Row):
     row_popup_command_fns = "Inventory",
 
     def Inventory(self, app):
-        logger.info(f"Months row({self.month=}, {self.year=}).Inventory executed")
+        logger.info(f"Months row({self.month=}, {self.year=}).Inventory method executed")
         start_date = date(self.year, self.month, 1)
         yr2, mth2 = Months.inc_month(self.year, self.month)
         end_date = date(yr2, mth2, 1)
@@ -337,6 +337,8 @@ class Months(Row):
     def po_num(self):
         r'''Last PO number generated (as a str).
         '''
+        if self.PO_index is None:
+            return None
         bf_date = self.breakfast_date
         return f"{str(bf_date.year)[2:]}{bf_date.month:02}{self.PO_index}"
 
@@ -385,7 +387,7 @@ class Orders(Row):
     row_popup_commands_end = 'Delete', 'Cancel'
 
     def Products(self, app):
-        logger.info(f"Orders row({self.item=}).Products executed")
+        logger.info(f"Orders row({self.item=}).Products method executed")
         return table_screen(Database.Products, app.screen, note=self, item=self.item)
 
     @property
