@@ -64,14 +64,17 @@ def print(table_name):
         return lp_file(f"{table_name}.pdf")(step, app)
     return print_table
 
-def lp_file(filename):
+def lp_file(filename, copies=1, portrait=True):
     def lp(step, app):
-        print_file("~/Documents/" + filename)
+        print_file("~/Documents/" + filename, copies=copies, portrait=portrait)
         return step.mark_run(app)
     return lp
 
-def lp_POs(step, app):
-    return lp_file(f"Purchase-Orders-{Months.last_month().po_num}.pdf")(step, app)
+def lp_POs(copies=1):
+    def lp(step, app):
+        print_file("~/Documents/" + f"Purchase-Orders-{Months.last_month().po_num}.pdf", copies=copies)
+        return step.mark_run(app)
+    return lp
 
 def print_form(sheet, copies=1, mark_run=True):
     def print_form_step_fn(step, app):
@@ -208,7 +211,7 @@ Step(32, Task3, table('Orders', validate_orders), 31, can_rerun=True, can_rerun_
 Step(33, Task3, create_POs, 32)
 
 # print P.O.s
-Step(34, Task3, lp_POs, 33,
+Step(34, Task3, lp_POs(copies=3), 33,
      can_rerun=True, can_rerun_after_commit=True, commits_task=True)
 
 
