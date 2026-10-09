@@ -105,7 +105,7 @@ def process_counts(tail_fn, counts, table_size):
     return tail, lines
 
 def run():
-    load_database()
+    load_database(exclusive=False)
     table_size = Months.last_month().table_size
     for item, counts in groupby(sorted(get_counts()), key=itemgetter(0)):
         head, tail_fn = get_line1(item)
