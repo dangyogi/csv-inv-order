@@ -445,10 +445,12 @@ class Order_stats(Row):
 
 class Notify(Row):
     columns = (
-        Column("step", default=""),             # step number, e.g., 1.A
+        Column("step", default=""),                # step number, e.g., 1.A
         Column("date", required=True),
-        Column("email_addrs", required=True),   # space separated
-        Column("message", required=True),
+        Date_column("last_sent", can_edit=False),  # set by email program
+        Column("email_addrs", min_width=20, required=True),      # space separated
+        Column("subject", min_width=30, required=True),
+        Column("message", min_width=40, required=True),
     )
     primary_keys = 'step', 'date'
    #foreign_keys = "Steps",

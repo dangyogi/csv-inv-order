@@ -672,5 +672,17 @@ Steps
 902|9.B   |Items Used                         |     |        
 
 Notify
-step|date|email_addrs|message
+step|date|last_sent|email_addrs                                                                                                      |subject                                |message                                            
+2.E |E-12|         |matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |Inventory Reminder                     |12 days to Executive Board Meeting                 
+2.E |E-6 |         |matzoman2006@yahoo.com matzomaan2006@gmail.com mdprochazka3@gmail.com dangyogi@gmail.com ernestjohnkoch@gmail.com|WARNING: Inventory not done!           |6 days to Executive Board Meeting                  
+2.E |E-9 |         |matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |Second Inventory Reminder!             |9 days to Executive Board Meeting                  
+3.D |E-2 |         |matzoman2006@yahoo.com matzomaan2006@gmail.com mdprochazka3@gmail.com dangyogi@gmail.com ernestjohnkoch@gmail.com|WARNING: Purchase Order not done!      |2 days to Executive Board Meeting                  
+3.D |E-4 |         |matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |Second Purchase Order Reminder!        |4 days to Executive Board Meeting                  
+3.D |E-6 |         |matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |Purchase Order Reminder                |6 days to Executive Board Meeting                  
+5   |M+2 |         |matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |After Member Meeting                   |Complete task 5 (After Member Meeting)             
+5   |M+5 |         |matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |After Member Meeting                   |Complete task 5 (After Member Meeting)             
+5   |M+7 |         |matzoman2006@yahoo.com matzomaan2006@gmail.com mdprochazka3@gmail.com dangyogi@gmail.com ernestjohnkoch@gmail.com|WARNING: After Member Meeting not done!|Includes Set Meeting Attendance and updating orders
+~1  |B+2 |         |matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |After Breakfast                        |Complete task 6 (After Breakfast)                  
+~1  |B+5 |         |matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |After Breakfast                        |Complete task 6 (After Breakfast)                  
+~1  |B+7 |         |matzoman2006@yahoo.com matzomaan2006@gmail.com mdprochazka3@gmail.com dangyogi@gmail.com ernestjohnkoch@gmail.com|WARNING: After Breakfast not done!     |Includes Set Breakfast Stats and final calculations
 
