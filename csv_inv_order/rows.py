@@ -443,9 +443,18 @@ class Order_stats(Row):
     )
     primary_key = 'item'
 
+class Notify(Row):
+    columns = (
+        Column("step", default=""),             # step number, e.g., 1.A
+        Column("date", required=True),
+        Column("email_addrs", required=True),   # space separated
+        Column("message", required=True),
+    )
+    primary_keys = 'step', 'date'
+   #foreign_keys = "Steps",
 
 # These must be in logical order based on what has to be defined first
-Rows = (Months, Inv_checklist, Orders, Items, Products, Inventory, Month_stats, Order_stats, Steps,
+Rows = (Months, Inv_checklist, Orders, Items, Products, Inventory, Month_stats, Order_stats, Steps, Notify,
        )
 
 

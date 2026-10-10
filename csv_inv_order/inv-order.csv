@@ -624,49 +624,53 @@ Order_stats
 item|unit|pkg_size|perishable|inv_units|uncertainty|min_needed1|min1|max1|consumed1|min_next|min_needed2|min2|max2|order|chk_inventory
 
 Steps
-id|number|name                             |state|last_run
- 1|1     |Create Month                     |     |        
- 2|2     |Do Inventory                     |     |        
- 3|3     |Create P.O.s                     |     |        
- 4|4     |Print Forms                      |     |        
- 5|5     |After Member Meeting             |     |        
- 6|6     |After Breakfast                  |     |        
- 7|7     |View/Edit Tables                 |     |        
- 8|8     |Other                            |     |        
- 9|9     |Special Events                   |     |        
-21|2.A   |Set Fudge Factors & table_size   |     |        
-22|2.B   |Create Inv_checklist             |     |        
-23|2.C   |Print Inv_checklist              |     |        
-24|2.D   |Do Inventory & Update Inv_checklist|     |        
-25|2.E   |Import Inv_checklist             |     |        
-31|3.A   |Create Orders                    |     |        
-32|3.B   |Adjust Orders as needed          |     |        
-33|3.C   |Create P.O.s                     |     |        
-34|3.D   |Print 3 copies of P.O.s          |     |        
-41|4.A   |Member Sign In(2)                |     |        
-42|4.B   |Advance Ticket Sales             |     |        
-43|4.C   |Inv Check List                   |     |        
-51|5.A   |Set Meeting Attendance           |     |        
-52|5.B   |Update Orders locations/prices   |     |        
-53|5.C   |Import locations/prices          |     |        
-61|6.A   |Set Breakfast Stats              |     |        
-62|6.B   |Calc Consumed                    |     |        
-63|6.C   |Calc Estimates                   |     |        
-71|7.A   |Items                            |     |        
-72|7.B   |Products                         |     |        
-73|7.C   |Inventory                        |     |        
-74|7.D   |Months                           |     |        
-75|7.E   |Inv_checklist                    |     |        
-76|7.F   |Orders                           |     |        
-77|7.G   |Order_stats                      |     |        
-78|7.H   |Month_stats                      |     |        
-79|7.I   |Steps                            |     |        
-81|8.A   |Save Database                    |     |        
-82|8.B   |Est cost per meal                |     |        
-83|8.C   |git commit/push                  |     |        
-84|8.D   |Exit                             |     |        
-85|8.E   |Abort                            |     |        
-86|8.F   |Run recalibrate (at shell prompt)|     |        
-91|9.A   |Acquisitions                     |     |        
-92|9.B   |Items Used                       |     |        
+ id|number|name                               |state|last_run
+  1|1     |Create Month                       |     |        
+  2|2     |Do Inventory                       |     |        
+  3|3     |Create P.O.s                       |     |        
+  4|4     |Print Forms                        |     |        
+  5|5     |After Member Meeting               |     |        
+  6|6     |After Breakfast                    |     |        
+  7|7     |View/Edit Tables                   |     |        
+  8|8     |Other                              |     |        
+  9|9     |Special Events                     |     |        
+201|2.A   |Set Fudge Factors & table_size     |     |        
+202|2.B   |Create Inv_checklist               |     |        
+203|2.C   |Print Inv_checklist                |     |        
+204|2.D   |Do Inventory & Update Inv_checklist|     |        
+205|2.E   |Import Inv_checklist               |     |        
+301|3.A   |Create Orders                      |     |        
+302|3.B   |Adjust Orders as needed            |     |        
+303|3.C   |Create P.O.s                       |     |        
+304|3.D   |Print 3 copies of P.O.s            |     |        
+401|4.A   |Member Sign In(2)                  |     |        
+402|4.B   |Advance Ticket Sales               |     |        
+403|4.C   |Inv Check List                     |     |        
+501|5.A   |Set Meeting Attendance             |     |        
+502|5.B   |Update Orders locations/prices     |     |        
+503|5.C   |Import locations/prices            |     |        
+601|6.A   |Set Breakfast Stats                |     |        
+602|6.B   |Calc Consumed                      |     |        
+603|6.C   |Calc Estimates                     |     |        
+701|7.A   |Items                              |     |        
+702|7.B   |Products                           |     |        
+703|7.C   |Inventory                          |     |        
+704|7.D   |Months                             |     |        
+705|7.E   |Inv_checklist                      |     |        
+706|7.F   |Orders                             |     |        
+707|7.G   |Order_stats                        |     |        
+708|7.H   |Month_stats                        |     |        
+709|7.I   |Steps                              |     |        
+710|7.J   |Notify                             |     |        
+801|8.A   |Save Database                      |     |        
+802|8.B   |Est cost per meal                  |     |        
+803|8.C   |git commit/push                    |     |        
+804|8.D   |Exit                               |     |        
+805|8.E   |Abort                              |     |        
+806|8.F   |Run recalibrate (at shell prompt)  |     |        
+901|9.A   |Acquisitions                       |     |        
+902|9.B   |Items Used                         |     |        
+
+Notify
+step|date|email_addrs|message
 
