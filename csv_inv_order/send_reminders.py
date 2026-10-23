@@ -1,5 +1,6 @@
 # csv_inv_order/send_reminders.py
 
+import sys
 import os
 import re
 import smtplib
@@ -107,10 +108,21 @@ def send_email(to_addrs, subject, body):
     msg.set_content(body)
 
     try:
+       #print(f"creating SMTP(host={SMTP_SERVER}, port={SMTP_PORT})")
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+           #print("calling server.starttls()")
             server.starttls()
+           #print("server.starttls() done")
+           #print(f"caling server.login(user={SMTP_USER}, password={SMTP_KEY})")
             server.login(SMTP_USER, SMTP_KEY)
-            server.send_message(msg)
+           #print("server.login() done")
+           #print("calling server.send_message()")
+           #refused = server.send_message(msg)
+            refused = server.send_message(msg, FROM_EMAIL, to_addrs)
+           #print(f"server.send_message() done {refused=}")
+        if refused:
+            print(f"{refused=}", file=sys.stderr)
+            return False
         return True
     except Exception as e:
         raise RuntimeError(f"Failed to send email: {e}")
@@ -159,8 +171,17 @@ def main():
             if send_email(email_addrs, notify_row.subject, notify_row.message):
                 notify_row.last_sent = today
                 save_database()     # in case later Notify rows raise an exception
+                print(f"email sent to {email_addrs}, subject={notify_row.subject})", file=sys.stderr)
 
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--to", "-t", help="Send To", default="dangyogi@gmail.com")
+    parser.add_argument("--subject", "-s", default="Test email")
+    parser.add_argument("--body", "-b", default="This is just a test to see if I can send emails")
+    args = parser.parse_args()
+    ans = send_email(args.to.split(), args.subject, args.body)
+    print(f"{ans=}")
