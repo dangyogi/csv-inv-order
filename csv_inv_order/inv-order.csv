@@ -18,19 +18,22 @@ month|year|served_fudge|consumed_fudge|table_size|PO_index|num_at_meeting|staff_
     2|2026|        1.35|           0.9|         8|        |            15|                13|             93
     3|2026|        1.35|           0.9|         8|        |            15|                13|             64
     4|2026|        1.25|           0.9|         8|        |             9|                 8|             36
+   11|2026|        1.35|           0.9|         8|        |              |                  |               
 
 Inv_checklist
-item          |num_pkgs|num_units
-Bacon         |     2.0|         
-Coffee Creamer|        |    150.0
-Eggs          |     2.5|         
-Milk          |        |      0.0
-OJ cups       |        |     40.0
-Orange Juice  |     2.0|         
-Pancake Mix   |     2.0|         
-Paper Towels  |        |      2.0
-Sausage       |     2.0|         
-Serving Plates|        |    180.0
+item             |num_pkgs|num_units
+Coffee Creamer   |        |         
+Coffee, ground   |        |         
+Cutlery Packets  |        |         
+Eggs             |        |         
+Ketchup          |        |         
+Pancake Mix      |        |         
+Paper Towels     |        |         
+Scrubbers        |        |         
+Syrup bottle, SF |        |         
+Syrup bottle, reg|        |         
+Syrup, reg       |        |         
+Syrup, sugar free|        |         
 
 Orders
 item|qty|supplier|supplier_id|purchased_pkgs|purchased_units|location|price
@@ -619,66 +622,105 @@ Apr 11, 26|consumed |To-Go Containers    |     0.0|        4|          1
 
 Month_stats
 month|next_month|avg_served1|avg_served2|served_fudge|meals_planned1|meals_planned2|num_tables1|num_tables2|table_size|consumed_fudge
+   11|        12|         65|         60|        1.35|            82|            79|          9|          9|         8|           0.9
 
 Order_stats
-item|unit|pkg_size|perishable|inv_units|uncertainty|min_needed1|min1|max1|consumed1|min_next|min_needed2|min2|max2|order|chk_inventory
+item                |unit         |pkg_size|perishable|inv_units|uncertainty|min_needed1|min1|max1|consumed1|min_next|min_needed2|min2|max2|order|chk_inventory
+Aprons              |ea           |       2|     False|        0|          0|          0|    |    |         |        |           |    |    |    0|        False
+Bacon               |slice        |      72|      True|       84|         12|        112|   1|   1|         |        |           |    |    |    1|        False
+Bowls               |ea           |     300|     False|      150|          0|         27|    |    |         |        |           |    |    |    0|        False
+Butter              |chip         |     200|     False|       79|         25|        108|   1|   1|       58|     108|        166|   1|   1|    1|        False
+Coffee Creamer      |ea           |     180|     False|       80|         14|         90|   1|   0|       94|      90|        184|   1|   1|    1|         True
+Coffee Stirrer 5"   |ea           |    1000|     False|      307|         39|         90|    |    |         |        |           |    |    |    0|        False
+Coffee Stirrer 7"   |ea           |    1000|     False|        0|          0|          0|    |    |         |        |           |    |    |    0|        False
+Coffee cups, 10 oz  |ea           |     500|     False|        0|          0|          0|    |    |         |        |           |    |    |    0|        False
+Coffee cups, 12 oz  |ea           |    1000|     False|        0|          0|          0|    |    |         |        |           |    |    |    0|        False
+Coffee cups, 8 oz   |ea           |     500|     False|      116|         13|         90|    |    |         |        |           |    |    |    0|        False
+Coffee, ground      |cup of coffee|     360|     False|       39|         52|         70|   1|   0|       70|      70|        140|   1|   1|    1|         True
+Cutlery Packets     |ea           |     200|     False|       79|         25|         90|   1|   0|       58|      90|        148|   1|   1|    1|         True
+Eggs                |ea           |      24|      True|       35|         20|        180|   7|   6|         |        |           |    |    |    7|         True
+Gloves              |pair         |     120|     False|      640|          9|         10|    |    |         |        |           |    |    |    0|        False
+Grill Cleaning Brick|ea           |       4|     False|        2|          0|          0|    |    |         |        |           |    |    |    0|        False
+Ketchup             |oz           |      14|     False|        2|          3|          4|   1|   0|        4|       4|          8|   1|   1|    1|         True
+Milk                |oz           |      64|      True|        0|          0|         32|   1|   1|         |        |           |    |    |    1|        False
+Nonstick Spray      |can          |       2|     False|       14|          4|          1|    |    |         |        |           |    |    |    0|        False
+OJ cups             |ea           |     450|     False|      446|          9|         90|    |    |         |        |           |    |    |    0|        False
+Orange Juice        |oz           |     104|      True|      114|         40|        369|   3|   3|         |        |           |    |    |    3|        False
+Pancake Mix         |3x4"         |      77|     False|       81|         15|        137|   1|   1|       98|     132|        230|   3|   2|    3|         True
+Paper Towels        |roll         |       6|     False|        1|          1|          1|   1|   0|        1|       1|          2|   1|   0|    1|         True
+Place Mats          |ea           |    1000|     False|      935|         70|         90|    |    |         |        |           |    |    |    0|        False
+Raffle Tickets      |ea           |    2000|     False|     1177|        165|        558|    |    |         |        |           |    |    |    0|        False
+Rubber Bands        |ea           |     350|     False|        0|          0|          0|    |    |         |        |           |    |    |    0|        False
+Sausage             |ea           |      50|      True|       38|         13|        116|   2|   2|         |        |           |    |    |    2|        False
+Scrubbers           |ea           |      16|     False|        1|          5|          1|   1|   0|        1|       1|          2|   1|   0|    1|         True
+Serving Plates      |ea           |     200|     False|      136|          9|         82|    |    |         |        |           |    |    |    0|        False
+Small Plates        |ea           |     330|     False|        0|          0|          0|    |    |         |        |           |    |    |    0|        False
+Splenda             |ea           |    1000|     False|     1280|         22|         45|    |    |         |        |           |    |    |    0|        False
+Sugar               |ea           |    2000|     False|     1760|          8|         45|    |    |         |        |           |    |    |    0|        False
+Sweet'N Low         |ea           |    1500|     False|     1480|         22|         45|    |    |         |        |           |    |    |    0|        False
+Syrup bottle, SF    |bottle       |       1|     False|        6|          2|          9|   5|   1|        4|       9|         13|   9|   5|    9|         True
+Syrup bottle, reg   |bottle       |       1|     False|        6|          2|          9|   5|   1|        4|       9|         13|   9|   5|    9|         True
+Syrup, reg          |oz           |      24|     False|       53|         77|        137|   6|   1|       98|     132|        230|  10|   5|   10|         True
+Syrup, sugar free   |oz           |      24|     False|      149|         77|        137|   3|  -3|       98|     132|        230|   7|   1|    7|         True
+Tea                 |bag          |     312|     False|       33|          9|          8|    |    |         |        |           |    |    |    0|        False
+To-Go Containers    |ea           |     125|     False|      116|          8|          7|    |    |         |        |           |    |    |    0|        False
 
 Steps
- id|number|name                               |state|last_run
-  1|1     |Create Month                       |     |        
-  2|2     |Do Inventory                       |     |        
-  3|3     |Create P.O.s                       |     |        
-  4|4     |Print Forms                        |     |        
-  5|5     |After Member Meeting               |     |        
-  6|6     |After Breakfast                    |     |        
-  7|7     |View/Edit Tables                   |     |        
-  8|8     |Other                              |     |        
-  9|9     |Special Events                     |     |        
-201|2.A   |Set Fudge Factors & table_size     |     |        
-202|2.B   |Create Inv_checklist               |     |        
-203|2.C   |Print Inv_checklist                |     |        
-204|2.D   |Do Inventory & Update Inv_checklist|     |        
-205|2.E   |Import Inv_checklist               |     |        
-301|3.A   |Create Orders                      |     |        
-302|3.B   |Adjust Orders as needed            |     |        
-303|3.C   |Create P.O.s                       |     |        
-304|3.D   |Print 3 copies of P.O.s            |     |        
-401|4.A   |Member Sign In(2)                  |     |        
-402|4.B   |Advance Ticket Sales               |     |        
-403|4.C   |Inv Check List                     |     |        
-501|5.A   |Set Meeting Attendance             |     |        
-502|5.B   |Update Orders locations/prices     |     |        
-503|5.C   |Import locations/prices            |     |        
-601|6.A   |Set Breakfast Stats                |     |        
-602|6.B   |Calc Consumed                      |     |        
-603|6.C   |Calc Estimates                     |     |        
-701|7.A   |Items                              |     |        
-702|7.B   |Products                           |     |        
-703|7.C   |Inventory                          |     |        
-704|7.D   |Months                             |     |        
-705|7.E   |Inv_checklist                      |     |        
-706|7.F   |Orders                             |     |        
-707|7.G   |Order_stats                        |     |        
-708|7.H   |Month_stats                        |     |        
-709|7.I   |Steps                              |     |        
-710|7.J   |Notify                             |     |        
-801|8.A   |Save Database                      |     |        
-802|8.B   |Est cost per meal                  |     |        
-803|8.C   |git commit/push                    |     |        
-804|8.D   |Exit                               |     |        
-805|8.E   |Abort                              |     |        
-806|8.F   |Run recalibrate (at shell prompt)  |     |        
-901|9.A   |Acquisitions                       |     |        
-902|9.B   |Items Used                         |     |        
+ id|number|name                               |state|last_run           
+  1|1     |Create Month                       |run  |09:14AM, Oct 24, 26
+  2|2     |Do Inventory                       |     |                   
+  3|3     |Create P.O.s                       |     |                   
+  4|4     |Print Forms                        |     |                   
+  5|5     |After Member Meeting               |     |                   
+  6|6     |After Breakfast                    |     |                   
+  7|7     |View/Edit Tables                   |     |                   
+  8|8     |Other                              |     |                   
+  9|9     |Special Events                     |     |                   
+201|2.A   |Set Fudge Factors & table_size     |run  |09:19AM, Oct 24, 26
+202|2.B   |Create Inv_checklist               |run  |09:19AM, Oct 24, 26
+203|2.C   |Print Inv_checklist                |run  |09:23AM, Oct 24, 26
+204|2.D   |Do Inventory & Update Inv_checklist|     |                   
+205|2.E   |Import Inv_checklist               |     |                   
+301|3.A   |Create Orders                      |     |                   
+302|3.B   |Adjust Orders as needed            |     |                   
+303|3.C   |Create P.O.s                       |     |                   
+304|3.D   |Print 3 copies of P.O.s            |     |                   
+401|4.A   |Member Sign In(2)                  |     |                   
+402|4.B   |Advance Ticket Sales               |     |                   
+403|4.C   |Inv Check List                     |     |                   
+501|5.A   |Set Meeting Attendance             |     |                   
+502|5.B   |Update Orders locations/prices     |     |                   
+503|5.C   |Import locations/prices            |     |                   
+601|6.A   |Set Breakfast Stats                |     |                   
+602|6.B   |Calc Consumed                      |     |                   
+603|6.C   |Calc Estimates                     |     |                   
+701|7.A   |Items                              |     |                   
+702|7.B   |Products                           |     |                   
+703|7.C   |Inventory                          |     |                   
+704|7.D   |Months                             |     |                   
+705|7.E   |Inv_checklist                      |     |                   
+706|7.F   |Orders                             |     |                   
+707|7.G   |Order_stats                        |     |                   
+708|7.H   |Month_stats                        |     |                   
+709|7.I   |Steps                              |     |                   
+710|7.J   |Notify                             |     |                   
+801|8.A   |Save Database                      |run  |09:31AM, Oct 24, 26
+802|8.B   |Est cost per meal                  |     |                   
+803|8.C   |git commit/push                    |     |                   
+804|8.D   |Exit                               |     |                   
+805|8.E   |Abort                              |     |                   
+806|8.F   |Run recalibrate (at shell prompt)  |     |                   
+901|9.A   |Acquisitions                       |     |                   
+902|9.B   |Items Used                         |     |                   
 
 Notify
 step|date|last_sent |email_addrs                                                                                                      |subject                                |message                                            
 2.E |E-12|Oct 15, 26|matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |Inventory Reminder                     |12 days to Executive Board Meeting                 
 2.E |E-6 |Oct 21, 26|matzoman2006@yahoo.com matzomaan2006@gmail.com mdprochazka3@gmail.com dangyogi@gmail.com ernestjohnkoch@gmail.com|WARNING: Inventory not done!           |6 days to Executive Board Meeting                  
 2.E |E-9 |Oct 18, 26|matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |Second Inventory Reminder!             |9 days to Executive Board Meeting                  
-3.D |E-2 |          |matzoman2006@yahoo.com matzomaan2006@gmail.com mdprochazka3@gmail.com dangyogi@gmail.com ernestjohnkoch@gmail.com|WARNING: Purchase Order not done!      |2 days to Executive Board Meeting                  
-3.D |E-4 |          |matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |Second Purchase Order Reminder!        |4 days to Executive Board Meeting                  
-3.D |E-6 |          |matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |Purchase Order Reminder                |6 days to Executive Board Meeting                  
+3.D |E-2 |Oct 25, 26|matzoman2006@yahoo.com matzomaan2006@gmail.com mdprochazka3@gmail.com dangyogi@gmail.com ernestjohnkoch@gmail.com|WARNING: Purchase Order not done!      |2 days to Executive Board Meeting                  
+3.D |E-4 |Oct 23, 26|matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |Second Purchase Order Reminder!        |4 days to Executive Board Meeting                  
+3.D |E-6 |Oct 22, 26|matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |Purchase Order Reminder                |6 days to Executive Board Meeting                  
 5   |M+2 |          |matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |After Member Meeting                   |Complete task 5 (After Member Meeting)             
 5   |M+5 |          |matzoman2006@yahoo.com matzomaan2006@gmail.com                                                                   |After Member Meeting                   |Complete task 5 (After Member Meeting)             
 5   |M+7 |          |matzoman2006@yahoo.com matzomaan2006@gmail.com mdprochazka3@gmail.com dangyogi@gmail.com ernestjohnkoch@gmail.com|WARNING: After Member Meeting not done!|Includes Set Meeting Attendance and updating orders
