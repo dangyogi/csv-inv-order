@@ -179,9 +179,9 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--to", "-t", help="Send To", default="dangyogi@gmail.com")
+    parser.add_argument("--to", "-t", help="Send To (comma separated)", default="dangyogi@gmail.com")
     parser.add_argument("--subject", "-s", default="Test email")
     parser.add_argument("--body", "-b", default="This is just a test to see if I can send emails")
     args = parser.parse_args()
-    ans = send_email(args.to.split(), args.subject, args.body)
+    ans = send_email(args.to.split(','), args.subject, args.body)
     print(f"{ans=}")
