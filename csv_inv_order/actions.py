@@ -1,5 +1,6 @@
 # actions.py
 
+from functools import partial
 import logging
 
 from csv_app.action import *
