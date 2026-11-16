@@ -20,18 +20,18 @@ def parse_notify_date(date_str, today):
     event_type, suffix = match.groups()
 
     # Determine which occurrence to use and parse offset
-    if suffix.startswith('+'):
-        # Previous occurrence (before today), offset is positive
-        base_date = find_previous_occurrence(event_type, today - timedelta(days=1))
-        offset = int(suffix[1:])
-    elif suffix.startswith('-'):
-        # Next occurrence (on or after today), offset is negative
-        base_date = find_next_occurrence(event_type, today)
-        offset = -int(suffix[1:])
-    else:
+    if suffix is None:
         # No sign: next occurrence, offset is zero
         base_date = find_next_occurrence(event_type, today)
         offset = 0
+    elif suffix.startswith('+'):
+        # Previous occurrence (before today), offset is positive
+        base_date = find_previous_occurrence(event_type, today - timedelta(days=1))
+        offset = int(suffix[1:])
+    else:   # '-' (the regex only allows + or -)
+        # Next occurrence (on or after today), offset is negative
+        base_date = find_next_occurrence(event_type, today)
+        offset = -int(suffix[1:])
 
     if not base_date:
         return None

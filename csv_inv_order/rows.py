@@ -262,7 +262,7 @@ class Months(Row):
     def Inventory(self, app):
         logger.info(f"Months row({self.month=}, {self.year=}).Inventory method executed")
         start_date = date(self.year, self.month, 1)
-        yr2, mth2 = Months.inc_month(self.year, self.month)
+        yr2, mth2 = Database.Months.inc_month(self.year, self.month)
         end_date = date(yr2, mth2, 1)
         return table_screen(Database.Inventory, app.screen, date__ge=start_date, date__lt=end_date)
 
@@ -404,7 +404,7 @@ class Orders(Row):
     def order_supplier(self):
         if self.supplier is None:
             return self.item_row.supplier
-        return supplier
+        return self.supplier
 
 class Month_stats(Row):
     columns = (
