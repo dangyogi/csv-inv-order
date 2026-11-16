@@ -145,7 +145,7 @@ class Products(Row):
         Name_column("name", required=True, min_width=26, edit_width=200),
         Column("item_num"),
         Column("location"),
-        Column("price", parse=Decimal, required=True),
+        Column("price", parse=decimal, required=True),
         Column("pkg_size", "pkg_sz", parse=int),
         Column("pkg_weight", "pkg_wgt", parse=float),
         Column("note", min_width=10, edit_width=100),
@@ -376,7 +376,7 @@ class Orders(Row):
         Column("purchased_pkgs", parse=int),  # if None, defaults to qty
         Column("purchased_units", parse=int), # added to purchased_pkgs
         Column("location"),                   # updates Products if not None
-        Column("price", parse=Decimal),       # updates Products if not None
+        Column("price", parse=decimal),       # updates Products if not None
        #Column("product", calculated=True),
        #Column("order_supplier", calculated=True),
     )
@@ -460,7 +460,7 @@ Rows = (Months, Inv_checklist, Orders, Items, Products, Inventory, Month_stats, 
        )
 
 
-__all__ = "Decimal date datetime timedelta abbr_month Rows".split()
+__all__ = "Decimal decimal date datetime timedelta abbr_month Rows".split()
 
 
 def run():
