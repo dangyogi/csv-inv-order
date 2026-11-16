@@ -214,7 +214,7 @@ class Inventory(Row):
                required=True),
         Column("item", required=True, selection_fn=get_items_keys),
         Column("num_pkgs", parse=float, default=0),
-        Column("num_units", parse=int, default=0),
+        Column("num_units", parse=float, default=0),
         Column("uncertainty", parse=int, default=0),
         Column("pkg_size", parse=int, calculated=True),
         Column("total_units", parse=int, calculated=True),
