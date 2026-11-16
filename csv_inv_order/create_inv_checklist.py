@@ -3,6 +3,7 @@
 from operator import attrgetter
 import logging
 
+from csv_app.action import ActionFailed
 from .database import *
 from .create_orders import create_month_stats, create_order_stats
 
@@ -13,7 +14,7 @@ def create_inv_checklist(step, app):
     app.screen.clear_message()
     cur_month = Months.last_month()
     if not (4 <= cur_month.table_size <= 12):
-        raise ValueError(f"{cur_month.table_size=} must be between 4 and 12")
+        raise ActionFailed(f"{cur_month.table_size=} must be between 4 and 12")
     logger.info(f"Create Inv_checklist: cur_month={cur_month.month_str}, {cur_month.table_size=}")
     create_month_stats(cur_month)
     if step.task.committed:

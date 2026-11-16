@@ -3,6 +3,7 @@
 from unittest.mock import Mock
 import pytest
 
+from csv_app.action import ActionFailed
 from csv_inv_order import calc_consumed
 
 
@@ -40,7 +41,7 @@ def test_calc_consumed_ok_table_size(app_setup, table_size):
 def test_calc_consumed_bad_table_size(app_setup, table_size):
     step = None
     app = app_setup(table_size)
-    with pytest.raises(ValueError) as exc_info:
+    with pytest.raises(ActionFailed) as exc_info:
         calc_consumed.calc_consumed(step, app)
     exc_obj = exc_info.value
     assert str(exc_obj).endswith(" must be 4-12")

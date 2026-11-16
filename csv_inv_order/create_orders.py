@@ -4,6 +4,7 @@ from operator import attrgetter
 import math
 import logging
 
+from csv_app.action import ActionFailed
 from .database import *
 
 
@@ -13,10 +14,10 @@ def create_month_stats(cur_month):
     r'''Returns Month_stats row.
     '''
     if not (4 <= cur_month.table_size <= 12):
-        raise ValueError(f"{cur_month.table_size=} must be between 4 and 12")
+        raise ActionFailed(f"{cur_month.table_size=} must be between 4 and 12")
     table_size = cur_month.table_size
     if not cur_month.served_fudge:
-        raise ValueError(f"served_fudge not set in cur_month({cur_month.month_str}), aborting")
+        raise ActionFailed(f"served_fudge not set in cur_month({cur_month.month_str}), aborting")
 
     avg_served1 = cur_month.avg_meals_served
     meals_planned1 = cur_month.meals_planned

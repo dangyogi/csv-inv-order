@@ -15,6 +15,7 @@ from statistics import mean
 import curses
 import logging
 
+from csv_app.action import ActionFailed
 from .database import *
 
 
@@ -26,7 +27,7 @@ def est_cost_per_meal(step, app):
     table_size = Months.last_month().table_size
 
     if not (4 <= table_size <= 12):
-        raise ValueError(f"{table_size=} must be 4-12")
+        raise ActionFailed(f"{table_size=} must be 4-12")
 
     avg_num_tables = avg_tickets_claimed / table_size
 

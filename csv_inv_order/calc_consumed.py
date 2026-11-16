@@ -7,6 +7,7 @@ from operator import attrgetter
 import math
 import logging
 
+from csv_app.action import ActionFailed
 from .database import *
 
 
@@ -16,7 +17,7 @@ def calc_consumed(step, app):
     cur_month = Months.last_month()
     table_size = cur_month.table_size
     if not (4 <= table_size <= 12):
-        raise ValueError(f"{table_size=} must be 4-12")
+        raise ActionFailed(f"{table_size=} must be 4-12")
     def uncertainty_is(uncertainty_pct):
         if not (0.05 <= uncertainty_pct <= 0.50):
             raise ValueError(f"{uncertainty_pct=} must be 0.05-0.50")
